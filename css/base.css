@@ -1,0 +1,60 @@
+/* Base: reset, page, custom cursor. Shared by every page. */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+img, video, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+p, h1, h2, h3 { margin: 0; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Smooth scroll (Lenis) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ---------- Custom cursor (S2) ----------
+   A 16px white dot drawn with "difference", so it shows dark on light areas.
+   Over [data-cursor="view"] it becomes the "View" pill. Mouse and trackpad only. */
+.cursor { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  html.has-cursor, html.has-cursor * { cursor: none !important; }
+  .cursor {
+    display: block;
+    position: fixed; top: 0; left: 0; z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    will-change: transform;
+  }
+  .cursor__dot {
+    width: 16px; height: 16px; border-radius: 999px;
+    background: #fff; mix-blend-mode: difference;
+    translate: -50% -50%;
+  }
+  .cursor__view {
+    position: absolute; top: 0; left: 0;
+    display: grid; place-items: center;
+    width: 99px; height: 46px; border-radius: 999px;
+    background: var(--surface-hover);
+    padding: 14px 18px 12px;
+    font: 400 23px/20px var(--font-alt);   /* Jost, as in the Framer cursor */
+    text-transform: uppercase;
+    color: #000;
+    translate: -50% -50%;
+    transform: scale(0); opacity: 0;   /* js/fx.js springs it open over cards */
+  }
+}

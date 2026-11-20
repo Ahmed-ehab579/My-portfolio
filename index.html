@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ahmed Ehab · UX Designer</title>
+  <meta name="description" content="Ahmed Ehab, UX designer who turns complex ideas into simple product experiences. Selected case studies: Recita, e& telecom, Woman in Islam.">
+  <meta name="theme-color" content="#f5f5ef">
+  <meta property="og:title" content="Ahmed Ehab · UX Designer">
+  <meta property="og:description" content="I turn complex ideas into simple product experiences.">
+  <meta property="og:type" content="website">
+
+  <link rel="preload" href="assets/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/satoshi-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/instrument-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="css/tokens.css?v=1">
+  <link rel="stylesheet" href="css/base.css?v=1">
+  <link rel="stylesheet" href="css/header.css?v=1">
+  <link rel="stylesheet" href="css/home.css?v=1">
+  <link rel="stylesheet" href="css/footer.css?v=1">
+
+  <!-- Hides animated items before the first paint (never with reduced motion), so nothing flashes. -->
+  <script>
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("motion-ready");
+  </script>
+  <script src="assets/vendor/motion-12.23.12.js" defer></script>
+  <script src="assets/vendor/lenis-1.1.20.min.js" defer></script>
+  <script src="js/fx.js?v=1" defer></script>
+  <script src="js/header.js?v=1" defer></script>
+  <script src="js/home.js?v=1" defer></script>
+  <script src="js/footer.js?v=1" defer></script>
+</head>
+<body>
+  <a class="sr-only" href="#main">Skip to content</a>
+
+  <!-- ===================== Header (S3, S4) ===================== -->
+  <header class="site-header" data-header>
+    <div class="site-header__bar">
+      <a class="site-header__logo" href="./" aria-label="Ahmed Ehab, home">
+        <svg viewBox="0 0 25.651 25.651" width="26" height="26" aria-hidden="true"><path fill="#fff" d="M 0 25.651 L 0.001 8.75 C 0.001 3.918 4.129 0 9.221 0 L 24.874 0 C 25.303 0 25.651 0.348 25.651 0.777 L 25.651 25.651 L 16.959 25.651 L 16.959 20.341 L 11.324 20.341 C 9.73 20.341 8.437 21.568 8.437 23.081 L 8.437 25.651 Z M 8.284 16.367 L 16.873 16.367 L 16.873 13.256 C 10.906 13.256 11.896 11.018 14.559 11.06 C 14.607 11.061 16.873 11.06 16.873 11.06 C 16.873 11.06 16.91 7.783 16.873 7.782 C 15.836 7.767 10.375 7.177 10.027 11.208 C 10.024 11.243 10.027 13.295 10.027 13.295 L 8.284 13.295 Z"/></svg>
+      </a>
+
+      <div class="menu" data-menu>
+        <nav class="menu__nav" id="site-nav" aria-label="Main">
+          <a class="menu__link" href="#about">Home</a>
+          <a class="menu__link" href="#projects">Projects</a>
+          <a class="menu__link" href="#approach">Approach</a>
+        </nav>
+        <button class="menu__toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu" data-menu-toggle>
+          <span class="menu__icon" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="page">
+
+    <!-- ===================== Hero (H1–H4) ===================== -->
+    <section class="hero" id="about" aria-label="About">
+      <div class="hero__card">
+        <div class="hero__text">
+          <p class="hero__hello" data-split="words" data-fx="hello">Hi! I'm Ahmed, A UX Designer</p>
+          <div class="hero__media">
+            <h1 class="hero__title" data-split="words" data-fx="title">
+              Who turn complex<br>ideas into<br>product experiences
+            </h1>
+            <!-- Cycling word (H3): Simple → Thoughtful → Creative -->
+            <span class="cycle" data-cycle aria-hidden="true">
+              <span class="cycle__word cycle__word--display">Simple</span>
+              <span class="cycle__word">Thoughtful</span>
+              <span class="cycle__word">Creative</span>
+            </span>
+            <span class="sr-only">Who turn complex ideas into simple, thoughtful and creative product experiences</span>
+          </div>
+        </div>
+
+        <div class="hero__photo" data-fx="photo">
+          <img src="assets/images/home/T5o8lWRpU9rpZ3gas9T4T62cf4.png" width="545" height="554" alt="Portrait of Ahmed Ehab" fetchpriority="high">
+          <svg class="hero__symbol" viewBox="0 0 42.072 44.517" aria-hidden="true">
+            <g fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-miterlimit="10">
+              <path d="M 27.726 6.961 C 28.757 5.29 30.097 3.83 31.048 3.493 C 36.598 1.524 20.496 13.747 16.33 17.347 C 10.963 23.004 6.309 28.009 3.76 30.476 C 2.644 31.612 1.887 32.509 0.656 34.326"/>
+              <path d="M 3.935 5.247 C 5.305 6.865 11.176 13.221 16.402 18.813 C 19.773 22.421 22.206 25.331 24.403 29.424 C 26.195 32.272 27.927 34.542 29.305 35.806 C 30.022 36.41 30.772 36.931 31.769 37.693"/>
+              <path d="M 0 19.656 C 3.246 19.192 12.792 18.408 18.506 17.671 C 23.31 17.553 27.666 17.246 31.709 16.744 C 34.267 16.549 37.855 16.474 41.552 16.398"/>
+              <path d="M 18.913 0 C 18.756 6.607 18.139 22.629 17.795 30.844 C 17.222 33.657 16.68 35.925 16.379 38.43 C 16.227 39.671 16.077 40.848 14.791 44.517 M 33.136 36.309 C 32.76 36.233 32.189 35.856 31.506 35.135 C 30.848 34.442 30.698 33.421 30.855 32.818 C 30.911 32.599 31.495 33.001 31.835 33.409 C 32.174 33.82 32.396 34.337 32.397 34.809 C 32.4 35.279 32.174 35.687 31.793 35.764 C 31.414 35.843 30.887 35.579 30.522 35.218 C 29.507 33.368 28.464 31.752 27.474 30.904 C 26.985 30.515 26.528 30.211 25.454 29.183 M 1.312 32.907 C 1.98 31.999 3.104 30.333 3.457 28.765 C 3.503 28.563 2.87 28.748 2.505 29.026 C 1.765 29.588 1.492 30.612 1.561 31.172 C 1.784 32.97 4.694 28.399 6.789 27.386 C 7.354 27.14 7.945 26.801 8.361 26.4 C 8.777 26 9 25.548 9.34 24.742 M 42.072 15.259 C 41.922 15.259 41.468 14.882 40.617 14.256 C 38.355 13.776 36.165 14.155 34.551 14.762 C 33.829 14.995 33.302 15.068 31.961 15.706"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Selected Projects (P1–P4) ===================== -->
+    <section class="projects" id="projects" aria-labelledby="projects-title">
+      <h2 class="projects__title t-h1" id="projects-title" data-split="words" data-fx="section-title">Selected Projects</h2>
+
+      <div class="stack" data-stack>
+        <!-- Card 1: Recita -->
+        <div class="stack__item" style="--sticky-top: 30px">
+          <a class="card" href="project.html" data-cursor="view" data-card>
+            <div class="card__text">
+              <div class="card__intro">
+                <div class="card__head">
+                  <span class="card__icon">
+                    <img src="assets/icons/recita-mark.svg" width="38" height="38" alt="">
+                  </span>
+                  <h3 class="card__title" data-fx="card-title">Turning a complex audio concept into a clear MVP product</h3>
+                </div>
+                <p class="card__desc" data-fx="card-desc">A Quran audio concept designed to help users discover lesser-known reciters through a smooth, personalized listening experience — validated through real user testing.</p>
+              </div>
+              <ul class="card__tags">
+                <li class="tag" data-fx="tag"><strong>92%</strong> felt onboarding was personalized</li>
+                <li class="tag" data-fx="tag" style="--i: 1"><strong>88%</strong> found a preferred reciter quickly</li>
+              </ul>
+            </div>
+            <div class="card__media" aria-hidden="true">
+              <img class="shot shot--shadow" style="left: 609px; top: 65px; width: 235px; height: 440px" src="assets/images/home/SbNqDY4PWLjNDToFHAKBXPWTotg.png" alt="" loading="lazy">
+              <img class="shot" style="left: 763px; top: 59px; width: 260px; height: 486px" src="assets/images/home/RbFrdpDxeyDnou8eY7tgao7NY.png" alt="" loading="lazy">
+              <img class="shot" style="left: 916px; top: 56px; width: 261px; height: 469px" src="assets/images/home/tkGlTP4oOvxcIQuMFziGHopWoFA.png" alt="" loading="lazy">
+            </div>
+            <span class="sr-only">Read the Recita case study</span>
+          </a>
+        </div>
+
+        <!-- Card 2: e& (Etisalat). No case study page yet. -->
+        <div class="stack__item" style="--sticky-top: 70px">
+          <article class="card" data-cursor="view" data-card>
+            <div class="card__text">
+              <div class="card__intro">
+                <div class="card__head">
+                  <span class="card__icon card__icon--eand">
+                    <img src="assets/images/home/7UmBpJG6bKgIpwVoo0thpOTiw4.png" width="38" height="35" alt="">
+                  </span>
+                  <h3 class="card__title" data-fx="card-title">Improving clarity in a complex telecom app</h3>
+                </div>
+                <p class="card__desc" data-fx="card-desc">I simplified real-time charges and bundle buying to make the Etisalat app clearer, more intuitive, and easier for users to manage their usage with confidence.</p>
+              </div>
+              <ul class="card__tags">
+                <li class="tag" data-fx="tag"><strong>76%</strong> said bundle choices were easier</li>
+                <li class="tag" data-fx="tag" style="--i: 1"><strong>82%</strong> felt balance information was clearer</li>
+              </ul>
+            </div>
+            <div class="card__media" aria-hidden="true">
+              <img class="shot" style="left: 583px; top: 50px; width: 251px; height: 470px" src="assets/images/home/GbwBDPNtBaT1V5rL6YK0cY7L4.png" alt="" loading="lazy">
+              <img class="shot" style="left: 834px; top: 311px; width: 233px; height: 439px" src="assets/images/home/3gQDj2pmOo2sWierflf6r0U9qA.png" alt="" loading="lazy">
+              <img class="shot" style="left: 854px; top: -140px; width: 197px; height: 443px" src="assets/images/home/KmtlwybkN0hA54aCpDflF6L5tXs.png" alt="" loading="lazy">
+              <img class="shot" style="left: 1075px; top: 255px; width: 232px; height: 434px" src="assets/images/home/K6J9qHn0q9yimTtcqH7knZcsTXc.png" alt="" loading="lazy">
+              <img class="shot" style="left: 1075px; top: -177px; width: 232px; height: 434px" src="assets/images/home/dUfLvnkj9rLZ9Gks05rtrvd8Y.png" alt="" loading="lazy">
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 3: Woman in Islam. No case study page yet. -->
+        <div class="stack__item" style="--sticky-top: 90px">
+          <article class="card" data-cursor="view" data-card>
+            <div class="card__text">
+              <div class="card__intro">
+                <div class="card__head">
+                  <span class="card__icon">
+                    <img src="assets/images/home/wHl4SbKkDdVlYz8QBvJBGUb0s.png" width="27" height="45" alt="">
+                  </span>
+                  <h3 class="card__title" data-fx="card-title" style="width: 421px">Transforming a 500-page book into a seamless digital reading experience</h3>
+                </div>
+                <p class="card__desc" data-fx="card-desc">A digital reading experience designed to reduce scrolling fatigue and improve chapter navigation.</p>
+              </div>
+              <ul class="card__tags">
+                <li class="tag" data-fx="tag"><strong>82%</strong> said navigation felt clearer</li>
+                <li class="tag" data-fx="tag" style="--i: 1"><strong>88%</strong> completed reading faster</li>
+              </ul>
+            </div>
+            <div class="card__media" aria-hidden="true">
+              <div class="laptop" style="left: 547px; top: 37px">
+                <img class="laptop__frame" src="assets/images/home/IYU2ofVDZlrURBjsx7FYvkt7RyY.png" alt="" loading="lazy">
+                <div class="laptop__screen">
+                  <img src="assets/images/home/5FME6waf4Jc4oJqxNOD5HaEea0.png" alt="" loading="lazy">
+                </div>
+              </div>
+              <img class="shot shot--front" style="left: 1018px; top: 193px; width: 191px; height: 357px" src="assets/images/home/iTI67DgInTwnfIpH8yLSkCuws.png" alt="" loading="lazy">
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== My Design Approach (A1–A4) ===================== -->
+    <section class="approach" id="approach" aria-labelledby="approach-title">
+      <div class="approach__aside">
+        <h2 class="approach__title t-h1" id="approach-title" data-split="words" data-fx="section-title">My Design<br>Approach</h2>
+      </div>
+
+      <div class="approach__body" data-fx="approach-body">
+        <div class="approach__number" aria-hidden="true">
+          <span class="approach__digits" data-step-number>
+            <span class="is-active">01</span><span>02</span><span>03</span><span>04</span>
+          </span>
+        </div>
+
+        <ol class="approach__steps">
+          <li class="step" data-step>
+            <h3 class="t-h3 step__title"><span class="sr-only">01. </span>Understand the business and user goals</h3>
+            <p class="t-body-lg">Research is the first thing I do, and the most important. It helps me understand both the user's world and the business goals at the same time, so I know exactly where to focus and why. Without that clarity, design is just guessing.</p>
+          </li>
+          <li class="step" data-step>
+            <h3 class="t-h3 step__title"><span class="sr-only">02. </span>Structure Before Aesthetics</h3>
+            <p class="t-body-lg">I build clear flows and logical structures before focusing on visual design. A beautiful screen that confuses the user is a failed screen. Clarity comes first, then craft.</p>
+          </li>
+          <li class="step" data-step>
+            <h3 class="t-h3 step__title"><span class="sr-only">03. </span>AI-Assisted Design</h3>
+            <p class="t-body-lg">I use AI to speed up research, explore ideas, and refine details — while keeping the real design decisions human-led.</p>
+          </li>
+          <li class="step" data-step>
+            <h3 class="t-h3 step__title"><span class="sr-only">04. </span>Staying close to the team</h3>
+            <p class="t-body-lg">I like to stay involved with other UX teammates, developers, stakeholders, and clients while the product is being shaped. It keeps the process smoother and the final design stronger.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== Footer (S5) ===================== -->
+  <footer class="site-footer" id="contact" data-footer>
+    <div class="site-footer__inner">
+      <div class="site-footer__intro">
+        <a class="site-footer__logo" href="./" aria-label="Ahmed Ehab, home" data-fx="footer-logo">
+          <svg viewBox="0 0 25.651 25.651" width="49" height="49" aria-hidden="true"><path fill="#fff" d="M 0 25.651 L 0.001 8.75 C 0.001 3.918 4.129 0 9.221 0 L 24.874 0 C 25.303 0 25.651 0.348 25.651 0.777 L 25.651 25.651 L 16.959 25.651 L 16.959 20.341 L 11.324 20.341 C 9.73 20.341 8.437 21.568 8.437 23.081 L 8.437 25.651 Z M 8.284 16.367 L 16.873 16.367 L 16.873 13.256 C 10.906 13.256 11.896 11.018 14.559 11.06 C 14.607 11.061 16.873 11.06 16.873 11.06 C 16.873 11.06 16.91 7.783 16.873 7.782 C 15.836 7.767 10.375 7.177 10.027 11.208 C 10.024 11.243 10.027 13.295 10.027 13.295 L 8.284 13.295 Z"/></svg>
+        </a>
+        <h2 class="site-footer__title" data-fx="footer-title">Let’s Work Together <span class="site-footer__smile">:)</span></h2>
+      </div>
+
+      <a class="site-footer__email" href="mailto:ahmed.ehab579@gmail.com" data-fx="footer-row">
+        <span>Ahmed.ehab579@gmail.com</span>
+        <svg class="arrow arrow--lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M7 7H17V17"/></svg>
+      </a>
+
+      <ul class="site-footer__social">
+        <li data-fx="footer-row"><a href="https://www.linkedin.com/in/ahmed-ehab123" target="_blank" rel="noopener">LinkedIn <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M7 7H17V17"/></svg></a></li>
+        <li data-fx="footer-row"><a href="https://www.behance.net/Ahmedehab518a7" target="_blank" rel="noopener">Behance <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M7 7H17V17"/></svg></a></li>
+        <li data-fx="footer-row"><a href="https://dribbble.com/ahmedehab579" target="_blank" rel="noopener">Dribbble <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M7 7H17V17"/></svg></a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Custom cursor (S2) -->
+  <div class="cursor" aria-hidden="true" data-cursor-el>
+    <div class="cursor__dot"></div>
+    <div class="cursor__view">View</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+/* Footer (S5): the Framer "Footer" component, "On" variant. Shared by every page.
+   Full-width dark band; content lines up with the page's 1242px column. */
+.site-footer {
+  height: 547px;
+  background: var(--dark-background);
+  overflow: clip;
+}
+.site-footer__inner {
+  width: min(var(--content, 1242px), 100% - 2 * var(--gutter, 99px));
+  margin-inline: auto;
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+
+.site-footer__intro { display: flex; flex-direction: column; align-items: flex-start; gap: 19px; }
+
+.site-footer__logo {
+  display: grid; place-items: center;
+  width: 93.68px; height: 99.59px;
+  background: rgb(181 2 53);
+  border-radius: 0 0 15.75px 15.75px;   /* the header logo's 9.33px corner, scaled to this size */
+}
+
+.site-footer__title {
+  font: 500 92px/1.5 var(--font-display);
+  color: #fff;
+  white-space: nowrap;
+  font-feature-settings: "blwf", "cv03", "cv04", "cv09", "cv11";
+}
+.site-footer__smile { color: var(--accent); }
+
+.arrow { flex: none; width: 37px; height: 36px; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.arrow--lg { width: 46px; height: 43px; stroke-linecap: butt; stroke-linejoin: miter; }
+
+.site-footer__email {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 33px;
+  font: 500 29px/1.2 var(--font-display);
+  color: #fff;
+}
+.site-footer__email span {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+}
+
+.site-footer__social {
+  list-style: none; margin: 88px 0 0; padding: 0;
+  display: flex; gap: 60px;
+}
+.site-footer__social a {
+  display: flex; align-items: flex-end; gap: 10px;
+  height: 48px;
+  font: 400 32px/1.2 var(--font-display);
+  color: rgb(255 252 252);
+}
+
+/* Arrows nudge up-right on hover */
+.site-footer__email .arrow, .site-footer__social .arrow { transition: transform 0.3s cubic-bezier(0.12, 0.23, 0.5, 1); }
+.site-footer__email:hover .arrow, .site-footer__social a:hover .arrow { transform: translate(3px, -3px); }
+@media (prefers-reduced-motion: reduce) { .site-footer .arrow { transition: none; } }
+
+/* Hidden until the footer reaches the screen (js/footer.js) */
+.motion-ready [data-fx^="footer"] { opacity: 0; }

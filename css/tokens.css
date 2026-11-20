@@ -1,0 +1,67 @@
+/* Design tokens, taken from the Framer project "New portfolio" (color and text styles).
+   Only the styles used on Home and the Recita case study are listed. Framer duplicates
+   ("08" x2, "Brand color" x2, which equals Accent) are merged. */
+
+/* ---------- Fonts (self-hosted; Satoshi and Switzer under the Fontshare free licence, the rest under the OFL) ---------- */
+@font-face { font-family: "Satoshi"; src: url("../assets/fonts/satoshi-300.woff2") format("woff2"); font-weight: 300; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("../assets/fonts/satoshi-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("../assets/fonts/satoshi-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("../assets/fonts/satoshi-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("../assets/fonts/instrument-sans-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("../assets/fonts/instrument-sans-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("../assets/fonts/instrument-sans-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("../assets/fonts/jost-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("../assets/fonts/jost-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("../assets/fonts/jost-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Geist"; src: url("../assets/fonts/geist-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Switzer"; src: url("../assets/fonts/switzer-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+
+:root {
+  /* ---------- Color (Framer color styles) ---------- */
+  --background: rgb(245 245 239);        /* Background */
+  --surface: rgb(236 234 227);           /* Surface: cards */
+  --surface-hover: rgb(230 230 220);     /* "Surrface hover"; also the cursor "View" pill */
+  --text-primary: rgb(45 45 42);         /* Text-Primary */
+  --text-secondary: rgb(79 79 74);       /* Text-Secondary */
+  --border: rgb(143 143 140);            /* Border */
+  --accent: rgb(207 60 61);              /* Accent (= Brand color) */
+  --accent-hover: rgb(179 46 47);        /* Accent-Hover */
+  --dark-background: rgb(74 73 72);      /* Dark-Background */
+  --dark-surface: rgb(42 41 38);         /* Dark-Surface */
+  --main: rgb(20 20 21);                 /* Main */
+  --near-black: rgb(10 10 10);           /* "08" */
+  --gray-50: rgb(130 130 130);
+  --gray-60: rgb(84 84 84);
+  --white: #fff;
+  --black: #000;
+
+  /* ---------- Type families ---------- */
+  --font-display: "Satoshi", system-ui, sans-serif;
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  --font-alt: "Jost", system-ui, sans-serif;
+}
+
+/* ---------- Text styles (Framer text styles, desktop values) ----------
+   Every style also turns on the OpenType features Framer sets: blwf, cv03, cv04, cv09, cv11. */
+.t-display, .t-h1, .t-h1-lower, .t-h2, .t-h3, .t-h3-cap, .t-title-lg, .t-display-2,
+.t-body-xl, .t-body-lg, .t-body-md, .t-body-sm, .t-label, .t-label-lg, .t-caption, .t-caption-lg, .t-label-lg-cap {
+  font-feature-settings: "blwf", "cv03", "cv04", "cv09", "cv11";
+  margin: 0;
+}
+.t-display     { font: 400 67px/1.4 var(--font-display); letter-spacing: -1px; color: var(--text-primary); }
+.t-display-2   { font: 500 88px/1 var(--font-display); color: var(--text-secondary); }
+.t-h1          { font: 500 48px/1.4 var(--font-display); letter-spacing: -0.5px; text-transform: capitalize; color: var(--text-primary); }
+.t-h1-lower    { font: 400 55px/1.4 var(--font-display); letter-spacing: -0.04em; color: var(--text-primary); }
+.t-h2          { font: 500 42px/1.5 var(--font-alt); letter-spacing: -0.3px; color: var(--text-primary); }
+.t-h3          { font: 500 36px/1.3 var(--font-display); color: var(--text-primary); }
+.t-h3-cap      { font: 500 36px/1.7 var(--font-display); text-transform: uppercase; color: var(--text-primary); }
+.t-title-lg    { font: 500 28px/1.5 var(--font-display); color: var(--text-primary); }
+.t-label-lg-cap{ font-family: var(--font-display); font-weight: 500; text-transform: uppercase; color: var(--text-primary); }
+.t-body-xl     { font: 400 22px/1.7 var(--font-body); color: var(--text-secondary); }
+.t-body-lg     { font: 400 20px/1.7 var(--font-body); color: var(--text-secondary); }
+.t-body-md     { font: 400 18px/1.8 var(--font-body); color: var(--text-secondary); }
+.t-body-sm     { font-family: var(--font-body); font-weight: 400; line-height: 1.6; letter-spacing: -0.02em; color: var(--text-secondary); }
+.t-label-lg    { font: 500 18px/1.4 var(--font-body); letter-spacing: 0.3px; color: var(--text-secondary); }
+.t-label       { font: 500 14px/1.4 var(--font-body); letter-spacing: 0.3px; color: var(--text-secondary); }
+.t-caption     { font: 500 12px/1.5 var(--font-body); letter-spacing: 0.4px; color: var(--text-primary); }
+.t-caption-lg  { font-family: var(--font-body); font-weight: 500; line-height: 1.6; letter-spacing: -0.02em; color: var(--text-primary); }
