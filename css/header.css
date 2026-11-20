@@ -1,4 +1,5 @@
-/* Header (S3) and menu (S4). Measured on the live Framer site at 1440px. */
+/* Header (S3) and menu (S4). Every value measured on the live Framer site at 1440px
+   and read from the Framer "Header", "Menu99" and "Nav-Link" components. */
 .site-header {
   position: fixed; top: 0; left: 50%; z-index: 50;
   width: min(1242px, 100% - 2 * var(--gutter, 99px));
@@ -8,67 +9,75 @@
   display: flex; align-items: flex-end; justify-content: space-between;
   height: 59px;
   background: rgb(245 245 240);
-  transition: transform 0.4s cubic-bezier(0.12, 0.23, 0.5, 1);
+  overflow: clip;
+  /* Framer "appear on scroll direction": slides 60px up and fades out, tween 0.4s */
+  transition: transform 0.4s cubic-bezier(0.12, 0.23, 0.5, 1), opacity 0.4s cubic-bezier(0.12, 0.23, 0.5, 1);
 }
-/* Hides on scroll down, returns on scroll up (js/header.js) */
-.site-header.is-hidden .site-header__bar { transform: translateY(-60px); }
+.site-header.is-hidden .site-header__bar { transform: translateY(-60px); opacity: 0; pointer-events: none; }
 
 .site-header__logo {
   display: grid; place-items: center;
-  width: 54px; height: 59px;
+  flex: none; width: 54px; height: 59px;
   background: rgb(181 2 53);
   border-radius: 0 0 9.33px 9.33px;
 }
 
-/* ---------- Menu: a bordered pill that opens to the left; the icon turns ☰ into ✕ ---------- */
-.menu {
-  position: relative;
-  display: flex; align-items: center;
-  height: 40px;
-}
-.menu::after {           /* the 1px pill border, wrapping the links when open */
-  content: ""; position: absolute; inset: 0;
+/* ---------- Menu ----------
+   Closed: a 74×40 button with a 1px rgb(84,84,84) border, radius 11.
+   Open: the link pill grows to its left (0 → 331px, tween 0.4s) inside the same border; the
+   pill has its own 1px border, which shows as a rounded divider before the ✕. The button fills
+   with Surface (236,234,227). Closing is instant for the links; only the fill fades out. */
+.menu { position: relative; display: flex; align-items: center; height: 40px; }
+.menu::after {
+  content: ""; position: absolute; inset: 0; z-index: 2;
   border: 1px solid rgb(84 84 84); border-radius: 11px;
   pointer-events: none;
 }
+
 .menu__nav {
-  display: flex; gap: 10px;
-  width: 0; overflow: hidden;
-  transition: width 0.6s cubic-bezier(0.12, 0.23, 0.5, 1), margin 0.6s cubic-bezier(0.12, 0.23, 0.5, 1);
+  position: relative;
+  display: flex; justify-content: flex-end; align-items: center; gap: 10px;
+  width: 0; height: 40px;
+  overflow: clip; border-radius: 11px;
 }
-.menu.is-open .menu__nav { width: 331px; margin-right: 0; }   /* 91 + 105 + 115 + 2 × 10 gap */
+.menu__nav::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  border: 1px solid rgb(84 84 84); border-radius: inherit;
+  pointer-events: none;
+}
+.menu:not(.is-open) .menu__nav { visibility: hidden; }
+.menu.is-open .menu__nav { width: 330.7px; transition: width 0.4s cubic-bezier(0.12, 0.23, 0.5, 1); }
+
 .menu__link {
   flex: none;
-  display: grid; place-items: center;
-  height: 40px; padding: 0 25px;
+  height: 40px; padding: 10px 25px 9px;
   border-radius: 8px;
-  font: 400 16px/1.3 "Geist", var(--font-body);
+  background: rgba(237, 235, 228, 0);
+  font: 400 16px/20.8px "Geist", var(--font-body);
   letter-spacing: -0.04em;
   color: var(--near-black);
   white-space: nowrap;
   font-feature-settings: "blwf", "cv03", "cv04", "cv09", "cv11";
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
-.menu__link:hover { background: rgb(237 235 228); }
-.menu:not(.is-open) .menu__link { visibility: hidden; transition: visibility 0s 0.6s, background-color 0.2s; }
+.menu__link:hover { background: rgb(230 230 220); }
+.menu__link:active { background: rgb(222 222 204); }
 
 .menu__toggle {
+  flex: none;
   display: grid; place-items: center;
-  width: 74px; height: 40px; border-radius: 11px;
+  width: 74px; height: 40px; padding: 4px 25px;
+  background: rgba(236, 234, 227, 0);
+  transition: background-color 0.4s cubic-bezier(0.12, 0.23, 0.5, 1);
 }
-.menu__icon { position: relative; width: 24px; height: 24px; }
-.menu__icon i {
-  position: absolute; left: 3px; width: 18px; height: 1.5px; border-radius: 2px;
-  background: #000;
-  transition: transform 0.4s cubic-bezier(0.12, 0.23, 0.5, 1), opacity 0.2s ease;
-}
-.menu__icon i:nth-child(1) { top: 6px; }
-.menu__icon i:nth-child(2) { top: 11.25px; }
-.menu__icon i:nth-child(3) { top: 16.5px; }
-.menu.is-open .menu__icon i:nth-child(1) { transform: translateY(5.25px) rotate(45deg); }
-.menu.is-open .menu__icon i:nth-child(2) { opacity: 0; }
-.menu.is-open .menu__icon i:nth-child(3) { transform: translateY(-5.25px) rotate(-45deg); }
+.menu.is-open .menu__toggle { background: rgb(236 234 227); }
+
+/* The icon swaps instantly, as in Framer (two icons, one shown) */
+.menu__icon { width: 24px; height: 24px; fill: none; stroke: #000; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.menu__icon--close { display: none; }
+.menu.is-open .menu__icon--open { display: none; }
+.menu.is-open .menu__icon--close { display: block; }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-header__bar, .menu__nav, .menu__icon i { transition: none; }
+  .site-header__bar, .menu.is-open .menu__nav, .menu__toggle, .menu__link { transition: none; }
 }
