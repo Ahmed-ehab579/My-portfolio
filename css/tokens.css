@@ -35,6 +35,10 @@
   --white: #fff;
   --black: #000;
 
+  /* ---------- Layout ---------- */
+  --content: 1242px;   /* the page column at 1440px */
+  --gutter: 99px;
+
   /* ---------- Type families ---------- */
   --font-display: "Satoshi", system-ui, sans-serif;
   --font-body: "Instrument Sans", system-ui, sans-serif;

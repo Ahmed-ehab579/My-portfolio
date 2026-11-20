@@ -57,12 +57,12 @@ Values above are from the hero layers actually shown on the live site. The Frame
 | R1 | Title "Turning a complex audio concept…" | On load | 15px below | Spring 1.5s, bounce 0.2 |
 | R2 | "6 mins read" | On load | 15px below | Same, after 0.4s |
 | R3 | Project facts (Project, Platform, Team, Role, Result lines) | On load, one after another | 15px below | Spring 1s, bounce 0.2, at 0, 0.1, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8s |
-| R4 | Hero video | Autoplays, muted, no controls, starts at 0:49 | — | — |
+| R4 | Hero video | Autoplays, muted, loops, no controls | — | — |
 
 ### Page structure
 | # | What | Behaviour |
 |---|---|---|
-| R5 | **Side index** (Overview, Problem, Solution, Design process, Design decisions, Outcomes, Reflections) | Sticky. The active item changes as you reach each section (spring 0.7s, bounce 0.2) |
+| R5 | **Side index** (Overview, Problem, Solution, Design process, Design decisions, Outcomes, Reflections) | Sticky. The active item turns red and grows from 20px to 21px as you reach each section. Items are links that glide to their section |
 | R6 | Section intros (badge + heading) | Badge rises 50px, heading 25px. Spring 1.5s, bounce 0.2 |
 
 ### Overview, Problem, Solution
@@ -82,7 +82,7 @@ Values above are from the hero layers actually shown on the live site. The Frame
 | R14 | Step titles | Slide in from the right, 60px | Same |
 | R15 | Step text | Rises 18px | Spring 1.4s, bounce 0.2, after 0.3s |
 | R16 | Method tags (Survey, User interview…) | Rise 25–35px, one after another | Spring 1.4s, bounce 0.2, about 0.2s apart |
-| R17 | Line illustrations next to the steps | Switch "Off → On" (the drawing appears) when the step reaches the screen | Spring 0.4s, bounce 0.2 |
+| R17 | Line illustrations next to the steps | **Draw themselves** when the step reaches the screen. The Framer file switches them "Off → On" (spring 0.4s); the drawing speed could not be measured on the live site, so it is set to 2.4s (long research line) and 1.2s (MVP line). **To confirm with Ahmed** | Ease (0.12, 0.23, 0.5, 1) |
 | R18 | **Key insights**: left column sticky, the 3 cards stack over each other while scrolling | Sticky at 0px and 40px | — |
 | R19 | Insight card numbers | **Count up** from 20 to 80 / 70 / 92 | About 2.1s |
 | R20 | Planning phone | Slides in from the right, 30px. Video plays inside | Spring 1.4s, bounce 0.2 |
@@ -99,7 +99,7 @@ Values above are from the hero layers actually shown on the live site. The Frame
 |---|---|---|---|
 | R24 | Intro paragraph | Rises 18px | Spring 1.4s, bounce 0.2, after 0.3s |
 | R25 | 5 stat cards | Rise 30px, one after another; numbers **count up** from 20 to 92 / 88 / 85 / 90 / 80 | Spring 1.4s, bounce 0.2, at 0, 0.2, 0.4, 0.6, 0.6s. Count about 2s |
-| R26 | Reflections accordion (3 items) | Opens on its own when it reaches the screen; items expand and collapse when clicked | Open 0.3s, close 0.5s, tween (0.12, 0.23, 0.5, 1) |
+| R26 | Reflections accordion (3 items) | Items rise in one after another, then expand and collapse when clicked (keyboard accessible) | Open 0.3s, close 0.5s, tween (0.12, 0.23, 0.5, 1) |
 | R27 | "Next story" link | Slides in from the left, 90px | Spring 1.2s, bounce 0.2 |
 
 ---

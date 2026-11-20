@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recita case study · Ahmed Ehab</title>
+  <meta name="description" content="How I turned a complex Quran audio concept into a clear MVP: research, key insights, design decisions and early results.">
+  <meta name="theme-color" content="#f5f5ef">
+  <meta property="og:title" content="Recita: turning a complex audio concept into a clear MVP product">
+  <meta property="og:description" content="A UX case study by Ahmed Ehab.">
+  <meta property="og:type" content="article">
+
+  <link rel="preload" href="assets/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/satoshi-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/instrument-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="css/tokens.css?v=2">
+  <link rel="stylesheet" href="css/base.css?v=2">
+  <link rel="stylesheet" href="css/header.css?v=1">
+  <link rel="stylesheet" href="css/project.css?v=2">
+  <link rel="stylesheet" href="css/footer.css?v=2">
+
+  <script>
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("motion-ready");
+  </script>
+  <script src="assets/vendor/motion-12.23.12.js" defer></script>
+  <script src="assets/vendor/lenis-1.1.20.min.js" defer></script>
+  <script src="js/fx.js?v=3" defer></script>
+  <script src="js/header.js?v=1" defer></script>
+  <script src="js/project.js?v=2" defer></script>
+  <script src="js/footer.js?v=1" defer></script>
+</head>
+<body>
+  <a class="sr-only" href="#main">Skip to content</a>
+
+  <!-- The red spark used in the section badges -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="spark" viewBox="0 0 15.026 16.006">
+      <g fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round" stroke-miterlimit="10">
+        <path d="M 9.902 2.503 C 10.27 1.902 10.749 1.377 11.089 1.256 C 13.071 0.548 7.32 4.943 5.832 6.237 C 3.915 8.271 2.253 10.071 1.343 10.958 C 0.944 11.366 0.674 11.689 0.234 12.342"/>
+        <path d="M 1.406 1.887 C 1.895 2.468 3.992 4.754 5.858 6.764 C 7.062 8.061 7.931 9.108 8.715 10.579 C 9.355 11.603 9.974 12.419 10.466 12.874 C 10.722 13.091 10.99 13.279 11.346 13.552"/>
+        <path d="M 0 7.067 C 1.159 6.9 4.569 6.619 6.609 6.354 C 8.325 6.311 9.881 6.201 11.325 6.02 C 12.238 5.95 13.52 5.923 14.84 5.896"/>
+        <path d="M 6.755 0 C 6.698 2.375 6.478 8.136 6.355 11.09 C 6.151 12.102 5.957 12.917 5.85 13.817 C 5.795 14.264 5.742 14.687 5.282 16.006"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <!-- ===================== Header (shared with Home) ===================== -->
+  <header class="site-header" data-header>
+    <div class="site-header__bar">
+      <a class="site-header__logo" href="./" aria-label="Ahmed Ehab, home">
+        <svg viewBox="0 0 25.651 25.651" width="26" height="26" aria-hidden="true"><path fill="#fff" d="M 0 25.651 L 0.001 8.75 C 0.001 3.918 4.129 0 9.221 0 L 24.874 0 C 25.303 0 25.651 0.348 25.651 0.777 L 25.651 25.651 L 16.959 25.651 L 16.959 20.341 L 11.324 20.341 C 9.73 20.341 8.437 21.568 8.437 23.081 L 8.437 25.651 Z M 8.284 16.367 L 16.873 16.367 L 16.873 13.256 C 10.906 13.256 11.896 11.018 14.559 11.06 C 14.607 11.061 16.873 11.06 16.873 11.06 C 16.873 11.06 16.91 7.783 16.873 7.782 C 15.836 7.767 10.375 7.177 10.027 11.208 C 10.024 11.243 10.027 13.295 10.027 13.295 L 8.284 13.295 Z"/></svg>
+      </a>
+      <div class="menu" data-menu>
+        <nav class="menu__nav" id="site-nav" aria-label="Main">
+          <a class="menu__link" href="./#about">Home</a>
+          <a class="menu__link" href="./#projects">Projects</a>
+          <a class="menu__link" href="./#approach">Approach</a>
+        </nav>
+        <button class="menu__toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu" data-menu-toggle>
+          <span class="menu__icon" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="cs">
+
+    <!-- ===================== Intro (R1–R4) ===================== -->
+    <section class="cs-hero" aria-labelledby="cs-title">
+      <div class="cs-hero__brand">
+        <span class="cs-hero__icon"><img src="assets/icons/recita-mark.svg" width="29" height="29" alt=""></span>
+        <span class="cs-hero__name">Recita</span>
+      </div>
+      <div class="cs-hero__head">
+        <h1 class="cs-hero__title t-h1-lower" id="cs-title" data-fx="r1">Turning a complex audio concept into a clear MVP product</h1>
+        <p class="cs-hero__read" data-fx="r2">6 mins read</p>
+      </div>
+
+      <dl class="facts">
+        <div class="facts__col">
+          <div class="facts__item" data-fx="fact" data-delay="0"><dt>Project</dt><dd>Quran audio app concept</dd></div>
+          <div class="facts__item facts__item--2" data-fx="fact" data-delay="0.1"><dt>Platform</dt><dd>iOS app + pre-launch landing page</dd></div>
+        </div>
+        <div class="facts__col">
+          <div class="facts__item" data-fx="fact" data-delay="0.3"><dt>Team</dt><dd><ul><li>A Designer (Me)</li><li>Developers</li></ul></dd></div>
+          <div class="facts__item facts__item--2" data-fx="fact" data-delay="0.4"><dt>My Role</dt><dd>Sole UX/UI Designer</dd></div>
+        </div>
+        <div class="facts__col">
+          <div class="facts__item" data-fx="fact" data-delay="0.5"><dt>Skills</dt><dd><ul class="facts__skills"><li>UX research</li><li>UI design</li><li>Prototyping</li><li>User flows</li><li>Wireframe</li></ul></dd></div>
+        </div>
+        <div class="facts__col">
+          <div class="facts__item" data-fx="fact" data-delay="0.6"><dt>Impact</dt><dd><ul class="facts__impact">
+            <li data-fx="fact" data-delay="0.6"><strong>92%</strong> felt onboarding was personalized</li>
+            <li data-fx="fact" data-delay="0.7"><strong>88%</strong> found a preferred reciter style quickly</li>
+            <li data-fx="fact" data-delay="0.8"><strong>90%</strong> rated the interface clean and easy to navigate</li>
+          </ul></dd></div>
+        </div>
+      </dl>
+
+      <div class="cs-hero__video">
+        <video src="assets/videos/project/K1v5oEaT1V2vKqLr6vXtTV5dQ.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Recita app preview"></video>
+      </div>
+    </section>
+
+    <!-- ===================== Body: sticky index + sections ===================== -->
+    <div class="cs-body">
+      <!-- R5: sticky index, highlights the section on screen -->
+      <aside class="cs-index" aria-label="On this page">
+        <p class="cs-index__title">Index</p>
+        <ol class="cs-index__list" data-index>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#solution">Solutions</a></li>
+          <li><a href="#process">Design process</a></li>
+          <li><a href="#decisions">Design decisions</a></li>
+          <li><a href="#outcomes">Outcomes</a></li>
+          <li><a href="#reflections">Reflections</a></li>
+        </ol>
+      </aside>
+
+      <div class="cs-main">
+
+        <!-- ===== Overview (R6, R7) ===== -->
+        <section class="cs-overview" id="overview" data-section>
+          <div class="intro">
+            <p class="badge" data-fx="badge"><svg aria-hidden="true"><use href="#spark"/></svg>Overview</p>
+            <h2 class="intro__title t-h3-cap" data-fx="intro-title">What’s<br>Recita about?</h2>
+          </div>
+          <p class="cs-overview__text t-body-xl" data-split="words" data-fx="lines" data-y="25" data-dur="0.8" data-bounce="0">Recita is an AI-driven, Quran audio app designed to make it easier for Muslims to discover lesser-known, talented reciters through a smooth, intentional listening experience. It also supports reciters by giving them a dedicated platform to publish their recitation and connect with a broader audience.</p>
+        </section>
+
+        <!-- ===== Problem (R8–R10) ===== -->
+        <section class="cs-problem" id="problem" data-section>
+          <div class="intro" style="width: 441px">
+            <p class="badge" data-fx="badge"><svg aria-hidden="true"><use href="#spark"/></svg>Problem</p>
+            <h2 class="intro__title t-h3-cap" data-fx="intro-title">A gap between discovery and talent</h2>
+          </div>
+          <img class="cs-problem__img" style="left: 704px; top: 183px" src="assets/images/project/HrMXqnqYJuwufWFA9pWvrhIPjcs.png" width="225" height="262" alt="A listener with headphones, eyes closed" data-fx="problem-img" loading="lazy">
+          <p class="cs-problem__text t-body-xl" style="left: 0; top: 258px; width: 475px" data-split="words" data-fx="lines" data-y="20" data-dur="2" data-bounce="0">You're at a masjid you've never visited before, and the recitation leaves you breathless. Then you leave, and you never find that voice again.</p>
+          <svg class="dash" style="left: 482px; top: 325px; width: 212px" viewBox="0 0 212 4" preserveAspectRatio="none" aria-hidden="true" data-fx="dash" data-from="x60"><path d="M2 2 H210"/></svg>
+          <svg class="dash dash--v" style="left: 815px; top: 457px; height: 204px" viewBox="0 0 4 204" preserveAspectRatio="none" aria-hidden="true" data-fx="dash" data-from="y-60"><path d="M2 2 V202"/></svg>
+          <svg class="dash" style="left: 246px; top: 768px; width: 290px" viewBox="0 0 290 4" preserveAspectRatio="none" aria-hidden="true" data-fx="dash" data-from="x-60"><path d="M2 2 H288"/></svg>
+          <img class="cs-problem__img cs-problem__img--framed" style="left: 0; top: 626px" src="assets/images/project/NQO6JGEc2CeuKsoFh5yEvF1is2w.png" width="225" height="262" alt="A reciter with a microphone and headphones" data-fx="problem-img" loading="lazy">
+          <p class="cs-problem__text t-body-xl" style="left: 551px; top: 674px; width: 461px" data-split="words" data-fx="lines" data-y="20" data-dur="2" data-bounce="0">Thousands of exceptional reciters exist around the world — local imams, emerging voices, regional talents — with no platform to build an audience or earn from their craft. Listeners have no way to find them.</p>
+        </section>
+
+        <!-- ===== Solution (R11, R12) ===== -->
+        <section class="cs-solution" id="solution" data-section>
+          <div class="intro" style="width: 524px">
+            <p class="badge" data-fx="badge"><svg aria-hidden="true"><use href="#spark"/></svg>Solution</p>
+            <h2 class="intro__title t-h3-cap" data-fx="intro-title">2-sided platform that connects &amp; satisfies both</h2>
+          </div>
+          <div class="cs-solution__rows">
+            <div class="cs-solution__row" style="width: 780px">
+              <p class="t-body-xl" data-split="words" data-fx="lines" data-y="20" data-dur="2" data-bounce="0" data-delay="0.2"><b>On one side,</b> I built a calm, distraction-free space where <b>Seekers</b> <span class="avatar-gap" aria-hidden="true"></span> can effortlessly discover new voices and return to the recitations they love.</p>
+              <img class="avatar" style="left: 647px; top: -35px; --r: -5deg" src="assets/images/project/HrMXqnqYJuwufWFA9pWvrhIPjcs.png" width="65" height="74" alt="" data-fx="avatar" loading="lazy">
+            </div>
+            <div class="cs-solution__row" style="width: 867px">
+              <p class="t-body-xl" data-split="words" data-fx="lines" data-y="20" data-dur="2" data-bounce="0" data-delay="0.2"><b>On the other side,</b> I created a structured, trustworthy environment for <b>Voices</b> <span class="avatar-gap" aria-hidden="true"></span> By giving creators a clear path to join, upload content</p>
+              <img class="avatar avatar--framed" style="left: 779px; top: -37px; --r: 5deg" src="assets/images/project/NQO6JGEc2CeuKsoFh5yEvF1is2w.png" width="65" height="74" alt="" data-fx="avatar" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Design process (R13–R21) ===== -->
+        <section class="cs-process" id="process" data-section>
+          <div class="intro" style="width: 426px">
+            <p class="badge" data-fx="badge"><svg aria-hidden="true"><use href="#spark"/></svg>Design Process</p>
+            <h2 class="intro__title t-h3-cap" data-fx="intro-title">But… How I crafted that solution!</h2>
+          </div>
+
+          <!-- R17: hand-drawn line from Research down through the key insights -->
+          <svg class="cs-line cs-line--research" viewBox="0 0 280 1686" aria-hidden="true" data-draw>
+            <path pathLength="1" d="M 0 66.752 C 9.5 71.752 63.5 64.124 69.834 61.054 C 72.097 59.957 91.738 91.608 92.937 93.056 C 94.137 94.504 95.745 95.819 97.977 96.56 C 102.832 98.17 108.513 96.314 113.439 93.512 C 118.2 90.804 120.421 85.734 121.427 80.845 C 122.375 76.235 120.928 71.217 118.207 65.506 C 111.844 52.152 97.678 47.65 86.194 44.329 C 79.49 42.389 76.296 36.199 75.256 32.284 C 74.236 28.444 75.634 22.992 77.173 17.191 C 78.31 12.905 82.225 9.056 87.453 4.701 C 92.537 0.464 98.512 -0.512 103.409 0.223 C 108.786 1.031 111.445 7.31 113.07 12.134 C 114.583 16.629 113.727 21.489 112.352 25.746 C 109.999 33.025 99.618 38.686 83.669 47.628 C 71.53 54.434 63.086 70.935 60.717 80.462 C 59.36 85.918 61.441 93.567 64.453 101.673 C 66.907 108.274 71.609 111.34 75.495 112.77 C 79.801 114.356 84.037 112.659 86.721 110.951 C 88.11 110.067 88.856 108.237 88.893 105.695 C 89.138 88.705 73.172 55.282 67.5 48.81 C 64.835 45.768 56.293 44.874 44.841 45.635 C 39.545 45.987 38.001 64.379 35.352 66.998 C 30.632 71.665 30.254 78.337 31.326 83.375 C 32.207 87.515 41.474 87.089 49.268 86.458 C 64.42 85.232 61.495 44.036 60.813 31.562 C 60.43 24.557 58.054 18.649 58.388 14.825 C 58.556 12.908 60.438 11.389 62.396 10.419 C 73.992 4.676 99.615 11.798 112.345 18.703 C 122.881 24.418 129.469 40.457 134.502 50.31 C 137.303 55.792 132.96 60.354 131.7 64.26 C 129.923 69.772 124.693 72.861 120.999 74.836 C 107.648 81.974 85.829 79.83 73.734 77.832 C 59.348 75.456 40.867 58.264 36.15 46.49 C 34.311 41.901 34.91 37.558 35.353 33.63 C 35.57 31.705 40.501 21.31 49.269 22.31 C 55.461 23.016 57.291 32.33 60.457 33.63 C 67.139 36.373 76.689 48.74 87.897 60.035 C 93.472 65.654 115.495 66.165 154.474 66.752 C 161.237 66.854 2.867 67.22 30.064 67.486 C 57.259 67.752 109.968 68.008 137.925 67.806 C 167.502 67.591 185.518 66.387 211.869 66.664 C 224.944 66.801 230.858 67.748 235.902 69.501 C 244.504 72.491 253.241 76.413 257.503 84.81 C 261.686 93.05 260.799 116.81 261.003 117.31 C 262.066 119.917 258.581 124.94 261.003 157.81 C 263.57 192.651 262.016 1408.77 262.242 1443.92 C 262.503 1484.31 261.503 1538.31 261.503 1549.81 C 261.503 1556.81 263.065 1565.94 261.503 1575.31 C 258.503 1593.31 261.503 1679.81 261.503 1686.31"/>
+          </svg>
+          <!-- R17: second line, from MVP's features down to Planning -->
+          <svg class="cs-line cs-line--mvp" viewBox="0 0 115 526" preserveAspectRatio="none" aria-hidden="true" data-draw>
+            <path pathLength="1" transform="translate(7 9)" d="M 108.493 1.058 C 102.475 0.863 88.204 0.229 67.892 0.016 C 58.158 -0.087 48.34 0.339 39.886 0.572 C 26.511 0.941 19.33 2.636 13.493 5.496 C 8.814 7.788 6.639 12.312 4.307 15.902 C 2.185 19.169 1.896 23.136 0.901 26.867 C 0.662 32.493 0.098 37.211 0 63.596 C 0.095 69.116 0.286 69.937 0.482 70.783 L 0 460 L 0 509"/>
+          </svg>
+
+          <!-- Step 01: Research -->
+          <div class="step-block cs-research">
+            <span class="step-block__num" aria-hidden="true" data-fx="step-num">01</span>
+            <h3 class="step-block__title" data-fx="step-title">Research</h3>
+            <p class="step-block__text" data-fx="step-text">I needed to understand the users, their needs, behaviours, and pain points, as well as the market and competitive analysis.</p>
+            <ul class="pills">
+              <li data-fx="pill" data-y="25" data-delay="0.2">Survey</li>
+              <li data-fx="pill" data-y="25" data-delay="0.4">User interview</li>
+              <li data-fx="pill" data-y="25" data-delay="0.6">Research desk</li>
+              <li data-fx="pill" data-y="25" data-delay="0.6">Competitor analysis</li>
+            </ul>
+          </div>
+
+          <!-- Key insights (R18, R19) -->
+          <div class="insights" data-fx="insights">
+            <div class="insights__aside">
+              <h3 class="insights__title t-h1-lower" data-fx="step-title">Key insights</h3>
+              <p class="insights__text" data-fx="step-text">Based on the results I got from the survey, online meeting notes and opportunities in leading companies’ gaps and weaknesses, I found that:</p>
+            </div>
+            <div class="insights__cards">
+              <div class="insight-wrap" style="--top: 40px; height: 282px; --offset: 46px; --rot: 1deg">
+                <article class="insight"><p class="insight__num"><span data-count="80" data-from="20" data-speed="2.1">80</span>%</p><p class="insight__lead">Of the users want fast access to familiar reciters and specific origins</p><p class="insight__more">Many listeners search by country or reciter type first, so discovery should support those mental models early</p></article>
+              </div>
+              <div class="insight-wrap" style="--top: 0px; height: 347px; --offset: 79px; --rot: -1deg">
+                <article class="insight insight--tall"><p class="insight__num"><span data-count="70" data-from="20" data-speed="2.1">70</span>%</p><p class="insight__lead">of users want recitations that match their mood without browsing too much,</p><p class="insight__more">so I added a clear mood-based section to help them reach the right content faster.</p></article>
+              </div>
+              <div class="insight-wrap" style="--top: 0px; height: 347px; --offset: 78px; --rot: -1deg">
+                <article class="insight insight--tall"><p class="insight__num"><span data-count="80" data-from="20" data-speed="2.1">80</span>%</p><p class="insight__lead">of voice users said plays, likes, and earnings were the most important metrics</p><p class="insight__more">so I placed them at the top of the dashboard to give reciters instant access to what matters most.</p></article>
+              </div>
+              <div class="insight-wrap" style="--top: 0px; height: 307px; --offset: 38px; --rot: 1deg">
+                <article class="insight insight--tall"><p class="insight__num"><span data-count="92" data-from="20" data-speed="2.1">92</span>%</p><p class="insight__lead">of testers said the onboarding flow felt personal and relevant,</p><p class="insight__more">which confirmed my decision to let users choose recitations early so the app could adapt to their taste from the start.</p></article>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 02: MVP's features -->
+          <div class="step-block cs-mvp">
+            <span class="step-block__num" aria-hidden="true" data-fx="step-num">02</span>
+            <h3 class="step-block__title" data-fx="step-title">MVP's features</h3>
+            <p class="step-block__text" data-fx="step-text">After I got the insights from research, I focused on balancing feature richness with intuitive design that doesn't overwhelm users.</p>
+            <ul class="pills pills--fixed">
+              <li data-fx="pill" data-y="15" data-delay="0.2">Analytics Dashboard</li>
+              <li data-fx="pill" data-y="20" data-delay="0.2">Customised Playlists</li>
+              <li data-fx="pill" data-y="25" data-delay="0.2">Search &amp; Filters</li>
+              <li data-fx="pill" data-y="30" data-delay="0.2">Like/Favorite Feature</li>
+              <li data-fx="pill" data-y="35" data-delay="0.2">Reviews/Comments</li>
+            </ul>
+          </div>
+
+          <!-- Step 03: Planning (R20, R21) -->
+          <div class="cs-planning">
+            <div class="step-block">
+              <span class="step-block__num" aria-hidden="true" data-fx="step-num">03</span>
+              <h3 class="step-block__title" data-fx="step-title">Planning</h3>
+              <p class="step-block__text" data-fx="step-text">Carefully crafted user flows to guarantee a straightforward and accessible experience, refining the design iteratively based on user feedback and testing.</p>
+              <ul class="pills">
+                <li data-fx="pill" data-y="15" data-delay="0.2">User journey/flow</li>
+                <li data-fx="pill" data-y="20" data-delay="0.2">Wireframe</li>
+                <li data-fx="pill" data-y="25" data-delay="0.2">Prototype</li>
+                <li data-fx="pill" data-y="30" data-delay="0.2">Usability testing</li>
+              </ul>
+            </div>
+            <div class="cs-planning__flows" data-fx="flows" aria-hidden="true"></div>
+            <div class="phone cs-planning__phone" data-fx="planning-phone">
+              <img class="phone__frame" src="assets/images/project/Im0prhBFdl6W8ynSSwnr18QVM.png" width="278" height="572" alt="">
+              <video class="phone__screen" src="assets/videos/project/pTI9wIRKFq5S9SXEjc6iMkSVSrY.mp4" poster="assets/images/project/k6BFYG2MLh4RFfzGXFvIlFtfBU.png" muted loop playsinline preload="none" data-autoplay aria-label="Recita wireframes in motion"></video>
+              <img class="phone__island" src="assets/images/project/SCCxOMOHxyEVtRtJwiicnCDXLIM.png" width="80" height="22" alt="">
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Design decisions (R22, R23) ===== -->
+        <section class="cs-decisions" id="decisions" data-section>
+          <div class="intro" style="width: 570px">
+            <p class="badge" data-fx="badge"><svg aria-hidden="true"><use href="#spark"/></svg>Design Decisions</p>
+            <h2 class="intro__title t-h3-cap" data-fx="intro-title">How the key insights affect my design decisions</h2>
+          </div>
+
+          <div class="decisions" data-decisions>
+            <div class="decision-wrap">
+              <article class="decision decision--wide">
+                <div class="decision__text decision__text--wide">
+                  <h3 class="decision__title" data-fx="dec-title">Validating demand before launch</h3>
+                  <p class="decision__body" data-fx="dec-body">Since Recita was entering an untapped market, I designed a clean landing page to introduce the product, capture early interest, and gather real users before launch. The “Get Early Access” CTA and live sign-up counter were intentional choices to build credibility and momentum.</p>
+                </div>
+                <div class="decision__devices">
+                  <div class="device device--phone-sm">
+                    <img src="assets/images/project/GzevnAd9j82BN36dITIcT2Uwtc.png" width="185" height="377" alt="">
+                    <video src="assets/videos/project/pQjB7YemymtpqB1MaSk5If0Khw.mp4" muted loop playsinline preload="none" data-autoplay aria-label="Landing page on a phone"></video>
+                  </div>
+                  <div class="device device--tablet">
+                    <img src="assets/images/project/KvQ7BCREqqktnEdeND1K4CwcZQY.png" width="655" height="389" alt="">
+                    <video src="assets/videos/project/LwOoXGrsSTjn0UM2eC88toSIs8.mp4" muted loop playsinline preload="none" data-autoplay aria-label="Landing page on a tablet"></video>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="decision-wrap">
+              <article class="decision">
+                <div class="decision__text">
+                  <h3 class="decision__title" data-fx="dec-title">Let the user set the tone</h3>
+                  <p class="decision__body" data-fx="dec-body">Every listener has a different relationship with Quranic recitation. I designed an interactive onboarding flow that captures user preferences before they even enter the app. By asking users to listen and select at least three recitations they enjoy, the system immediately learns their taste. This ensures their first feed is highly personalized, driving immediate satisfaction and long-term retention.</p>
+                </div>
+                <div class="phone decision__phone">
+                  <img class="phone__frame" src="assets/images/project/GzevnAd9j82BN36dITIcT2Uwtc.png" width="278" height="567" alt="">
+                  <video class="phone__screen" src="assets/videos/project/DMPorIu0h9IBQRKui2mkYreys.mp4" muted loop playsinline preload="none" data-autoplay aria-label="Onboarding flow"></video>
+                  <img class="phone__island" src="assets/images/project/SCCxOMOHxyEVtRtJwiicnCDXLIM.png" width="75" height="21" alt="">
+                </div>
+              </article>
+            </div>
+
+            <div class="decision-wrap">
+              <article class="decision">
+                <div class="decision__text">
+                  <h3 class="decision__title" data-fx="dec-title">Designing search around real user behavior</h3>
+                  <p class="decision__body" data-fx="dec-body">80% of users search for reciters by country. 70% want mood-based discovery without endless scrolling. These findings directly shaped the search page layout — placing country and mood filters prominently so users find what they need in seconds, not minutes.</p>
+                </div>
+                <div class="phone decision__phone">
+                  <img class="phone__frame" src="assets/images/project/GzevnAd9j82BN36dITIcT2Uwtc.png" width="278" height="567" alt="">
+                  <video class="phone__screen" src="assets/videos/project/ujzh3Y6pAKNgVqUTbM0AT1c5Es.mp4" muted loop playsinline preload="none" data-autoplay aria-label="Search by country and mood"></video>
+                  <img class="phone__island" src="assets/images/project/SCCxOMOHxyEVtRtJwiicnCDXLIM.png" width="75" height="21" alt="">
+                </div>
+              </article>
+            </div>
+
+            <div class="decision-wrap">
+              <article class="decision">
+                <div class="decision__text">
+                  <h3 class="decision__title" data-fx="dec-title">A home feed built around the individual</h3>
+                  <p class="decision__body" data-fx="dec-body">Rather than a generic content feed, I designed the home screen around the user’s unique profile — surfacing reciters that match their taste, trending voices, and updates from followed reciters in a clear visual hierarchy. The clean, dark UI removes distraction so the content itself leads the experience.</p>
+                </div>
+                <div class="phone decision__phone">
+                  <img class="phone__frame" src="assets/images/project/GzevnAd9j82BN36dITIcT2Uwtc.png" width="278" height="567" alt="">
+                  <video class="phone__screen" src="assets/videos/project/8UwcIx2jr4GDugHMds2cbvIONs.mp4" muted loop playsinline preload="none" data-autoplay aria-label="Home feed"></video>
+                  <img class="phone__island" src="assets/images/project/SCCxOMOHxyEVtRtJwiicnCDXLIM.png" width="75" height="21" alt="">
+                </div>
+              </article>
+            </div>
+
+            <div class="decision-wrap">
+              <article class="decision">
+                <div class="decision__text">
+                  <h3 class="decision__title" data-fx="dec-title">From listener to reciter in one tap</h3>
+                  <p class="decision__body" data-fx="dec-body">Recita is a two-sided platform — it needs both listeners and reciters to thrive. To grow the reciter side organically, I designed a frictionless conversion flow accessible directly from the profile page. A single prominent CTA — “Become a Voice” — leads users through a short application: personal details, a brief audio sample, and a submission for review. This reduces the barrier to entry and turns engaged listeners into potential contributors without ever leaving the app.</p>
+                </div>
+                <div class="phone decision__phone">
+                  <img class="phone__frame" src="assets/images/project/GzevnAd9j82BN36dITIcT2Uwtc.png" width="278" height="567" alt="">
+                  <video class="phone__screen" src="assets/videos/project/w3rGfrl87c1jFwMkGXqRjKZk.mp4" muted loop playsinline preload="none" data-autoplay aria-label="Become a Voice flow"></video>
+                  <img class="phone__island" src="assets/images/project/SCCxOMOHxyEVtRtJwiicnCDXLIM.png" width="75" height="21" alt="">
+                </div>
+              </article>
+            </div>
+
+            <div class="decision-wrap">
+              <article class="decision">
+                <div class="decision__text">
+                  <h3 class="decision__title" data-fx="dec-title">A dashboard built around what matters most</h3>
+                  <p class="decision__body" data-fx="dec-body">Research showed that 80% of voice users wanted to track plays, likes, and earnings most. I placed these metrics at the top of the dashboard so users can check performance instantly, while a floating add button and clear status filters make it easy to upload and manage recitations without searching. The clean hierarchy keeps the interface focused, fast, and easy to scan.</p>
+                </div>
+                <div class="phone decision__phone">
+                  <img class="phone__frame" src="assets/images/project/GzevnAd9j82BN36dITIcT2Uwtc.png" width="278" height="567" alt="">
+                  <video class="phone__screen" src="assets/videos/project/hGUnsbF4b0fngU6RhdW0uTRQ92E.mp4" muted loop playsinline preload="none" data-autoplay aria-label="Reciter dashboard"></video>
+                  <img class="phone__island" src="assets/images/project/SCCxOMOHxyEVtRtJwiicnCDXLIM.png" width="75" height="21" alt="">
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Outcomes (R24, R25) ===== -->
+        <section class="cs-outcomes" id="outcomes" data-section>
+          <div class="intro">
+            <p class="badge" data-fx="badge"><svg aria-hidden="true"><use href="#spark"/></svg>Outcomes</p>
+            <h2 class="intro__title t-h3-cap" data-fx="intro-title">Early Signals, Strong Validation</h2>
+          </div>
+          <p class="cs-outcomes__lead" data-fx="outcomes-lead">Recita is currently in development. The following results are based on usability testing conducted with real users across the target audience.</p>
+          <div class="stats">
+            <article class="stat" data-fx="stat" data-y="33" data-delay="0"><p class="stat__num"><span data-count="92" data-from="20" data-speed="2">92</span>%</p><p class="stat__text">of testers said the onboarding preference flow made the app feel more personal from the start.</p></article>
+            <article class="stat" data-fx="stat" data-y="30" data-delay="0.2"><p class="stat__num"><span data-count="88" data-from="20" data-speed="2">88</span>%</p><p class="stat__text">of listeners found a reciter style they liked within the first few minutes of using the prototype.</p></article>
+            <article class="stat" data-fx="stat" data-y="30" data-delay="0.4"><p class="stat__num"><span data-count="85" data-from="20" data-speed="2">85</span>%</p><p class="stat__text">of users said mood-based discovery helped them reach relevant recitations faster than browsing manually.</p></article>
+            <article class="stat" data-fx="stat" data-y="30" data-delay="0.6"><p class="stat__num"><span data-count="90" data-from="20" data-speed="2">90</span>%</p><p class="stat__text">of testers described the interface as clean, focused, and easy to navigate.</p></article>
+            <article class="stat" data-fx="stat" data-y="30" data-delay="0.6"><p class="stat__num"><span data-count="80" data-from="20" data-speed="2">80</span>%</p><p class="stat__text">of voice users said the dashboard gave them the key information they needed in one place, especially plays, likes, and earnings.</p></article>
+          </div>
+        </section>
+
+        <!-- ===== Reflections (R26) ===== -->
+        <section class="cs-reflections" id="reflections" data-section>
+          <div class="intro">
+            <p class="badge" data-fx="badge"><svg aria-hidden="true"><use href="#spark"/></svg>Reflections</p>
+            <h2 class="intro__title t-h3-cap" data-fx="intro-title">What This Project Taught Me</h2>
+          </div>
+          <div class="faq" data-faq>
+            <div class="faq__item" data-fx="faq-item">
+              <h3><button class="faq__head" type="button" aria-expanded="false" aria-controls="faq-1">Recita is an MVP with a clear next step.<span class="faq__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 15 L12 7.5 L19.5 15"/></svg><svg viewBox="0 0 24 24"><path d="M19.5 9 L12 16.5 L4.5 9"/></svg></span></button></h3>
+              <div class="faq__panel" id="faq-1" hidden><div class="faq__box"><p>Designing for a culturally specific audience means understanding their world before writing a single survey question. Knowing about Muslim listening habits first helped me ask sharper, more informed questions — which directly shaped features like country-based discovery and mood matching. Better context always leads to better research.</p></div></div>
+            </div>
+            <div class="faq__item" data-fx="faq-item">
+              <h3><button class="faq__head" type="button" aria-expanded="false" aria-controls="faq-2">Research changes the direction<span class="faq__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 15 L12 7.5 L19.5 15"/></svg><svg viewBox="0 0 24 24"><path d="M19.5 9 L12 16.5 L4.5 9"/></svg></span></button></h3>
+              <div class="faq__panel" id="faq-2" hidden><div class="faq__box"><p>When I first spoke with the stakeholder, the product had a clear shape in his mind. He had assumptions about what users would want and had already started forming the feature list around those beliefs. After conducting the research, the product took a noticeably different direction. The real user needs, pain points, and opportunities that emerged were not what he had expected. This confirmed that research is not a formality — it is the step that aligns the product with reality.</p></div></div>
+            </div>
+            <div class="faq__item" data-fx="faq-item">
+              <h3><button class="faq__head" type="button" aria-expanded="false" aria-controls="faq-3">What comes next<span class="faq__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 15 L12 7.5 L19.5 15"/></svg><svg viewBox="0 0 24 24"><path d="M19.5 9 L12 16.5 L4.5 9"/></svg></span></button></h3>
+              <div class="faq__panel" id="faq-3" hidden><div class="faq__box"><p>The current version of Recita is an MVP, and there is already a clear direction for what comes next. One insight that stood out during research was around Ramadan: many Muslims attend night prayers at their local mosque and wish they could follow a full Quran recitation with their imam. A future version of Recita could close that gap by allowing local imams to record and publish their prayers inside the app, and by adding a feature to discover nearby mosques and imams by location.</p></div></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- R27: Next story -->
+    <div class="next-story">
+      <a class="next-story__link" href="./#projects" data-fx="next-story">Next Story
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
+      </a>
+    </div>
+  </main>
+
+  <!-- ===================== Footer (shared with Home) ===================== -->
+  <footer class="site-footer" id="contact" data-footer>
+    <div class="site-footer__inner">
+      <div class="site-footer__intro">
+        <a class="site-footer__logo" href="./" aria-label="Ahmed Ehab, home" data-fx="footer-logo">
+          <svg viewBox="0 0 25.651 25.651" width="49" height="49" aria-hidden="true"><path fill="#fff" d="M 0 25.651 L 0.001 8.75 C 0.001 3.918 4.129 0 9.221 0 L 24.874 0 C 25.303 0 25.651 0.348 25.651 0.777 L 25.651 25.651 L 16.959 25.651 L 16.959 20.341 L 11.324 20.341 C 9.73 20.341 8.437 21.568 8.437 23.081 L 8.437 25.651 Z M 8.284 16.367 L 16.873 16.367 L 16.873 13.256 C 10.906 13.256 11.896 11.018 14.559 11.06 C 14.607 11.061 16.873 11.06 16.873 11.06 C 16.873 11.06 16.91 7.783 16.873 7.782 C 15.836 7.767 10.375 7.177 10.027 11.208 C 10.024 11.243 10.027 13.295 10.027 13.295 L 8.284 13.295 Z"/></svg>
+        </a>
+        <h2 class="site-footer__title" data-fx="footer-title">Let’s Work Together <span class="site-footer__smile">:)</span></h2>
+      </div>
+      <a class="site-footer__email" href="mailto:ahmed.ehab579@gmail.com" data-fx="footer-row">
+        <span>Ahmed.ehab579@gmail.com</span>
+        <svg class="arrow arrow--lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M7 7H17V17"/></svg>
+      </a>
+      <ul class="site-footer__social">
+        <li data-fx="footer-row"><a href="https://www.linkedin.com/in/ahmed-ehab123" target="_blank" rel="noopener">LinkedIn <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M7 7H17V17"/></svg></a></li>
+        <li data-fx="footer-row"><a href="https://www.behance.net/Ahmedehab518a7" target="_blank" rel="noopener">Behance <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M7 7H17V17"/></svg></a></li>
+        <li data-fx="footer-row"><a href="https://dribbble.com/ahmedehab579" target="_blank" rel="noopener">Dribbble <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M7 7H17V17"/></svg></a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="cursor" aria-hidden="true" data-cursor-el>
+    <div class="cursor__dot"></div>
+    <div class="cursor__view">View</div>
+  </div>
+</body>
+</html>

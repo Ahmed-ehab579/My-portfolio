@@ -1,21 +1,11 @@
 /* Home page. Desktop values measured on the live Framer site at 1440px wide.
    Tablet and phone layouts come later, after approval (CLAUDE.md). */
-:root { --gutter: 99px; --content: 1242px; }
-
 .page {
   display: flex; flex-direction: column; align-items: center;
   padding-top: 130px;
   overflow-x: clip;
 }
 .page > section { width: min(var(--content), 100% - 2 * var(--gutter)); }
-
-/* Word / line splitting (js/fx.js) */
-.split-word { display: inline-block; will-change: transform, opacity, filter; }
-
-/* Hidden before the first paint, only when JavaScript and motion are on (see <head>) */
-.motion-ready [data-fx]:not([data-split]),
-.motion-ready [data-split] .split-word,
-.motion-ready [data-split]:not(.is-split) { opacity: 0; }
 
 /* ===================== Hero ===================== */
 .hero__card {

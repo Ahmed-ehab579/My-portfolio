@@ -1,6 +1,6 @@
 // Home page motion. Every value comes from the Framer file; the codes (H1, P2…) match ANIMATIONS.md.
 (function () {
-  const { reduce, spring, tween, splitReveal, appear, onView, scrollSpring } = window.FX;
+  const { reduce, spring, tween, splitReveal, appear, onView } = window.FX;
   const M = window.Motion;
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
@@ -64,50 +64,7 @@
   // Each card sticks near the top and shrinks as later cards rise from the bottom of the screen:
   // card 1: 100% → 95% (card 2 arrives) → 90% (card 3 arrives); card 2: 100% → 95% (card 3 arrives).
   // Follows the scroll, smoothed by Framer's spring (stiffness 500, damping 60).
-  (function stack() {
-    const items = $$("[data-stack] .stack__item");
-    if (!items.length || reduce) return;
-    const scales = [[1, 0.95, 0.9], [1, 0.95], [1]];
-    let tops = [];
-    const measure = () => {
-      // Natural (un-stuck) page positions: first item + (height + gap) per step
-      const first = items[0];
-      const prevTransform = first.style.transform; first.style.transform = "none";
-      const stackTop = items[0].parentElement.getBoundingClientRect().top + window.scrollY;
-      first.style.transform = prevTransform;
-      const h = items[0].offsetHeight, gap = parseFloat(getComputedStyle(items[0].parentElement).rowGap) || 0;
-      tops = items.map((_, i) => stackTop + i * (h + gap));
-    };
-    measure();
-    window.addEventListener("resize", measure);
-
-    const springs = items.map(() => scrollSpring({ stiffness: 500, damping: 60, mass: 1 }));
-    const targetScale = (i) => {
-      const s = scales[i];
-      if (s.length < 2) return 1;
-      const vh = window.innerHeight, y = window.scrollY, h = items[0].offsetHeight;
-      // Measured on the live site: the card shrinks one step while each later card rises from
-      // "its top touches the bottom of the screen" to "its bottom touches it", then holds.
-      let v = s[0];
-      for (let k = 1; k < s.length; k++) {
-        const start = tops[i + k] - vh, end = start + h;
-        if (y <= start) break;
-        v = y >= end ? s[k] : s[k - 1] + (s[k] - s[k - 1]) * ((y - start) / h);
-        if (y < end) break;
-      }
-      return v;
-    };
-    let last = performance.now();
-    const frame = (now) => {
-      const dt = Math.min(0.25, (now - last) / 1000); last = now;   // substeps keep this stable
-      items.forEach((item, i) => {
-        const v = springs[i].step(targetScale(i), dt);
-        item.style.transform = v === 1 ? "" : `scale(${v.toFixed(4)})`;
-      });
-      requestAnimationFrame(frame);
-    };
-    requestAnimationFrame(frame);
-  })();
+  window.FX.stackScale($$("[data-stack] .stack__item"), [[1, 0.95, 0.9], [1, 0.95], [1]]);
 
   // ===================== My Design Approach (A2–A4) =====================
   const body = $('[data-fx="approach-body"]');

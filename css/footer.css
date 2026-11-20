@@ -17,7 +17,7 @@
   display: grid; place-items: center;
   width: 93.68px; height: 99.59px;
   background: rgb(181 2 53);
-  border-radius: 0 0 15.75px 15.75px;   /* the header logo's 9.33px corner, scaled to this size */
+  border-radius: 0 0 17.79px 17.79px;   /* as rendered on the live Recita page */
 }
 
 .site-footer__title {

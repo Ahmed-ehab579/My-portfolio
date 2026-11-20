@@ -22,6 +22,16 @@ p, h1, h2, h3 { margin: 0; }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+/* Word / line splitting (js/fx.js) */
+.split-word { display: inline-block; will-change: transform, opacity, filter; }
+.split-line { display: block; will-change: transform, opacity; }
+
+/* Hidden before the first paint, only when JavaScript and motion are on (see <head>) */
+.motion-ready [data-fx]:not([data-split]),
+.motion-ready [data-split] .split-word,
+.motion-ready [data-split] .split-line,
+.motion-ready [data-split]:not(.is-split) { opacity: 0; }
+
 /* Smooth scroll (Lenis) */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }

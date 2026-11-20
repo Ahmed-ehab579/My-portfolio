@@ -1,6 +1,3 @@
 .DS_Store
 .claude/
 _local/
-
-# Case-study videos: added once compressed, with the Recita page (keeps the repo history small)
-assets/videos/

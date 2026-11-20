@@ -42,18 +42,50 @@
     return words;
   }
 
-  // ---------- Text effect: words rise and clear one after another ----------
-  // o: { y, blur, transition (spring/tween without delay), delay (start), stagger }
+  // ---------- Text effect: words (or lines) rise and clear one after another ----------
+  // o: { y, blur, transition (spring/tween without delay), delay (start), stagger, by: "word" | "line" }
+  // By line: each word gets its line's number, so a whole line moves as one (no extra wrappers,
+  // so inline tags such as <strong> stay intact).
+  function lineIndex(words) {
+    let line = -1, lastTop = null;
+    return words.map((w) => {
+      const top = Math.round(w.offsetTop);
+      if (lastTop === null || Math.abs(top - lastTop) > 4) { line++; lastTop = top; }
+      return line;
+    });
+  }
   function splitReveal(el, o) {
     const words = splitWords(el);
     if (reduce || !M) { words.forEach((w) => (w.style.opacity = 1)); return; }
-    const from = { opacity: 0, y: o.y ?? 10, filter: `blur(${o.blur ?? 0}px)` };
-    M.animate(words, from, { duration: 0 });
-    return M.animate(
-      words,
-      { opacity: 1, y: 0, filter: "blur(0px)" },
-      { ...o.transition, delay: M.stagger(o.stagger ?? 0.07, { startDelay: o.delay ?? 0 }) }
-    );
+    const filter = o.blur ? { filter: `blur(${o.blur}px)` } : {};
+    M.animate(words, { opacity: 0, y: o.y ?? 10, ...filter }, { duration: 0 });
+    const to = { opacity: 1, y: 0, ...(o.blur ? { filter: "blur(0px)" } : {}) };
+    const start = o.delay ?? 0, step = o.stagger ?? 0.07;
+    const delay = o.by === "line"
+      ? ((lines) => (i) => start + lines[i] * step)(lineIndex(words))
+      : M.stagger(step, { startDelay: start });
+    return M.animate(words, to, { ...o.transition, delay });
+  }
+
+  // ---------- Count a number up (Framer "Animated Numbers") ----------
+  function countUp(el, from, to, duration = 2) {
+    el.textContent = reduce || !M ? to : from;
+    if (reduce || !M) return;
+    M.animate(from, to, { duration, ease: [0.16, 1, 0.3, 1], onUpdate: (v) => (el.textContent = Math.round(v)) });
+  }
+
+  // ---------- Draw an SVG line (path needs pathLength="1") ----------
+  // The SVG stays hidden (CSS) until this runs; the dash is driven as an inline style each frame.
+  function draw(path, o = {}) {
+    const svg = path.ownerSVGElement;
+    if (reduce || !M) { if (svg) svg.style.opacity = 1; return; }
+    path.style.strokeDasharray = "1 1";
+    path.style.strokeDashoffset = "1";
+    if (svg) svg.style.opacity = 1;
+    M.animate(1, 0, {
+      duration: o.duration ?? 1.4, ease: o.ease ?? [0.12, 0.23, 0.5, 1], delay: o.delay ?? 0,
+      onUpdate: (v) => (path.style.strokeDashoffset = String(v)),
+    });
   }
 
   // ---------- Appear effect: from an offset to the element's resting place ----------
@@ -143,5 +175,54 @@
     document.documentElement.addEventListener("pointerleave", () => { el.style.opacity = 0; shown = false; });
   }
 
-  window.FX = { reduce, spring, tween, splitWords, splitReveal, appear, onView, scrollSpring, smoothScroll, cursor, get lenis() { return lenis; } };
+  // ---------- Cards that stick and shrink as later cards arrive (Home P2, Recita R22) ----------
+  // items: the sticky wrappers; scales[i]: card i's scale before and after each later card arrives.
+  // Measured on the live site: a card shrinks one step while the next card rises from "its top
+  // touches the bottom of the screen" to "its bottom touches it", then holds. Spring 500 / 60.
+  function stackScale(items, scales) {
+    if (!items.length || reduce) return;
+    let tops = [];
+    const measure = () => {
+      const saved = items.map((it) => it.style.transform);
+      items.forEach((it) => (it.style.transform = "none"));
+      // Natural (un-stuck) positions: the parent's content top, then each item's height plus the gap.
+      // (Measuring the items directly would be wrong once they are stuck.)
+      const parent = items[0].parentElement, cs = getComputedStyle(parent);
+      const gap = parseFloat(cs.rowGap) || 0;
+      let y = parent.getBoundingClientRect().top + window.scrollY + parseFloat(cs.paddingTop) + parseFloat(cs.borderTopWidth);
+      tops = items.map((it) => { const t = y; y += it.offsetHeight + gap; return t; });
+      items.forEach((it, i) => (it.style.transform = saved[i]));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    window.addEventListener("load", measure);
+
+    const springs = items.map(() => scrollSpring({ stiffness: 500, damping: 60, mass: 1 }));
+    const target = (i) => {
+      const s = scales[i] || [1];
+      const vh = window.innerHeight, y = window.scrollY;
+      let v = s[0];
+      for (let k = 1; k < s.length; k++) {
+        const t = items[i + k];
+        if (!t) break;
+        const h = t.offsetHeight, start = tops[i + k] - vh, end = start + h;
+        if (y <= start) break;
+        v = y >= end ? s[k] : s[k - 1] + (s[k] - s[k - 1]) * ((y - start) / h);
+        if (y < end) break;
+      }
+      return v;
+    };
+    let last = performance.now();
+    const frame = (now) => {
+      const dt = Math.min(0.25, (now - last) / 1000); last = now;
+      items.forEach((item, i) => {
+        const v = springs[i].step(target(i), dt);
+        item.style.transform = v === 1 ? "" : `scale(${v.toFixed(4)})`;
+      });
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  }
+
+  window.FX = { reduce, spring, tween, splitWords, splitReveal, appear, onView, scrollSpring, stackScale, countUp, draw, smoothScroll, cursor, get lenis() { return lenis; } };
 })();
