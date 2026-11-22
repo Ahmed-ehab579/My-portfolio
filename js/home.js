@@ -55,6 +55,12 @@
     const title = $('[data-fx="card-title"]', card);
     const desc = $('[data-fx="card-desc"]', card);
     const tags = $$('[data-fx="tag"]', card);
+    // Start offset (as Framer does), so "half on screen" is measured from the same place
+    if (!reduce && M) {
+      M.animate(title, { opacity: 0, y: 25 }, { duration: 0 });
+      M.animate(desc, { opacity: 0, y: 18 }, { duration: 0 });
+      tags.forEach((tag) => M.animate(tag, { opacity: 0, y: 15 }, { duration: 0 }));
+    }
     onView(title, () => appear(title, { y: 25, transition: spring(1.5, 0.2) }), 0.5);
     onView(desc, () => appear(desc, { y: 18, transition: spring(1.4, 0.2, 0.3) }), 0.5);
     tags.forEach((tag, i) => onView(tag, () => appear(tag, { y: 15, transition: spring(1.4, 0.2, 0.2 + i * 0.2) }), 0));

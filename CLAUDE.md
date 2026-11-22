@@ -17,7 +17,7 @@ Work one section at a time. Before saying a section "matches", do all of these:
 1. **List every state in the Framer file**: every component variant (including unnamed ones), hover/pressed states, and every effect (appear, scroll, scroll-direction, scroll-variant, sticky, loop). Never assume a variant or effect is unused: prove it on the live site, or ask Ahmed.
 2. **Exercise the live site fully**: load the page fresh; scroll slowly down the *whole* page **and back up**; stop at several points; hover, press and click every interactive element; open and close every menu or accordion. Record what changes and at which scroll position or time.
 3. **Keep the browser tab in front and visible while measuring.** A hidden or background tab pauses animations and scroll events, so "nothing happened" there proves nothing. Re-test in front before concluding.
-4. **Measure, don't eyeball**: compare sizes, positions, colours, timings and switch points on both sites with the same script, then compare screenshots of each state (load, scrolled, scrolled back, hovered, open).
+4. **Measure, don't eyeball**: compare sizes, positions, colours, timings and switch points on both sites with the same script, then compare screenshots of each state (load, scrolled, scrolled back, hovered, open). Also compare **layer order**: wherever images or elements overlap, check which one is on top (hit-test a grid of points on both sites). Measure each element after its appear animation has finished.
 5. **Report honestly**: list what was verified, what could not be measured, and any guess (mark it "to confirm with Ahmed"). Show Ahmed before publishing.
 
 ## Quality bar

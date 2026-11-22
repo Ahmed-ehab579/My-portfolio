@@ -153,13 +153,22 @@
     document.documentElement.classList.add("has-cursor");
     const dot = el.querySelector(".cursor__dot");
     const view = el.querySelector(".cursor__view");
+    const label = view.querySelector(".cursor__label");
     const t = spring(0.4, 0.2);
-    let shown = false, isView = false;
+    let shown = false, isView = false, kind = "";
 
     window.addEventListener("pointermove", (e) => {
       el.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
       if (!shown) { shown = true; el.style.opacity = 1; }
-      const overView = !!e.target.closest('[data-cursor="view"]');
+      // data-cursor="view" → VIEW pill; data-cursor="locked" → lock icon + LOCKED (Framer "Locked" variant)
+      const target = e.target.closest("[data-cursor]");
+      const nextKind = target ? target.dataset.cursor : "";
+      if (nextKind && nextKind !== kind && label) {
+        label.textContent = nextKind === "locked" ? "Locked" : "View ";   // Framer's label has a trailing space (pill is 99px)
+        view.classList.toggle("is-locked", nextKind === "locked");
+      }
+      kind = nextKind || kind;
+      const overView = !!target;
       if (overView !== isView) {
         isView = overView;
         if (reduce) {

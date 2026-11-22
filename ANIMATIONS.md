@@ -16,7 +16,7 @@ Every animation on Home and the Recita case study, read from the Framer project 
 | # | What | Behaviour | Values |
 |---|---|---|---|
 | S1 | Smooth scroll | Scrolling glides instead of jumping | Framer "Smooth Scroll", intensity 10 |
-| S2 | Custom cursor | Replaces the mouse arrow with a 16px white dot drawn in "difference" mode (it shows dark on the light page). Over a project card it grows into a pill reading **VIEW** (99×46px, `Surface hover` fill, Jost 23px, capitals) | Spring 0.4s, bounce 0.2. Off on touch screens |
+| S2 | Custom cursor | Replaces the mouse arrow with a 16px white dot drawn in "difference" mode (it shows dark on the light page). Over a project card it grows into a pill (Framer "Circle Cursor 2"): **VIEW** on Recita (99×46px) or **🔒 LOCKED** on e& and Woman in Islam (159×50px, 24px lock icon, 10px gap). `Surface hover` fill, 1px rgb(34,34,34) outline, Satoshi 23px/20px capitals, padding 14/18/12, centred on the pointer | Spring 0.4s, bounce 0.2. Off on touch screens |
 | S3b | Header switches look | At the top of the page: **Variant 1** (flat bar, logo hanging from the top edge). Once the page's first section reaches the top of the screen (130px on Home, 150px on Recita) it becomes **Variant 3**: a 71px pill with a 1px rgb(34,34,34) outline, radius 20, 30px side padding, a rounded 54×51 logo and a centred menu. Switches back above that point. Measured on the live site, 2026-11-20 | Tween 0.4s (0.12, 0.23, 0.5, 1) |
 | S3 | Header | Logo and menu button. On load it slides down from 50px above (spring: stiffness 262, damping 60, mass 3). It **hides the moment you scroll down** (even 10px) by moving 60px up **and fading out**, and **returns the moment you scroll up**. Measured on the live site, 2026-11-20 | Hide/show: tween 0.4s (0.12, 0.23, 0.5, 1) |
 | S4 | Menu | **Open:** the link pill (Home, Projects, Approach) grows to the left, 0 → 331px; the icon swaps **instantly** from ☰ (three 2px lines) to ✕; the button fills with Surface (236,234,227). The pill's own 1px border shows as a rounded divider before the ✕. **Close:** the links disappear instantly, the icon swaps back, and only the fill fades out. Links: hover fills rgb(230,230,220), pressed rgb(222,222,204) | Open and fill: tween 0.4s (0.12, 0.23, 0.5, 1). Link hover: 0.2s ease (0.25, 0.1, 0.25, 1) |
@@ -39,8 +39,8 @@ Values above are from the hero layers actually shown on the live site. The Frame
 |---|---|---|---|---|
 | P1 | "Selected Projects" title | In view, word by word | 10px below | Spring 2s, bounce 0, after 0.2s |
 | P2 | **Stacking cards** (Recita, e&, Woman in Islam) | Scroll-linked | Each card sticks near the top (30px, 70px, 90px) and **shrinks one step while each later card rises from the bottom of the screen** (from its top touching the bottom edge to its bottom touching it), then holds: card 1 100% → 95% → 90%, card 2 100% → 95%. Measured on the live site | Spring (stiffness 500, damping 60) |
-| P3 | Card content (title, text, tags) | In view | Rises 15–25px | Spring 1.4–1.5s, bounce 0.2, tags 0.2s apart |
-| P4 | Hover on card | Mouse over | Cursor becomes the **View** pill (S2) | — |
+| P3 | Card content (title, text, tags) | In view (title and text: half on screen; tags: any part) | Title 25px below, text 18px, tags 15px; they start offset, so the trigger point matches Framer | Title spring 1.5s; text spring 1.4s after 0.3s; tags spring 1.4s after 0.2s and 0.4s; bounce 0.2 |
+| P4 | Hover on card | Mouse over | Cursor becomes the **View** pill (Recita) or the **Locked** pill (e&, Woman in Islam) (S2) | Spring 0.4s, bounce 0.2 |
 
 ### My Design Approach
 | # | What | Trigger | Behaviour | Timing |

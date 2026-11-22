@@ -15,9 +15,9 @@
   <link rel="preload" href="assets/fonts/instrument-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="stylesheet" href="css/tokens.css?v=2">
-  <link rel="stylesheet" href="css/base.css?v=2">
+  <link rel="stylesheet" href="css/base.css?v=4">
   <link rel="stylesheet" href="css/header.css?v=4">
-  <link rel="stylesheet" href="css/home.css?v=3">
+  <link rel="stylesheet" href="css/home.css?v=5">
   <link rel="stylesheet" href="css/footer.css?v=3">
 
   <!-- Hides animated items before the first paint (never with reduced motion), so nothing flashes. -->
@@ -26,9 +26,9 @@
   </script>
   <script src="assets/vendor/motion-12.23.12.js" defer></script>
   <script src="assets/vendor/lenis-1.1.20.min.js" defer></script>
-  <script src="js/fx.js?v=3" defer></script>
+  <script src="js/fx.js?v=5" defer></script>
   <script src="js/header.js?v=3" defer></script>
-  <script src="js/home.js?v=2" defer></script>
+  <script src="js/home.js?v=3" defer></script>
   <script src="js/footer.js?v=1" defer></script>
 </head>
 <body>
@@ -114,7 +114,7 @@
             </div>
             <div class="card__media" aria-hidden="true">
               <img class="shot shot--shadow" style="left: 609px; top: 65px; width: 235px; height: 440px" src="assets/images/home/SbNqDY4PWLjNDToFHAKBXPWTotg.png" alt="" loading="lazy">
-              <img class="shot" style="left: 763px; top: 59px; width: 260px; height: 486px" src="assets/images/home/RbFrdpDxeyDnou8eY7tgao7NY.png" alt="" loading="lazy">
+              <img class="shot shot--front" style="left: 763px; top: 59px; width: 260px; height: 486px" src="assets/images/home/RbFrdpDxeyDnou8eY7tgao7NY.png" alt="" loading="lazy">
               <img class="shot" style="left: 916px; top: 56px; width: 261px; height: 469px" src="assets/images/home/tkGlTP4oOvxcIQuMFziGHopWoFA.png" alt="" loading="lazy">
             </div>
             <span class="sr-only">Read the Recita case study</span>
@@ -123,7 +123,7 @@
 
         <!-- Card 2: e& (Etisalat). No case study page yet. -->
         <div class="stack__item" style="--sticky-top: 70px">
-          <article class="card" data-cursor="view" data-card>
+          <article class="card" data-cursor="locked" data-card>
             <div class="card__text">
               <div class="card__intro">
                 <div class="card__head">
@@ -151,11 +151,11 @@
 
         <!-- Card 3: Woman in Islam. No case study page yet. -->
         <div class="stack__item" style="--sticky-top: 90px">
-          <article class="card" data-cursor="view" data-card>
+          <article class="card" data-cursor="locked" data-card>
             <div class="card__text">
               <div class="card__intro">
                 <div class="card__head">
-                  <span class="card__icon">
+                  <span class="card__icon card__icon--wii">
                     <img src="assets/images/home/wHl4SbKkDdVlYz8QBvJBGUb0s.png" width="27" height="45" alt="">
                   </span>
                   <h3 class="card__title" data-fx="card-title" style="width: 421px">Transforming a 500-page book into a seamless digital reading experience</h3>
@@ -242,7 +242,7 @@
   <!-- Custom cursor (S2) -->
   <div class="cursor" aria-hidden="true" data-cursor-el>
     <div class="cursor__dot"></div>
-    <div class="cursor__view">View</div>
+    <div class="cursor__view"><svg class="cursor__lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span class="cursor__label">View </span></div>
   </div>
 </body>
 </html>

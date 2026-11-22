@@ -55,16 +55,26 @@ html.lenis, html.lenis body { height: auto; }
     background: #fff; mix-blend-mode: difference;
     translate: -50% -50%;
   }
+  /* The pill, as in the Framer "Circle Cursor 2" component: "Hover" variant (VIEW, 99×46)
+     and "Locked" variant (lock icon + LOCKED, 159×50). 1px rgb(34,34,34) outline. */
   .cursor__view {
     position: absolute; top: 0; left: 0;
-    display: grid; place-items: center;
-    width: 99px; height: 46px; border-radius: 999px;
+    display: flex; align-items: center; gap: 10px;
+    border-radius: 999px;
     background: var(--surface-hover);
     padding: 14px 18px 12px;
-    font: 400 23px/20px var(--font-alt);   /* Jost, as in the Framer cursor */
+    font: 400 23px/20px var(--font-display);   /* Satoshi, as rendered on the live site */
     text-transform: uppercase;
+    white-space: nowrap;
     color: #000;
     translate: -50% -50%;
     transform: scale(0); opacity: 0;   /* js/fx.js springs it open over cards */
   }
+  .cursor__view::after {
+    content: ""; position: absolute; inset: 0;
+    border: 1px solid rgb(34 34 34); border-radius: inherit;
+  }
+  .cursor__lock { display: none; flex: none; width: 24px; height: 24px; fill: none; stroke: #000; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .cursor__view.is-locked .cursor__lock { display: block; }
+  .cursor__label { white-space: pre; }
 }

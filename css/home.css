@@ -98,6 +98,7 @@
   overflow: clip;
 }
 .card__icon--eand { background: rgb(203 5 3); }
+.card__icon--wii { margin: 2px 0; }   /* the Woman in Islam icon row is 58px tall in Framer, box centred */
 
 .card__title {
   width: 426px;
@@ -112,7 +113,7 @@
   font-feature-settings: "blwf", "cv03", "cv04", "cv09", "cv11";
 }
 
-.card__tags { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.card__tags { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 15px; align-items: flex-start; }
 .tag {
   position: relative;
   padding: 7px 18px;
