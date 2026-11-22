@@ -5,11 +5,13 @@
   padding-top: 130px;
   overflow-x: clip;
 }
-.page > section { width: min(var(--content), 100% - 2 * var(--gutter)); }
+/* Like the Framer original: every section stays exactly 1242px wide and centred at any screen
+   width (measured at 1200, 1280, 1440 and 1728px). Nothing shrinks, so nothing overlaps. */
+.page > section { flex: none; width: var(--content); }
 
 /* ===================== Hero ===================== */
 .hero__card {
-  position: relative;
+  position: relative; left: 1px;   /* the original sits 1px right of centre (100px at 1440) */
   height: 498px;
   padding-left: 57px;            /* 59px from the outer edge, minus the 2px border */
   border: 2px solid rgb(84 84 84);
@@ -36,7 +38,7 @@
 /* Cycling word: sits after "ideas into" on line 2 */
 .cycle { position: absolute; left: 288px; top: 108px; height: 94px; width: 300px; }
 .cycle__word {
-  position: absolute; left: 0; top: 0;
+  position: absolute; left: 0; top: 17px;   /* Thoughtful / Creative rest 17px below "Simple" */
   font: 400 62px/0.95 "Switzer", var(--font-display);
   letter-spacing: -1.86px;
   color: var(--accent);
@@ -44,6 +46,7 @@
   opacity: 0;
 }
 .cycle__word--display {      /* "Simple" uses the hero title style */
+  top: 0;
   font: 400 67px/1.4 var(--font-display);
   letter-spacing: -1px;
   opacity: 1;

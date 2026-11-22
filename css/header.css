@@ -2,7 +2,7 @@
    and read from the Framer "Header", "Menu99" and "Nav-Link" components. */
 .site-header {
   position: fixed; top: 0; left: 50%; z-index: 50;
-  width: min(1242px, 100% - 2 * var(--gutter, 99px));
+  width: 1242px;   /* fixed and centred at every screen width, as on the Framer site */
   translate: -50% 0;
 }
 /* Two looks, as in the Framer "Header" component:

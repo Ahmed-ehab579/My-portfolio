@@ -9,6 +9,7 @@
 - Framer project "New portfolio" (id `YhUEhOD6tpTRZku5M8Ns`). Pages: Home `/` and the Recita case study `/project`.
 - Live reference: https://next-features-904898.framer.app/ . Compare every section and animation against it.
 - `ANIMATIONS.md` lists every animation with its exact values. Build from it, and keep it updated.
+- Desktop layout rule (measured on the live site): the page column, header and footer content are a **fixed 1242px, centred at every screen width**. Nothing shrinks on narrower screens; only the side margins change.
 - There is no tablet or phone design. Propose adaptations for approval.
 
 ## Copying a section from Framer: required checks

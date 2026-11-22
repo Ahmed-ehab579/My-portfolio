@@ -6,8 +6,8 @@
   overflow: clip;
 }
 .site-footer__inner {
-  width: min(var(--content, 1242px), 100% - 2 * var(--gutter, 99px));
-  margin-inline: auto;
+  width: var(--content, 1242px);
+  margin-left: calc(50% - var(--content, 1242px) / 2);   /* fixed and centred, even on narrow screens */
   display: flex; flex-direction: column; align-items: flex-start;
 }
 
