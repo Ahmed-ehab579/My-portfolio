@@ -12,14 +12,20 @@
     window.Motion.animate(header, { y: [-50, 0] }, { type: "spring", stiffness: 262, damping: 60, mass: 3 });
   }
 
+  // Variant 3 ("pill") from the point where the page's first section reaches the top of the screen,
+  // as measured on the live site: 130px on Home, 150px on Recita (data-pill-at on the header).
+  const pillAt = parseFloat(header.dataset.pillAt) || 130;
+
   let lastY = Math.max(0, window.scrollY);
   const onScroll = () => {
     const y = Math.max(0, window.scrollY);   // ignore the rubber-band bounce above the top
+    header.classList.toggle("is-pill", y >= pillAt);
     if (y === lastY) return;
     header.classList.toggle("is-hidden", y > lastY && y > 0);
     lastY = y;
   };
   window.addEventListener("scroll", onScroll, { passive: true });
+  header.classList.toggle("is-pill", lastY >= pillAt);
 
   if (!menu || !toggle) return;
   const setOpen = (open) => {

@@ -5,13 +5,28 @@
   width: min(1242px, 100% - 2 * var(--gutter, 99px));
   translate: -50% 0;
 }
+/* Two looks, as in the Framer "Header" component:
+   Variant 1 (at the top of the page): a flat bar, the logo hangs from the top edge.
+   Variant 3 (.is-pill, once the first section reaches the top of the screen): a 71px pill with
+   a 1px rgb(34,34,34) outline, radius 20, 30px side padding; the logo becomes a rounded 54×51
+   square and the menu sits centred. The change is Framer's tween 0.4s (0.12, 0.23, 0.5, 1). */
 .site-header__bar {
-  display: flex; align-items: flex-end; justify-content: space-between;
-  height: 59px;
+  --ease: cubic-bezier(0.12, 0.23, 0.5, 1);
+  position: relative;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  height: 59px; padding: 0;
   background: rgb(245 245 240);
+  border-radius: 0;
   overflow: clip;
   /* Framer "appear on scroll direction": slides 60px up and fades out, tween 0.4s */
-  transition: transform 0.4s cubic-bezier(0.12, 0.23, 0.5, 1), opacity 0.4s cubic-bezier(0.12, 0.23, 0.5, 1);
+  transition: transform 0.4s var(--ease), opacity 0.4s var(--ease),
+    height 0.4s var(--ease), padding 0.4s var(--ease), border-radius 0.4s var(--ease), background-color 0.4s var(--ease);
+}
+.site-header__bar::after {
+  content: ""; position: absolute; inset: 0; z-index: 3;
+  border: 1px solid rgb(34 34 34); border-radius: inherit;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s var(--ease);
 }
 .site-header.is-hidden .site-header__bar { transform: translateY(-60px); opacity: 0; pointer-events: none; }
 
@@ -20,7 +35,14 @@
   flex: none; width: 54px; height: 59px;
   background: rgb(181 2 53);
   border-radius: 0 0 9.33px 9.33px;
+  transition: height 0.4s var(--ease), border-radius 0.4s var(--ease);
 }
+.site-header__bar > .menu { margin-top: 19px; transition: margin-top 0.4s var(--ease); }
+
+.site-header.is-pill .site-header__bar { height: 71px; padding: 10px 30px; border-radius: 20px; background: var(--background); }
+.site-header.is-pill .site-header__bar::after { opacity: 1; }
+.site-header.is-pill .site-header__logo { height: 51px; border-radius: 9.33px; }
+.site-header.is-pill .site-header__bar > .menu { margin-top: 5.5px; }   /* 10px padding + 5.5 = centred */
 
 /* ---------- Menu ----------
    Closed: a 74×40 button with a 1px rgb(84,84,84) border, radius 11.
