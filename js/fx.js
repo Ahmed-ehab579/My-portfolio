@@ -150,16 +150,24 @@
   function cursor() {
     const el = document.querySelector("[data-cursor-el]");
     if (!el || !M || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    document.documentElement.classList.add("has-cursor");
+    const root = document.documentElement;
+    root.classList.add("has-cursor", "cursor-out");
     const dot = el.querySelector(".cursor__dot");
     const view = el.querySelector(".cursor__view");
     const label = view.querySelector(".cursor__label");
     const t = spring(0.4, 0.2);
-    let shown = false, isView = false, kind = "";
+    let isView = false, kind = "", pressed = false;
+
+    // The dot and the pill are separate fixed layers (no shared wrapper), so the dot's
+    // "difference" blend reaches the page and shows dark on light areas, light on dark ones.
+    const place = (x, y) => {
+      const v = `calc(${x}px - 50%) calc(${y}px - 50%)`;
+      dot.style.translate = v; view.style.translate = v;
+    };
 
     window.addEventListener("pointermove", (e) => {
-      el.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      if (!shown) { shown = true; el.style.opacity = 1; }
+      place(e.clientX, e.clientY);
+      root.classList.remove("cursor-out");
       // data-cursor="view" → VIEW pill; data-cursor="locked" → lock icon + LOCKED (Framer "Locked" variant)
       const target = e.target.closest("[data-cursor]");
       const nextKind = target ? target.dataset.cursor : "";
@@ -181,8 +189,20 @@
         }
       }
     }, { passive: true });
-    document.documentElement.addEventListener("pointerleave", () => { el.style.opacity = 0; shown = false; });
+
+    // Framer "Primary / pressed": the dot shrinks to 10×11 while the button is held
+    const press = (down) => {
+      if (down === pressed) return;
+      pressed = down;
+      const size = down ? { width: "10px", height: "11px" } : { width: "16px", height: "16px" };
+      if (reduce) Object.assign(dot.style, size); else M.animate(dot, size, t);
+    };
+    window.addEventListener("pointerdown", () => press(true), { passive: true });
+    window.addEventListener("pointerup", () => press(false), { passive: true });
+    window.addEventListener("blur", () => press(false));
+    root.addEventListener("pointerleave", () => root.classList.add("cursor-out"));
   }
+
 
   // ---------- Cards that stick and shrink as later cards arrive (Home P2, Recita R22) ----------
   // items: the sticky wrappers; scales[i]: card i's scale before and after each later card arrives.

@@ -43,22 +43,14 @@ html.lenis, html.lenis body { height: auto; }
 .cursor { display: none; }
 @media (hover: hover) and (pointer: fine) {
   html.has-cursor, html.has-cursor * { cursor: none !important; }
-  .cursor {
-    display: block;
-    position: fixed; top: 0; left: 0; z-index: 100;
-    pointer-events: none;
-    opacity: 0;
-    will-change: transform;
-  }
+  .cursor { display: contents; }   /* no wrapper layer, so the dot's blend reaches the page */
+  .cursor__dot, .cursor__view { position: fixed; top: 0; left: 0; z-index: 100; pointer-events: none; will-change: translate; }
+  html.cursor-out .cursor__dot, html.cursor-out .cursor__view { visibility: hidden; }
   .cursor__dot {
     width: 16px; height: 16px; border-radius: 999px;
-    background: #fff; mix-blend-mode: difference;
-    translate: -50% -50%;
+    background: #fff; mix-blend-mode: difference;   /* Framer "Circle Cursor / Primary" */
   }
-  /* The pill, as in the Framer "Circle Cursor 2" component: "Hover" variant (VIEW, 99×46)
-     and "Locked" variant (lock icon + LOCKED, 159×50). 1px rgb(34,34,34) outline. */
   .cursor__view {
-    position: absolute; top: 0; left: 0;
     display: flex; align-items: center; gap: 10px;
     border-radius: 999px;
     background: var(--surface-hover);
@@ -67,7 +59,6 @@ html.lenis, html.lenis body { height: auto; }
     text-transform: uppercase;
     white-space: nowrap;
     color: #000;
-    translate: -50% -50%;
     transform: scale(0); opacity: 0;   /* js/fx.js springs it open over cards */
   }
   .cursor__view::after {

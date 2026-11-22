@@ -9,15 +9,21 @@
   <meta property="og:title" content="Ahmed Ehab · UX Designer">
   <meta property="og:description" content="I turn complex ideas into simple product experiences.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://ahmed-ehab579.github.io/My-portfolio/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 
   <link rel="preload" href="assets/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/satoshi-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/instrument-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="stylesheet" href="css/tokens.css?v=2">
-  <link rel="stylesheet" href="css/base.css?v=4">
+  <link rel="stylesheet" href="css/base.css?v=5">
   <link rel="stylesheet" href="css/header.css?v=4">
-  <link rel="stylesheet" href="css/home.css?v=5">
+  <link rel="stylesheet" href="css/home.css?v=9">
   <link rel="stylesheet" href="css/footer.css?v=3">
 
   <!-- Hides animated items before the first paint (never with reduced motion), so nothing flashes. -->
@@ -26,9 +32,9 @@
   </script>
   <script src="assets/vendor/motion-12.23.12.js" defer></script>
   <script src="assets/vendor/lenis-1.1.20.min.js" defer></script>
-  <script src="js/fx.js?v=5" defer></script>
+  <script src="js/fx.js?v=6" defer></script>
   <script src="js/header.js?v=3" defer></script>
-  <script src="js/home.js?v=3" defer></script>
+  <script src="js/home.js?v=6" defer></script>
   <script src="js/footer.js?v=1" defer></script>
 </head>
 <body>
@@ -76,7 +82,7 @@
         </div>
 
         <div class="hero__photo" data-fx="photo">
-          <img src="assets/images/home/T5o8lWRpU9rpZ3gas9T4T62cf4.png" width="545" height="554" alt="Portrait of Ahmed Ehab" fetchpriority="high">
+          <img src="assets/images/home/T5o8lWRpU9rpZ3gas9T4T62cf4.webp" width="545" height="554" alt="Portrait of Ahmed Ehab" fetchpriority="high">
           <svg class="hero__symbol" viewBox="0 0 42.072 44.517" aria-hidden="true">
             <g fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-miterlimit="10">
               <path d="M 27.726 6.961 C 28.757 5.29 30.097 3.83 31.048 3.493 C 36.598 1.524 20.496 13.747 16.33 17.347 C 10.963 23.004 6.309 28.009 3.76 30.476 C 2.644 31.612 1.887 32.509 0.656 34.326"/>
@@ -113,9 +119,9 @@
               </ul>
             </div>
             <div class="card__media" aria-hidden="true">
-              <img class="shot shot--shadow" style="left: 609px; top: 65px; width: 235px; height: 440px" src="assets/images/home/SbNqDY4PWLjNDToFHAKBXPWTotg.png" alt="" loading="lazy">
-              <img class="shot shot--front" style="left: 763px; top: 59px; width: 260px; height: 486px" src="assets/images/home/RbFrdpDxeyDnou8eY7tgao7NY.png" alt="" loading="lazy">
-              <img class="shot" style="left: 916px; top: 56px; width: 261px; height: 469px" src="assets/images/home/tkGlTP4oOvxcIQuMFziGHopWoFA.png" alt="" loading="lazy">
+              <img class="shot shot--shadow" style="left: 609px; top: 65px; width: 235px; height: 440px" src="assets/images/home/SbNqDY4PWLjNDToFHAKBXPWTotg.webp" alt="" loading="lazy">
+              <img class="shot shot--front" style="left: 763px; top: 59px; width: 260px; height: 486px" src="assets/images/home/RbFrdpDxeyDnou8eY7tgao7NY.webp" alt="" loading="lazy">
+              <img class="shot" style="left: 916px; top: 56px; width: 261px; height: 469px" src="assets/images/home/tkGlTP4oOvxcIQuMFziGHopWoFA.webp" alt="" loading="lazy">
             </div>
             <span class="sr-only">Read the Recita case study</span>
           </a>
@@ -127,9 +133,12 @@
             <div class="card__text">
               <div class="card__intro">
                 <div class="card__head">
-                  <span class="card__icon card__icon--eand">
-                    <img src="assets/images/home/7UmBpJG6bKgIpwVoo0thpOTiw4.png" width="38" height="35" alt="">
-                  </span>
+                  <div class="card__icon-row">
+                    <span class="card__icon card__icon--eand">
+                      <img src="assets/images/home/7UmBpJG6bKgIpwVoo0thpOTiw4.png" width="38" height="35" alt="">
+                    </span>
+                    <span class="card__soon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Case study coming soon</span>
+                  </div>
                   <h3 class="card__title" data-fx="card-title">Improving clarity in a complex telecom app</h3>
                 </div>
                 <p class="card__desc" data-fx="card-desc">I simplified real-time charges and bundle buying to make the Etisalat app clearer, more intuitive, and easier for users to manage their usage with confidence.</p>
@@ -140,11 +149,11 @@
               </ul>
             </div>
             <div class="card__media" aria-hidden="true">
-              <img class="shot" style="left: 583px; top: 50px; width: 251px; height: 470px" src="assets/images/home/GbwBDPNtBaT1V5rL6YK0cY7L4.png" alt="" loading="lazy">
-              <img class="shot" style="left: 834px; top: 311px; width: 233px; height: 439px" src="assets/images/home/3gQDj2pmOo2sWierflf6r0U9qA.png" alt="" loading="lazy">
-              <img class="shot" style="left: 854px; top: -140px; width: 197px; height: 443px" src="assets/images/home/KmtlwybkN0hA54aCpDflF6L5tXs.png" alt="" loading="lazy">
-              <img class="shot" style="left: 1075px; top: 255px; width: 232px; height: 434px" src="assets/images/home/K6J9qHn0q9yimTtcqH7knZcsTXc.png" alt="" loading="lazy">
-              <img class="shot" style="left: 1075px; top: -177px; width: 232px; height: 434px" src="assets/images/home/dUfLvnkj9rLZ9Gks05rtrvd8Y.png" alt="" loading="lazy">
+              <img class="shot" style="left: 583px; top: 50px; width: 251px; height: 470px" src="assets/images/home/GbwBDPNtBaT1V5rL6YK0cY7L4.webp" alt="" loading="lazy">
+              <img class="shot" style="left: 834px; top: 311px; width: 233px; height: 439px" src="assets/images/home/3gQDj2pmOo2sWierflf6r0U9qA.webp" alt="" loading="lazy">
+              <img class="shot" style="left: 854px; top: -140px; width: 197px; height: 443px" src="assets/images/home/KmtlwybkN0hA54aCpDflF6L5tXs.webp" alt="" loading="lazy">
+              <img class="shot" style="left: 1075px; top: 255px; width: 232px; height: 434px" src="assets/images/home/K6J9qHn0q9yimTtcqH7knZcsTXc.webp" alt="" loading="lazy">
+              <img class="shot" style="left: 1075px; top: -177px; width: 232px; height: 434px" src="assets/images/home/dUfLvnkj9rLZ9Gks05rtrvd8Y.webp" alt="" loading="lazy">
             </div>
           </article>
         </div>
@@ -155,9 +164,12 @@
             <div class="card__text">
               <div class="card__intro">
                 <div class="card__head">
-                  <span class="card__icon card__icon--wii">
-                    <img src="assets/images/home/wHl4SbKkDdVlYz8QBvJBGUb0s.png" width="27" height="45" alt="">
-                  </span>
+                  <div class="card__icon-row">
+                    <span class="card__icon card__icon--wii">
+                      <img src="assets/images/home/wHl4SbKkDdVlYz8QBvJBGUb0s.png" width="27" height="45" alt="">
+                    </span>
+                    <span class="card__soon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Case study coming soon</span>
+                  </div>
                   <h3 class="card__title" data-fx="card-title" style="width: 421px">Transforming a 500-page book into a seamless digital reading experience</h3>
                 </div>
                 <p class="card__desc" data-fx="card-desc">A digital reading experience designed to reduce scrolling fatigue and improve chapter navigation.</p>
@@ -169,12 +181,12 @@
             </div>
             <div class="card__media" aria-hidden="true">
               <div class="laptop" style="left: 547px; top: 37px">
-                <img class="laptop__frame" src="assets/images/home/IYU2ofVDZlrURBjsx7FYvkt7RyY.png" alt="" loading="lazy">
+                <img class="laptop__frame" src="assets/images/home/IYU2ofVDZlrURBjsx7FYvkt7RyY.webp" alt="" loading="lazy">
                 <div class="laptop__screen">
-                  <img src="assets/images/home/5FME6waf4Jc4oJqxNOD5HaEea0.png" alt="" loading="lazy">
+                  <img src="assets/images/home/5FME6waf4Jc4oJqxNOD5HaEea0.webp" alt="" loading="lazy">
                 </div>
               </div>
-              <img class="shot shot--front" style="left: 1018px; top: 193px; width: 191px; height: 357px" src="assets/images/home/iTI67DgInTwnfIpH8yLSkCuws.png" alt="" loading="lazy">
+              <img class="shot shot--front" style="left: 1018px; top: 193px; width: 191px; height: 357px" src="assets/images/home/iTI67DgInTwnfIpH8yLSkCuws.webp" alt="" loading="lazy">
             </div>
           </article>
         </div>

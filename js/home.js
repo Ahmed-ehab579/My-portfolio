@@ -78,27 +78,66 @@
   // (the column is several screens tall, so it starts as soon as any part of it is on screen)
   onView(body, () => appear(body, { transition: spring(1, 0.2, 0.4) }), 0);
 
-  // A3: the big number follows the step on screen (01 → 04 and back), cross-fading with a 0.7s spring
+  // A3: the big number follows the step on screen (01 → 04 and back). Approved 2026-11-22 (options A + B):
+  // - it changes when the next step's title reaches the bottom edge of the number, so the number
+  //   and the text arrive together (scrolling back up, it changes back at the same point);
+  // - the number slides 20px in the scroll direction as it cross-fades (spring 0.7s, bounce 0.2);
+  // - the step beside the number is full strength, the others are dimmed to 35%.
   (function steps() {
+    const box = $("[data-step-number]");
     const digits = $$("[data-step-number] > span");
     const stepsEls = $$("[data-step]");
-    if (!digits.length) return;
+    if (!box || !digits.length || !stepsEls.length) return;
+    const DIM = 0.35, SHIFT = 20, t = spring(0.7, 0.2);
     let active = 0;
+    stepsEls.forEach((s, i) => (s.style.opacity = i === 0 ? 1 : DIM));
+
     const set = (i) => {
       if (i === active) return;
-      const prev = digits[active]; active = i;
-      prev.classList.remove("is-active"); digits[i].classList.add("is-active");
-      if (reduce || !M) return;
-      M.animate(prev, { opacity: 0 }, spring(0.7, 0.2));
-      M.animate(digits[i], { opacity: 1 }, spring(0.7, 0.2));
+      const dir = i > active ? 1 : -1;   // 1 = scrolling down (text moving up)
+      const prevDigit = digits[active], prevStep = stepsEls[active];
+      active = i;
+      prevDigit.classList.remove("is-active"); digits[i].classList.add("is-active");
+      if (reduce || !M) {
+        stepsEls.forEach((s, k) => (s.style.opacity = k === i ? 1 : DIM));
+        return;
+      }
+      M.animate(prevDigit, { opacity: 0, y: -SHIFT * dir }, t);
+      M.animate(digits[i], { opacity: [0, 1], y: [SHIFT * dir, 0] }, t);
+      M.animate(prevStep, { opacity: DIM }, t);
+      M.animate(stepsEls[i], { opacity: 1 }, t);
     };
+
     const update = () => {
-      const mid = window.innerHeight / 2;
+      const line = box.getBoundingClientRect().bottom;   // bottom edge of the sticky number
       let idx = 0;
-      stepsEls.forEach((s, i) => { if (s.getBoundingClientRect().top <= mid) idx = i; });
+      stepsEls.forEach((s, i) => {
+        const title = s.querySelector("h3") || s;
+        if (title.getBoundingClientRect().top <= line) idx = i;
+      });
       set(idx);
     };
     window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
     update();
+  })();
+
+  // End the Approach section exactly when step 04's text is centred on the pinned number, so the
+  // number and title let go while 04 is aligned (and no extra empty space is left before the footer).
+  (function trimApproachEnd() {
+    const list = $(".approach__steps");
+    const box = $(".approach__number");
+    const last = list && list.lastElementChild;
+    if (!list || !box || !last) return;
+    const fit = () => {
+      const first = last.firstElementChild, end = last.lastElementChild;
+      const stepTop = last.getBoundingClientRect().top;
+      const textCentre = (first.getBoundingClientRect().top + end.getBoundingClientRect().bottom) / 2 - stepTop;
+      const tail = textCentre + box.offsetHeight / 2 - last.offsetHeight;   // negative: trims space under 04
+      list.style.marginBottom = `${tail}px`;
+    };
+    fit();
+    window.addEventListener("resize", fit);
+    if (document.fonts) document.fonts.ready.then(fit);
   })();
 })();

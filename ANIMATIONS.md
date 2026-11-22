@@ -16,7 +16,7 @@ Every animation on Home and the Recita case study, read from the Framer project 
 | # | What | Behaviour | Values |
 |---|---|---|---|
 | S1 | Smooth scroll | Scrolling glides instead of jumping | Framer "Smooth Scroll", intensity 10 |
-| S2 | Custom cursor | Replaces the mouse arrow with a 16px white dot drawn in "difference" mode (it shows dark on the light page). Over a project card it grows into a pill (Framer "Circle Cursor 2"): **VIEW** on Recita (99×46px) or **🔒 LOCKED** on e& and Woman in Islam (159×50px, 24px lock icon, 10px gap). `Surface hover` fill, 1px rgb(34,34,34) outline, Satoshi 23px/20px capitals, padding 14/18/12, centred on the pointer | Spring 0.4s, bounce 0.2. Off on touch screens |
+| S2 | Custom cursor | Replaces the mouse arrow with a 16px white dot drawn in "difference" mode: dark on the light page, light on dark areas (photo, footer). It is its own layer so the blend reaches the page. While the mouse button is held it shrinks to 10×11 (Framer "Primary / pressed"). Over a project card it grows into a pill (Framer "Circle Cursor 2"): **VIEW** on Recita (99×46px) or **🔒 LOCKED** on e& and Woman in Islam (159×50px, 24px lock icon, 10px gap). `Surface hover` fill, 1px rgb(34,34,34) outline, Satoshi 23px/20px capitals, padding 14/18/12, centred on the pointer | Spring 0.4s, bounce 0.2. Off on touch screens |
 | S3b | Header switches look | At the top of the page: **Variant 1** (flat bar, logo hanging from the top edge). Once the page's first section reaches the top of the screen (130px on Home, 150px on Recita) it becomes **Variant 3**: a 71px pill with a 1px rgb(34,34,34) outline, radius 20, 30px side padding, a rounded 54×51 logo and a centred menu. Switches back above that point. Measured on the live site, 2026-11-20 | Tween 0.4s (0.12, 0.23, 0.5, 1) |
 | S3 | Header | Logo and menu button. On load it slides down from 50px above (spring: stiffness 262, damping 60, mass 3). It **hides the moment you scroll down** (even 10px) by moving 60px up **and fading out**, and **returns the moment you scroll up**. Measured on the live site, 2026-11-20 | Hide/show: tween 0.4s (0.12, 0.23, 0.5, 1) |
 | S4 | Menu | **Open:** the link pill (Home, Projects, Approach) grows to the left, 0 → 331px; the icon swaps **instantly** from ☰ (three 2px lines) to ✕; the button fills with Surface (236,234,227). The pill's own 1px border shows as a rounded divider before the ✕. **Close:** the links disappear instantly, the icon swaps back, and only the fill fades out. Links: hover fills rgb(230,230,220), pressed rgb(222,222,204) | Open and fill: tween 0.4s (0.12, 0.23, 0.5, 1). Link hover: 0.2s ease (0.25, 0.1, 0.25, 1) |
@@ -47,7 +47,7 @@ Values above are from the hero layers actually shown on the live site. The Frame
 |---|---|---|---|---|
 | A1 | "My Design Approach" title | In view, word by word | 10px below | Spring 2s, bounce 0 |
 | A2 | Left column and the big number | Sticky | Stays pinned while the four steps scroll past | — |
-| A3 | Big number **01 → 02 → 03 → 04** | Scroll-linked | Cross-fades when a step's top passes the middle of the screen, and back when you scroll up | Spring 0.7s, bounce 0.2 |
+| A3 | Big number **01 → 02 → 03 → 04** and step focus | Scroll-linked | Changes when the next step's **title reaches the bottom edge of the number**, and back at the same point when you scroll up (approved 2026-11-22, replaces Framer's switch point). The number cross-fades and slides 20px in the scroll direction. The step beside the number is full strength, the others are dimmed to 35% | Spring 0.7s, bounce 0.2 |
 | A4 | Step block | In view | Fades in | Spring 1s, bounce 0.2, after 0.4s |
 
 ## Recita case study (`/project`)
@@ -111,6 +111,6 @@ Values above are from the hero layers actually shown on the live site. The Frame
 2. **Hidden layers:** the hidden second hero and the two hidden "Line Mask Split" headings are left out.
 3. **Custom cursor:** keep it (S2). It is off on touch screens.
 4. **"Made in Framer" badge:** not coded.
-5. **"My Design Approach" spacing:** tighten the gap between steps by **20%**. The sticky number (A2–A3) must still switch cleanly at each step.
+5. **"My Design Approach" spacing** (updated 2026-11-22): each step is about half a screen (55vh, kept between 420 and 560px) plus an 80px gap (Ahmed asked for 25% more space between steps), so the next step peeks in as the current one leaves; the big number is right-aligned like the Framer site, so its right edge stays 47px from the text for 01–04; the first and last steps stay centred on the sticky number. The number switches when a step passes the middle of the screen (down and back up). The Framer file uses 100vh steps + 100px gaps.
 6. **Typos:** correct them: "Designer", "Design Process", "Design Decisions", "design decisions", "Analytics Dashboard". The app's name is **Recita** everywhere ("Recite is…" becomes "Recita is…").
 7. **Text:** use what the live site shows. Suggest a better wording only where it matters.

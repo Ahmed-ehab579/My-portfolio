@@ -24,3 +24,7 @@ python3 -m http.server 8130
 ```
 
 Then open http://127.0.0.1:8130 . Opening `index.html` directly also works, but fonts load more reliably through the local server.
+
+## Images
+Home images are WebP (made with `cwebp -q 82 -alpha_q 100`, at about 2× their size on screen). The original PNGs are kept in `_local/images-original/` (not published).
+`assets/og-image.png` is the 1200×630 picture shown when the site link is shared; `assets/icons/favicon.svg` and `apple-touch-icon.png` are the browser and phone icons.

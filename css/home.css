@@ -98,7 +98,24 @@
   overflow: clip;
 }
 .card__icon--eand { background: rgb(203 5 3); }
-.card__icon--wii { margin: 2px 0; }   /* the Woman in Islam icon row is 58px tall in Framer, box centred */
+.card__icon--wii { margin: 2px 0; }
+
+/* "Case study coming soon" on cards without a case study, so phone and keyboard users see it too
+   (the LOCKED cursor only shows on mouse hover). Same pill style as the result tags. Approved 2026-11-22. */
+.card__icon-row { display: flex; align-items: center; gap: 14px; }
+.card__soon {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px;
+  background: rgb(247 246 245);
+  border-radius: 14px;
+  font: 500 14px/1.5 var(--font-body);
+  letter-spacing: 0.3px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.card__soon::after { content: ""; position: absolute; inset: 0; border: 0.5px solid rgb(115 115 115); border-radius: inherit; }
+.card__soon svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }   /* the Woman in Islam icon row is 58px tall in Framer, box centred */
 
 .card__title {
   width: 426px;
@@ -141,28 +158,41 @@
 .laptop__screen img { width: 562px; height: auto; max-width: none; }
 
 /* ===================== My Design Approach =====================
-   Steps are 20% tighter than the Framer file (approved 2026-11-20): 80vh tall with 80px between. */
+   Tighter than the Framer file (100vh steps + 100px gaps left ~550px of empty space between
+   short paragraphs). Each step is about half a screen (clamped 420–560px), with no extra gap,
+   so the next step comes into view as the current one leaves. Padding keeps the first and last
+   steps centred on the sticky number. Approved by Ahmed 2026-11-22 ("make it less, best practice"). */
+/* The title and the number are pinned in boxes exactly as tall as the number (153.6px), centred on
+   the screen, rather than in full-screen boxes. They let go the moment the section ends, and
+   js/home.js ends the section exactly when step 04 is centred on the number, so 04 stays aligned
+   to the end while only ~240px is left before the footer (fixed 2026-11-22). */
 .approach {
-  display: flex; justify-content: space-between;
+  --pin-h: 153.6px;                               /* the number's line: 128px × 1.2 */
+  --pin-top: calc(50vh - var(--pin-h) / 2);
+  display: flex; justify-content: space-between; align-items: flex-start;
   margin-top: 10px;
-  padding-bottom: 130px;
+  margin-bottom: 250px;                           /* space before the footer */
 }
 .approach__aside {
-  position: sticky; top: 0; z-index: 1;
-  flex: 1; height: 100vh;
+  position: sticky; top: var(--pin-top); z-index: 1;
+  flex: 1; height: var(--pin-h);
+  margin-top: var(--pin-top);                     /* starts centred on step 01, as before */
   display: flex; align-items: center;
 }
 .approach__body { display: flex; gap: 47px; align-items: flex-start; }
 
 .approach__number {
-  position: sticky; top: 0; z-index: 1;
-  height: 100vh; width: 135px;
-  display: flex; align-items: center; justify-content: flex-start;
+  position: sticky; top: var(--pin-top); z-index: 1;
+  height: var(--pin-h); width: 135px;
+  margin-top: var(--pin-top);
+  /* Right-aligned, as on the Framer site: the number's right edge stays 47px from the text,
+     and wider numbers (02–04) grow to the left instead of pushing toward the text. */
+  display: flex; align-items: center; justify-content: flex-end;
   opacity: 0.25;
 }
 .approach__digits { position: relative; display: grid; }
 .approach__digits > span {
-  grid-area: 1 / 1; justify-self: start;
+  grid-area: 1 / 1; justify-self: end;
   font: 500 128px/1.2 var(--font-display);
   color: var(--accent);
   font-feature-settings: "blwf", "cv03", "cv04", "cv09", "cv11";
@@ -170,10 +200,12 @@
 }
 .approach__digits > span.is-active { opacity: 1; }
 
-/* 10vh above and below keeps each step centred on the sticky number, as in the Framer file */
-.approach__steps { list-style: none; margin: 0; padding: 10vh 0; display: flex; flex-direction: column; gap: 80px; }
+.approach { --step-h: clamp(420px, 55vh, 560px); }
+/* No bottom padding: js/home.js trims the empty space under step 04 (negative margin) so the section
+   ends when 04's text is centred on the number. */
+.approach__steps { list-style: none; margin: 0; padding: calc((100vh - var(--step-h)) / 2) 0 0; display: flex; flex-direction: column; gap: 80px; }   /* +25% space between steps (Ahmed, 2026-11-22) */
 .step {
-  width: 603px; height: 80vh;
+  width: 603px; height: var(--step-h);
   display: flex; flex-direction: column; justify-content: center; gap: 19px;
 }
 .step__title { width: 487px; }
