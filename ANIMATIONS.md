@@ -128,8 +128,9 @@ Values above are from the hero layers actually shown on the live site. The Frame
 
 ## Recita page: changes Ahmed asked for on 2026-11-23 (these differ on purpose from the Framer original)
 - **Side index:** the current item is heavier (weight 400 → 500).
-- **Hand-drawn lines (R17):** drawn by the scroll instead of a timer. The pen follows the reader (60% line of the screen), stops when scrolling stops, un-draws when scrolling back. Soft spring (stiffness 150, damping 24.5).
+- **Hand-drawn lines in Design process (R17):** unchanged, timed draw as measured on the live site (Ahmed: keep them). The Research line is 154px taller (1815px) so it still ends the same distance above the MVP step after Key insights grew.
+- **Problem dashed lines (R9):** move WITH THE SCROLL instead of a timer. Each glides in from its side (60px) and fades up while its place travels from 95% to 55% down the screen; stops when scrolling stops, glides out when scrolling back. Spring stiffness 90, damping 19.
 - **Step numbers 01/02/03:** clipped at the left and top like the Framer frame (a wrapper clips, the number still slides in under it).
-- **Key insights:** the card stack stops with its middle on the middle of the screen, level with the centred text (Framer: cards stopped near the top, text 15px low). Block is 154px taller (1758px) so the text waits until all four cards are stacked, then both leave together.
-- **Design decision cards:** 687px tall (Framer 900px), 60px above and below the phone (Framer 166px); the wide first card 710px.
+- **Key insights:** the card stack stops with its middle on the middle of the screen, and the text sits 12px below centre so "Key insights" is on the same line as the "92 %" of the finished stack (measured, 372.8 vs 373.5). Block is 154px taller (1758px) so the text waits until all four cards are stacked, then both leave together.
+- **Design decision cards:** 639px tall (Framer 900px), 36px above and below the phone (Framer 166px); the wide first card 662px. Never taller than the screen minus 50px (20px under the top, 30px gap at the bottom), so the bottom edge always shows.
 - **Reflections accordion (R26):** starts as a stack (row 1 in front, rows 2 and 3 behind it, 13px strips showing) and spreads to the 36px gap when the section's top reaches mid-screen, tween 0.3s (0.12, 0.23, 0.5, 1). Read from the Framer component "main drop down menu" (variants Closed / Opened). Plays once.

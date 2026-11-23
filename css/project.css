@@ -121,7 +121,7 @@
 .cs-line { position: absolute; z-index: 0; overflow: visible; pointer-events: none; }
 .cs-line path { fill: none; stroke: var(--border); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .motion-ready .cs-line { opacity: 0; }   /* drawn by js/project.js (FX.draw) */
-.cs-line--research { left: 469px; top: 389px; width: 276px; height: 1661px; }
+.cs-line--research { left: 469px; top: 389px; width: 276px; height: 1815px; }   /* 1661 + the 154px added to Key insights, so it still reaches the MVP step */
 .cs-line--mvp { left: 215px; top: 2820px;   /* 2666 + the 154px added to Key insights */ width: 109px; height: 463px; }
 
 .step-block { position: relative; z-index: 1; display: flow-root; }   /* flow-root: the title's margin stays inside */
@@ -153,7 +153,7 @@
 .insights { position: relative; margin-top: 36px; height: 1758px; display: grid; grid-template-columns: 414px 562px; }
 .insights__aside {
   position: sticky; top: 0; align-self: start;
-  height: 100vh; width: 286px; margin-left: 40px; padding-top: 0;   /* exactly centred, level with the card stack (Framer had it 15px low) */
+  height: 100vh; width: 286px; margin-left: 40px; padding-top: 24px;   /* 12px lower than centre: puts "Key insights" on the same line as the "92 %" of the finished stack (measured) */
   display: flex; flex-direction: column; justify-content: center; gap: 16px;
 }
 .insights__title { color: var(--text-secondary); }
@@ -206,9 +206,11 @@
 .decision-wrap { position: sticky; top: 20px; transform-origin: 50% 0; }
 .decision {
   position: relative;
-  height: 687px; padding: 60px 50px 0;   /* was 900px / 166px: far too much empty space above and below (Ahmed's request) */
+  /* 639px = 36px + the 567px phone + 36px (Framer: 900px with 166px above). Never taller than the screen minus the 20px
+     it sticks below the top and a 30px gap at the bottom, so its bottom edge always shows (Ahmed's request). */
+  height: min(639px, calc(100vh - 50px)); padding: 0 50px;
   background: var(--surface); border-radius: 30px;
-  display: flex; gap: 0;
+  display: flex; align-items: center; gap: 0;
 }
 .decision::after { content: ""; position: absolute; inset: 0; border: 1px solid var(--border); border-radius: inherit; pointer-events: none; }
 .decision__text { width: 390px; height: 567px; display: flex; flex-direction: column; justify-content: center; gap: 27px; }
@@ -218,10 +220,10 @@
 .decision__phone .phone__screen { left: 12px; top: 9px; width: 255px; height: 547px; border-radius: 42px; }
 .decision__phone .phone__island { top: 20px; width: 75px; height: 21px; }
 
-.decision--wide { display: block; padding: 0; height: 710px; }
-.decision__text--wide { position: absolute; left: 41px; top: 60px; width: 776px; height: auto; display: block; }
+.decision--wide { display: block; padding: 0; height: min(662px, calc(100vh - 50px)); }
+.decision__text--wide { position: absolute; left: 41px; top: 36px; width: 776px; height: auto; display: block; }
 .decision__text--wide .decision__body { margin-top: 25px; }
-.decision__devices { position: absolute; left: -3px; top: 235px; width: 1018px; height: 415px; border-radius: 20px; }
+.decision__devices { position: absolute; left: -3px; top: 211px; width: 1018px; height: 415px; border-radius: 20px; }
 .device { position: absolute; filter: drop-shadow(0 5px 19px rgba(0, 0, 0, 0.26)); }
 .device img { position: relative; width: 100%; height: 100%; }
 .device video { position: absolute; object-fit: fill; background: #111; }

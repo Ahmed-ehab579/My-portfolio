@@ -52,11 +52,37 @@
 
   // ===================== Problem (R8, R9) and Solution images (R12) =====================
   $$('[data-fx="problem-img"]').forEach((el) => onView(el, () => appear(el, { y: 10, transition: spring(1.4, 0.2, 0.4) }), 0.5));
-  $$('[data-fx="dash"]').forEach((el) => {
-    const from = el.dataset.from;   // x60 | y-60 | x-60
-    const o = { [from[0]]: parseFloat(from.slice(1)) };
-    onView(el, () => appear(el, { ...o, transition: spring(1.6, 0.2, 0.4) }), 0);
-  });
+  // The three dashed lines in Problem move WITH THE SCROLL (Ahmed's request, replacing the timed slide): each glides
+  // in from its side (60px) and fades up while its place travels from 95% to 55% down the screen. Scrolling stops, they
+  // stop; scrolling back, they glide out again. A soft spring keeps the move slow and smooth.
+  (function dashesOnScroll() {
+    const dashes = $$('[data-fx="dash"]');
+    if (!dashes.length) return;
+    if (reduce || !window.FX.scrollSpring) { dashes.forEach((el) => (el.style.opacity = 1)); return; }
+    const state = dashes.map((el) => {
+      const from = el.dataset.from;   // x60 | y-60 | x-60
+      return { el, axis: from[0], dist: parseFloat(from.slice(1)), sp: window.FX.scrollSpring({ stiffness: 90, damping: 19, mass: 1 }), top: 0 };
+    });
+    // SVG elements have no offsetTop: the section is the positioned parent, so add the CSS top by hand
+    const measure = () => state.forEach((s) => { s.top = s.el.parentElement.getBoundingClientRect().top + window.scrollY + (parseFloat(getComputedStyle(s.el).top) || 0); });
+    measure();
+    window.addEventListener("resize", measure);
+    window.addEventListener("load", measure);
+    let last = performance.now();
+    const frame = (now) => {
+      const dt = Math.min(0.25, (now - last) / 1000); last = now;
+      const y = window.scrollY, vh = window.innerHeight;
+      state.forEach((s) => {
+        const p = Math.min(1, Math.max(0, (vh * 0.95 - (s.top - y)) / (vh * 0.4)));
+        const v = s.sp.step(p, dt);
+        const off = (1 - v) * s.dist;
+        s.el.style.opacity = String(v);
+        s.el.style.translate = s.axis === "x" ? `${off}px 0` : `0 ${off}px`;
+      });
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  })();
   $$('[data-fx="avatar"]').forEach((el) => onView(el, () => appear(el, { y: 30, transition: spring(1.4, 0.2, 0.2) }), 0.5));
 
   // ===================== Design process (R13–R17, R20, R21) =====================
@@ -65,33 +91,23 @@
   $$('[data-fx="step-text"]').forEach((el) => onView(el, () => appear(el, { y: 18, transition: spring(1.4, 0.2, 0.3) }), 0.5));
   $$('[data-fx="pill"]').forEach((el) => onView(el, () => appear(el, { y: num(el, "y", 25), transition: spring(1.4, 0.2, num(el, "delay", 0.2)) }), 0));
 
-  // R17: the hand-drawn lines are drawn BY THE SCROLL (Ahmed's request, replacing the timed draw): the pen follows
-  // the reader, a little behind the 60% line of the screen. Scroll stops, the line stops; scroll back, it un-draws.
-  // A soft spring (no overshoot) keeps it slow and smooth. Reduced motion: shown fully drawn.
+  // R17: the hand-drawn lines draw themselves (kept as measured on the live site, 2026-11-23): each line starts when
+  // its step row's top reaches the middle of the screen. Research line: about 3.2s, ease (0.12, 0.23, 0.5, 1).
+  // MVP line: about 3s, slow start and end (ease in-out). Plays once.
   $$("[data-draw]").forEach((svg) => {
     const path = svg.querySelector("path");
-    if (reduce || !window.FX.scrollSpring) { svg.style.opacity = 1; return; }
-    path.style.strokeDasharray = "1 1";
-    path.style.strokeDashoffset = "1";
-    const sp = window.FX.scrollSpring({ stiffness: 150, damping: 24.5, mass: 1 });
-    let top = 0, h = 1, last = performance.now(), v = 0;
-    const measure = () => { const r = svg.getBoundingClientRect(); top = r.top + window.scrollY; h = r.height || 1; };
-    measure();
-    window.addEventListener("resize", measure);
-    window.addEventListener("load", measure);
-    const frame = (now) => {
-      const dt = Math.min(0.25, (now - last) / 1000); last = now;
-      const y = window.scrollY, vh = window.innerHeight;
-      const near = y + vh > top - vh && y < top + h + vh;
-      if (near || v > 0.0005) {
-        const target = Math.min(1, Math.max(0, (y + vh * 0.6 - top) / h));
-        v = sp.step(target, dt);
-        path.style.strokeDashoffset = String(Math.max(0, 1 - v));
-        svg.style.opacity = v > 0.0005 ? 1 : 0;
-      }
-      requestAnimationFrame(frame);
+    const research = svg.classList.contains("cs-line--research");
+    const target = document.querySelector(research ? ".cs-research" : ".cs-mvp");
+    const opts = research ? { duration: 3.2 } : { duration: 3, ease: [0.45, 0, 0.55, 1] };
+    let done = false;
+    const check = () => {
+      if (done || target.getBoundingClientRect().top > window.innerHeight * 0.5) return;
+      done = true;
+      window.removeEventListener("scroll", check);
+      draw(path, opts);
     };
-    requestAnimationFrame(frame);
+    window.addEventListener("scroll", check, { passive: true });
+    check();
   });
 
   // R18 wrapper fade (Framer: the key-insights block rises 59px)
