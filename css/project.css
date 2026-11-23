@@ -149,9 +149,11 @@
 .cs-research { width: 488px; margin-top: 61px; height: 428px; }
 
 /* Key insights */
-/* 1604px, exactly as in Framer, so the hand-drawn line and everything below keep their original positions. The cards sit
-   53px closer together (see the wrap heights in project.html) so the whole stack is complete before the text leaves. */
-.insights { position: relative; margin-top: 36px; height: 1604px; display: grid; grid-template-columns: 414px 562px; }
+/* The block keeps Framer's 1604px and the cards keep Framer's own spacing, padding and timing, so the hand-drawn line
+   ends where it does in the original: hidden behind the last card. Only the sticky text gets a longer track: the block is
+   1759px tall and pulled back up by 155px (margin-bottom), so nothing below it moves, and the text waits until the stack
+   is complete and leaves with it. The extra 155px is the empty gap before MVP. */
+.insights { position: relative; margin-top: 36px; margin-bottom: -155px; height: 1759px; display: grid; grid-template-columns: 414px 562px; }
 .insights__aside {
   position: sticky; top: 0; align-self: start;
   height: 100vh; width: 286px; margin-left: 40px; padding-top: 24px;   /* 12px lower than centre: puts "Key insights" on the same line as the "92 %" of the finished stack (measured) */
@@ -159,9 +161,8 @@
 }
 .insights__title { color: var(--text-secondary); }
 .insights__text { font: 400 18px/1.8 var(--font-body); color: var(--text-secondary); }
-/* 321px at the bottom: the stack lets go at the same scroll position as the sticky text, so the two leave the screen
-   together and stay level with each other (Ahmed's request; the Framer original released the cards later). */
-.insights__cards { position: relative; z-index: 1; padding: 150px 0 374px; }
+/* Exactly Framer's box: 1604px tall, 160px padding above and below */
+.insights__cards { position: relative; z-index: 1; align-self: start; height: 1604px; padding: 160px 0; }
 /* The stack stops with its middle on the middle of the screen, level with the centred "Key insights" text
    (Ahmed's request: the cards used to stop far up near the top). */
 .insight-wrap { position: sticky; top: calc(50vh - var(--half, 134px) - var(--offset)); padding-top: var(--offset); }
