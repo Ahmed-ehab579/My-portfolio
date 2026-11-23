@@ -64,8 +64,8 @@
   transform-origin: 0 50%;
   transition: color 0.5s cubic-bezier(0.12, 0.23, 0.5, 1), transform 0.5s cubic-bezier(0.12, 0.23, 0.5, 1);
 }
-.cs-index__list a:hover { color: var(--text-primary); }
-.cs-index__list a[aria-current="true"] { color: var(--accent); transform: scale(1.05); }   /* 20px → 21px */
+.cs-index__list a:hover { color: rgb(15 15 15); }   /* live hover colour, measured */
+.cs-index__list a[aria-current="true"] { color: var(--accent); font-weight: 500; transform: scale(1.05); }   /* heavier: 400 → 500 (Ahmed's request) */   /* 20px → 21px */
 
 .cs-main > section + section { margin-top: 163px; }
 .cs-main > .cs-outcomes, .cs-main > .cs-reflections { margin-top: 121px; }
@@ -109,7 +109,7 @@
 .cs-solution b { font-weight: 600; }
 .avatar-gap { display: inline-block; width: 70px; }
 .avatar {
-  position: absolute; width: 65px; height: 74px;
+  position: absolute; width: 59px; height: 69px;
   object-fit: cover; border-radius: 17px;
   rotate: var(--r);
 }
@@ -122,9 +122,12 @@
 .cs-line path { fill: none; stroke: var(--border); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .motion-ready .cs-line { opacity: 0; }   /* drawn by js/project.js (FX.draw) */
 .cs-line--research { left: 469px; top: 389px; width: 276px; height: 1661px; }
-.cs-line--mvp { left: 215px; top: 2666px; width: 109px; height: 463px; }
+.cs-line--mvp { left: 215px; top: 2820px;   /* 2666 + the 154px added to Key insights */ width: 109px; height: 463px; }
 
 .step-block { position: relative; z-index: 1; display: flow-root; }   /* flow-root: the title's margin stays inside */
+/* As in Framer, the step frame clips its big number: the part left of (and above) the frame is hidden.
+   The clip sits on a wrapper so the number can still slide in underneath it. */
+.step-block__numclip { position: absolute; left: 0; top: 0; width: 300px; height: 140px; overflow: clip; pointer-events: none; }
 .step-block__num {
   position: absolute; left: -49px; top: -6px;
   font: 500 134px/1 var(--font-display);
@@ -146,16 +149,22 @@
 .cs-research { width: 488px; margin-top: 61px; height: 428px; }
 
 /* Key insights */
-.insights { position: relative; margin-top: 36px; height: 1604px; display: grid; grid-template-columns: 414px 562px; }
+/* 1758px (Framer: 1604px): 154px more scroll, so the text waits until all four cards are stacked, then leaves with them */
+.insights { position: relative; margin-top: 36px; height: 1758px; display: grid; grid-template-columns: 414px 562px; }
 .insights__aside {
   position: sticky; top: 0; align-self: start;
-  height: 100vh; width: 286px; margin-left: 40px; padding-top: 30px;   /* sits 15px below centre, as in Framer */
+  height: 100vh; width: 286px; margin-left: 40px; padding-top: 0;   /* exactly centred, level with the card stack (Framer had it 15px low) */
   display: flex; flex-direction: column; justify-content: center; gap: 16px;
 }
 .insights__title { color: var(--text-secondary); }
 .insights__text { font: 400 18px/1.8 var(--font-body); color: var(--text-secondary); }
-.insights__cards { position: relative; z-index: 1; padding-top: 160px; }
-.insight-wrap { position: sticky; top: var(--top); padding-top: var(--offset); }
+/* 321px at the bottom: the stack lets go at the same scroll position as the sticky text, so the two leave the screen
+   together and stay level with each other (Ahmed's request; the Framer original released the cards later). */
+.insights__cards { position: relative; z-index: 1; padding: 160px 0 321px; }
+/* The stack stops with its middle on the middle of the screen, level with the centred "Key insights" text
+   (Ahmed's request: the cards used to stop far up near the top). */
+.insight-wrap { position: sticky; top: calc(50vh - var(--half, 134px) - var(--offset)); padding-top: var(--offset); }
+.insight-wrap:nth-child(1) { --half: 117px; }
 .insight-wrap:nth-child(1) { z-index: 1; } .insight-wrap:nth-child(2) { z-index: 2; }
 .insight-wrap:nth-child(3) { z-index: 3; } .insight-wrap:nth-child(4) { z-index: 4; }
 .insight {
@@ -170,7 +179,7 @@
 .insight__num span { letter-spacing: -0.03em; font-variant-numeric: tabular-nums; min-width: 1.3em; }
 .insight__lead, .insight__more { font: 400 18px/1.8 var(--font-body); color: var(--text-secondary); }
 .insight__lead { max-width: 302px; }
-.insight__more { margin-top: 9px; max-width: 331px; }
+.insight__more { margin-top: 14px; max-width: 331px; }
 
 .cs-mvp { width: 618px; margin: 37px 0 0 394px; height: 502px; --title-top: 112px; }
 .cs-mvp .pills { margin-top: 40px; }
@@ -197,7 +206,7 @@
 .decision-wrap { position: sticky; top: 20px; transform-origin: 50% 0; }
 .decision {
   position: relative;
-  height: 900px; padding: 166px 50px 0;
+  height: 687px; padding: 60px 50px 0;   /* was 900px / 166px: far too much empty space above and below (Ahmed's request) */
   background: var(--surface); border-radius: 30px;
   display: flex; gap: 0;
 }
@@ -209,10 +218,10 @@
 .decision__phone .phone__screen { left: 12px; top: 9px; width: 255px; height: 547px; border-radius: 42px; }
 .decision__phone .phone__island { top: 20px; width: 75px; height: 21px; }
 
-.decision--wide { display: block; padding: 0; }
-.decision__text--wide { position: absolute; left: 41px; top: 167px; width: 776px; height: auto; display: block; }
+.decision--wide { display: block; padding: 0; height: 710px; }
+.decision__text--wide { position: absolute; left: 41px; top: 60px; width: 776px; height: auto; display: block; }
 .decision__text--wide .decision__body { margin-top: 25px; }
-.decision__devices { position: absolute; left: -3px; top: 342px; width: 1018px; height: 415px; border-radius: 20px; }
+.decision__devices { position: absolute; left: -3px; top: 235px; width: 1018px; height: 415px; border-radius: 20px; }
 .device { position: absolute; filter: drop-shadow(0 5px 19px rgba(0, 0, 0, 0.26)); }
 .device img { position: relative; width: 100%; height: 100%; }
 .device video { position: absolute; object-fit: fill; background: #111; }
@@ -232,21 +241,30 @@
 .stat__text { margin-top: 20px; font: 400 18px/1.8 var(--font-body); color: var(--text-secondary); }
 
 /* ===================== Reflections ===================== */
-.faq { margin-top: 41px; display: flex; flex-direction: column; gap: 36px; }
+.faq { margin-top: 41px; width: 1012px; display: flex; flex-direction: column; gap: 36px; }
 .faq__item { position: relative; background: var(--surface); border-radius: 26px; }
+/* Stacked start (Framer "Closed"): each row sits 13px lower than the one before and behind it. Set by js/project.js */
+.faq--deck .faq__item:nth-child(1) { z-index: 3; }
+.faq--deck .faq__item:nth-child(2) { z-index: 2; margin-top: -121px; }   /* 36px gap − 121px = 13px step */
+.faq--deck .faq__item:nth-child(3) { z-index: 1; margin-top: -121px; }
 .faq__item::after { content: ""; position: absolute; inset: 0; border: 1px solid rgb(34 34 34); border-radius: inherit; pointer-events: none; }
 .faq__item h3 { margin: 0; }
 .faq__head {
   display: flex; align-items: center; justify-content: space-between;
-  width: 100%; height: 98px; padding: 0 30px;
+  width: 100%; padding: 27px 30px 28px;   /* 98px closed; the title slides 13px down when open (measured on the live site) */
   font: 500 28px/1.5 var(--font-display); color: var(--text-primary); text-align: left;
+  transition: padding 0.2s cubic-bezier(0.12, 0.23, 0.5, 1);
 }
-.faq__icon { display: flex; flex-direction: column; width: 34px; align-items: center; }
-.faq__icon svg { width: 18px; height: 18px; margin: -1px 0; fill: none; stroke: #000; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s cubic-bezier(0.12, 0.23, 0.5, 1); }
-.faq__head[aria-expanded="true"] .faq__icon svg:first-child { transform: translateY(3px); }
-.faq__head[aria-expanded="true"] .faq__icon svg:last-child { transform: translateY(-3px); }
+.faq__head[aria-expanded="true"] { padding: 40px 30px 0; }
+.faq__icon { display: flex; flex-direction: column; justify-content: center; width: 34px; height: 43px; align-items: center; }
+.faq__icon svg { width: 18px; height: 18px; margin: -1px 0; fill: none; stroke: #000; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+/* open: Framer swaps to the opposite chevrons at once (no slide) */
+.faq__head[aria-expanded="true"] .faq__icon svg { transform: rotate(180deg); }
 .faq__panel { overflow: clip; }
-.faq__box { position: relative; margin: 2px 30px 30px; padding: 30px; border-radius: 30px; }
+.faq__panel::before, .faq__panel::after { content: ""; display: block; }   /* 30px above and 40px below the box, counted in the panel's height */
+.faq__panel::before { height: 30px; }
+.faq__panel::after { height: 40px; }
+.faq__box { position: relative; margin: 0 30px; padding: 30px; border-radius: 30px; }
 .faq__box::after { content: ""; position: absolute; inset: 0; border: 1px solid rgb(34 34 34); border-radius: inherit; }
 .faq__box p { font: 400 20px/1.7 var(--font-body); color: var(--text-secondary); }
 

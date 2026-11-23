@@ -63,7 +63,7 @@ Values above are from the hero layers actually shown on the live site. The Frame
 ### Page structure
 | # | What | Behaviour |
 |---|---|---|
-| R5 | **Side index** (Overview, Problem, Solution, Design process, Design decisions, Outcomes, Reflections) | Sticky. The active item turns red and grows from 20px to 21px as you reach each section. Items are links that glide to their section |
+| R5 | **Side index** (Overview, Problem, Solution, Design process, Design decisions, Outcomes, Reflections) | Sticky. The active item turns red and grows from 20px to 21px. **Switch rule (measured 2026-11-23, down and up):** a section becomes current when its top reaches the **bottom edge of the screen** (Framer "threshold 1"), the last one reached wins. Targets: Overview, Problem, Solution, the first step row of Design process (not its heading), Design decisions, Outcomes, Reflections. Nothing is highlighted above the first. Items are links that glide to their section |
 | R6 | Section intros (badge + heading) | Badge rises 50px, heading 25px. Spring 1.5s, bounce 0.2 |
 
 ### Overview, Problem, Solution
@@ -83,7 +83,7 @@ Values above are from the hero layers actually shown on the live site. The Frame
 | R14 | Step titles | Slide in from the right, 60px | Same |
 | R15 | Step text | Rises 18px | Spring 1.4s, bounce 0.2, after 0.3s |
 | R16 | Method tags (Survey, User interview…) | Rise 25–35px, one after another | Spring 1.4s, bounce 0.2, about 0.2s apart |
-| R17 | Line illustrations next to the steps | **Draw themselves** when the step reaches the screen. The Framer file switches them "Off → On" (spring 0.4s); the drawing speed could not be measured on the live site, so it is set to 2.4s (long research line) and 1.2s (MVP line). **To confirm with Ahmed** | Ease (0.12, 0.23, 0.5, 1) |
+| R17 | Line illustrations next to the steps | **Draw themselves** once (no replay). Measured on the live site, 2026-11-23: each line starts when its step row's top reaches the **middle of the screen** (Research row at scroll 3300, MVP row at about 5405). Research line: about 3.2s, ease (0.12, 0.23, 0.5, 1), fast start. MVP line: about 3s, slow start and end (ease in-out) | As listed |
 | R18 | **Key insights**: left column sticky, the 3 cards stack over each other while scrolling | Sticky at 0px and 40px | — |
 | R19 | Insight card numbers | **Count up** from 20 to 80 / 70 / 92 | About 2.1s |
 | R20 | Planning phone | Slides in from the right, 30px. Video plays inside | Spring 1.4s, bounce 0.2 |
@@ -92,7 +92,7 @@ Values above are from the hero layers actually shown on the live site. The Frame
 ### Design decisions
 | # | What | Behaviour | Timing |
 |---|---|---|---|
-| R22 | **Six stacking decision cards**, each with a video | Each sticks 20px from the top and **shrinks** (to 90%, 85%, 80%, 75%) as later cards slide over it | Spring (stiffness 500, damping 60) |
+| R22 | **Six stacking decision cards**, each with a video | Each sticks 20px from the top and **shrinks** as later cards slide over it. Final scales (measured): card 1 75%, card 2 75%, card 3 80%, card 4 85%, card 5 90%, card 6 100%. When the last card arrives, cards 2–4 step down at once to their second-to-last value, then ease to the final one as it rises. Key insights cards: the stack lets go 160px earlier than the cards' end (160px padding below as well as above) | Spring (stiffness 500, damping 60) |
 | R23 | Card title and text | Title rises 25px, text 18px | Spring 1.5s / 1.4s, bounce 0.2 |
 
 ### Outcomes and Reflections
@@ -100,7 +100,7 @@ Values above are from the hero layers actually shown on the live site. The Frame
 |---|---|---|---|
 | R24 | Intro paragraph | Rises 18px | Spring 1.4s, bounce 0.2, after 0.3s |
 | R25 | 5 stat cards | Rise 30px, one after another; numbers **count up** from 20 to 92 / 88 / 85 / 90 / 80 | Spring 1.4s, bounce 0.2, at 0, 0.2, 0.4, 0.6, 0.6s. Count about 2s |
-| R26 | Reflections accordion (3 items) | Items rise in one after another, then expand and collapse when clicked (keyboard accessible) | Open 0.3s, close 0.5s, tween (0.12, 0.23, 0.5, 1) |
+| R26 | Reflections accordion (3 items) | Items rise in one after another, then expand and collapse when clicked (keyboard accessible) | Measured 2026-11-23: open and close both about **0.2s**, ease (0.12, 0.23, 0.5, 1). Closed row 98px, open 349px: the title slides 13px down (27 → 40px), the inner box (radius 30, padding 30) starts 30px under it, 40px below the box. No fade. The two chevrons swap to the opposite ones at once (no slide), stroke 2.5 |
 | R27 | "Next story" link | Slides in from the left, 90px | Spring 1.2s, bounce 0.2 |
 
 ---
@@ -114,3 +114,22 @@ Values above are from the hero layers actually shown on the live site. The Frame
 5. **"My Design Approach" spacing** (updated 2026-11-22): each step is about half a screen (55vh, kept between 420 and 560px) plus an 80px gap (Ahmed asked for 25% more space between steps), so the next step peeks in as the current one leaves; the big number is right-aligned like the Framer site, so its right edge stays 47px from the text for 01–04; the first and last steps stay centred on the sticky number. The number switches when a step passes the middle of the screen (down and back up). The Framer file uses 100vh steps + 100px gaps.
 6. **Typos:** correct them: "Designer", "Design Process", "Design Decisions", "design decisions", "Analytics Dashboard". The app's name is **Recita** everywhere ("Recite is…" becomes "Recita is…").
 7. **Text:** use what the live site shows. Suggest a better wording only where it matters.
+8. **Recita page, kept different from the live Framer page (approved by Ahmed, 2026-11-23):** (a) the Research and Planning titles, text and tags animate as they reach the screen; on live Framer fires them at page load, so they never visibly animate. (b) "Next Story" is a link to Home's Projects with an arrow nudge on hover; on live it is plain text with no link or hover.
+
+## Phones (under 810px) — Home, approved 2026-11-22
+- Same entrance animations as desktop (hello and title word by word, photo rises 30px, cards' text rises, footer letters).
+- Hero title is three lines, as on desktop (updated 2026-11-23): the red word rolls after "ideas into" on line 2, clipped to that line; line height 1.35; 40px between the text and the photo.
+- Project cards stack and shrink as on desktop (updated 2026-11-23): they stick 80 / 94 / 108px from the top (higher when a card is taller than the screen, so it is seen in full first), shrink toward their top edge, and card 1 goes 100% → 93% → 88% (card 2: 100% → 95%) so only the top edges peek.
+- Approach (updated 2026-11-23, from the Framer idea node LitTxiHke): a red 64px number, left-aligned with the title and 24px from the cards, pinned mid-screen beside a column of step cards 40px apart. **One card per swipe:** once card 01 is centred on the number, each swipe (or wheel flick) glides the page to the next or previous card (0.9s, ease in-out [0.65, 0, 0.35, 1]); swiping on from 04 (or back from 01) leaves the section normally; a fling into the section stops on 01 (or 04 coming back up); a scroll ending between cards settles on the nearer one. The number changes as the glide starts: 32px slide in the scroll direction, 6px blur, cross-fade, spring 1.1s, no bounce. The card beside it fades to full strength, the others to 35% (0.8s, same ease). The pin ends when card 04 is centred on the number.
+- Menu opens as a dropdown panel (fade + 8px slide, 0.25s): 240px wide, 8px under the header bar, right edge aligned with the header, card surface colour, 0.7px lines in the border colour between links. Tapping outside closes it. (Updated 2026-11-23.)
+- Menu icon morphs between ☰ and ✕ (updated 2026-11-23): the outer lines slide to the middle (0.2s) while the middle line shrinks away, then rotate ±45° with a soft overshoot (0.35s, cubic-bezier(0.34, 1.56, 0.64, 1)); closing plays it backwards. Desktop keeps Framer's instant swap.
+- Footer: "Let's Work Together :)" stays on one line (sized to the screen, about 35px at 390px); LinkedIn, Behance, Dribbble on one line, 18px, 20px apart.
+- No custom cursor on touch screens.
+
+## Recita page: changes Ahmed asked for on 2026-11-23 (these differ on purpose from the Framer original)
+- **Side index:** the current item is heavier (weight 400 → 500).
+- **Hand-drawn lines (R17):** drawn by the scroll instead of a timer. The pen follows the reader (60% line of the screen), stops when scrolling stops, un-draws when scrolling back. Soft spring (stiffness 150, damping 24.5).
+- **Step numbers 01/02/03:** clipped at the left and top like the Framer frame (a wrapper clips, the number still slides in under it).
+- **Key insights:** the card stack stops with its middle on the middle of the screen, level with the centred text (Framer: cards stopped near the top, text 15px low). Block is 154px taller (1758px) so the text waits until all four cards are stacked, then both leave together.
+- **Design decision cards:** 687px tall (Framer 900px), 60px above and below the phone (Framer 166px); the wide first card 710px.
+- **Reflections accordion (R26):** starts as a stack (row 1 in front, rows 2 and 3 behind it, 13px strips showing) and spreads to the 36px gap when the section's top reaches mid-screen, tween 0.3s (0.12, 0.23, 0.5, 1). Read from the Framer component "main drop down menu" (variants Closed / Opened). Plays once.

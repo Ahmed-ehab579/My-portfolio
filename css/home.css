@@ -209,3 +209,101 @@
   display: flex; flex-direction: column; justify-content: center; gap: 19px;
 }
 .step__title { width: 487px; }
+
+/* =====================================================================================
+   Phones (under 810px, Framer's phone breakpoint). Approved by Ahmed 2026-11-22.
+   One column, 16px side margins, sizes scaled for a 390px screen. Desktop is unchanged.
+   ===================================================================================== */
+@media (max-width: 809px) {
+  .page { padding-top: 80px; }
+  .page > section { width: calc(100% - 32px); }
+
+  /* ----- Hero: option A — one bordered card, the text on top and the photo standing on the
+     card's bottom edge, as on desktop. Text 4px bigger than first built (Ahmed, 2026-11-23). ----- */
+  .hero__card {
+    /* 38px on a 390px phone; a little smaller on narrower phones so "product experiences" stays on one line */
+    --hero-fs: min(38px, calc((100vw - 64px) / 8.6));
+    left: 0; height: auto; padding: 26px 14px 0;
+    display: flex; flex-direction: column;
+  }
+  .hero__photo {
+    position: relative; right: auto; bottom: auto;
+    width: 300px; height: 305px;
+    margin: 40px auto -2px;          /* 40px below the text (Ahmed, 2026-11-23); flush with the card's bottom edge */
+  }
+  .hero__symbol { left: 71.7%; top: 84.7%; width: 7.7%; height: auto; }   /* same spot on the sweater */
+
+  .hero__text { padding: 0; }
+  .hero__hello { font-size: 22px; letter-spacing: -0.5px; }
+  .hero__media { width: auto; height: auto; margin-top: 8px; }
+  /* Three lines, as on desktop: the red word sits after "ideas into" on line 2 (Ahmed, 2026-11-23) */
+  .hero__title { position: static; width: auto; font-size: var(--hero-fs); line-height: 1.35; letter-spacing: -0.7px; }
+  .cycle {                           /* words roll within line 2, after "ideas into " (4.3em, as on desktop) */
+    left: calc(var(--hero-fs) * 4.3); right: 0; top: calc(var(--hero-fs) * 1.35); width: auto; height: calc(var(--hero-fs) * 1.35);
+    overflow: clip; overflow-clip-margin: 4px;
+  }
+  .cycle__word { top: 3px; font-size: calc(var(--hero-fs) * 0.92); line-height: 1.35; letter-spacing: -1px; }
+  .cycle__word--display { top: 0; font-size: var(--hero-fs); line-height: 1.35; letter-spacing: -0.7px; }
+
+  /* ----- Selected Projects: text on top, the screenshots below (scaled copy of the desktop
+     composition, set by js/home.js). The cards stack over each other as on desktop (Ahmed,
+     2026-11-23); js/home.js sets each card's sticky top so a card taller than the screen
+     is seen in full before the next one covers it. ----- */
+  .projects { margin-top: 88px; }
+  .projects__title { font-size: 32px; margin-bottom: 24px; }
+  .stack { gap: 20px; }
+  .stack__item { top: var(--sticky-top-m, 80px); transform-origin: 50% 0; }   /* shrink toward the top: only the top edges peek */
+  /* e&: the two right-hand columns of screens start above the card on desktop; on phones they
+     move down so every screen starts below the text with the same gap as the other cards */
+  .card__media--eand .shot:nth-child(2), .card__media--eand .shot:nth-child(3) { translate: 0 200px; }
+  .card__media--eand .shot:nth-child(4), .card__media--eand .shot:nth-child(5) { translate: 0 230px; }
+
+  .card { height: auto; display: flex; flex-direction: column; border-radius: 16px; }
+  .card__text { position: static; translate: none; padding: 28px 22px 6px; gap: 22px; }
+  .card__intro, .card__head { gap: 16px; }
+  .card__icon-row { flex-wrap: wrap; gap: 10px 12px; }
+  .card__title { width: auto !important; font-size: 24px; }
+  .card__desc { width: auto; font-size: 16px; line-height: 1.6; }
+  .card__tags { gap: 10px; }
+  .tag { padding: 6px 14px; font-size: 14px; max-width: 100%; }
+  .card__soon { font-size: 13px; padding: 5px 12px; }
+
+  .card__media {
+    position: relative; inset: auto; flex: none;
+    width: 1242px; height: 569px;
+    overflow: clip;                  /* shots that start above the card (e&) stay out of the text */
+    transform-origin: 0 0;
+    transform: translateX(calc(-540px * var(--s, 0.5))) scale(var(--s, 0.5));   /* shows x 540–1242 */
+    margin-bottom: calc(569px * (var(--s, 0.5) - 1));                         /* takes its scaled height */
+  }
+
+  /* ----- My Design Approach: the layout idea in Framer (node LitTxiHke): title on top, a red
+     number beside a column of step cards. The number stays pinned mid-screen and changes as
+     each card passes it, like desktop; the card beside it is full strength, the others dimmed.
+     js/home.js ends the pin when card 04 is centred on the number, and --tail-fix keeps the
+     space under card 04. (Ahmed, 2026-11-23) ----- */
+  .approach {
+    --pin-h: 76.8px;                                /* 64px × 1.2 */
+    flex-direction: column;
+    margin-top: 96px; margin-bottom: calc(96px + var(--tail-fix, 0px));
+  }
+  .approach__aside { position: static; height: auto; margin-top: 0; flex: none; }
+  .approach__title { font-size: 32px; }
+  .approach__title br { display: none; }
+  /* Number 64px, left-aligned with the title, 24px from the cards; 40px between cards (Ahmed, 2026-11-23) */
+  .approach__body { width: 100%; gap: 24px; margin-top: 28px; }
+  .approach__number { flex: none; width: 84px; margin-top: 0; justify-content: flex-start; }   /* 25% strength, as on desktop */
+  .approach__digits > span { justify-self: start; font-size: 64px; letter-spacing: -1.6px; }
+  .approach__steps { flex: 1; min-width: 0; padding: 0; gap: 40px; }
+  .step {
+    position: relative;
+    width: auto; height: auto; gap: 12px;
+    padding: 20px 18px 22px;
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  }
+  .step::after { content: ""; position: absolute; inset: 0; border: 0.5px solid rgb(34 34 34); border-radius: inherit; pointer-events: none; }
+  .step__title { width: auto; font-size: 20px; line-height: 1.3; }
+  .step .t-body-lg { font-size: 15px; line-height: 1.7; }
+}

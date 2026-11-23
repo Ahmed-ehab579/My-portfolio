@@ -22,19 +22,19 @@
 
   <link rel="stylesheet" href="css/tokens.css?v=2">
   <link rel="stylesheet" href="css/base.css?v=5">
-  <link rel="stylesheet" href="css/header.css?v=4">
-  <link rel="stylesheet" href="css/project.css?v=3">
-  <link rel="stylesheet" href="css/footer.css?v=3">
+  <link rel="stylesheet" href="css/header.css?v=9">
+  <link rel="stylesheet" href="css/project.css?v=13">
+  <link rel="stylesheet" href="css/footer.css?v=6">
 
   <script>
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("motion-ready");
   </script>
   <script src="assets/vendor/motion-12.23.12.js" defer></script>
   <script src="assets/vendor/lenis-1.1.20.min.js" defer></script>
-  <script src="js/fx.js?v=6" defer></script>
-  <script src="js/header.js?v=3" defer></script>
-  <script src="js/project.js?v=2" defer></script>
-  <script src="js/footer.js?v=1" defer></script>
+  <script src="js/fx.js?v=8" defer></script>
+  <script src="js/header.js?v=4" defer></script>
+  <script src="js/project.js?v=11" defer></script>
+  <script src="js/footer.js?v=2" defer></script>
 </head>
 <body>
   <a class="sr-only" href="#main">Skip to content</a>
@@ -64,7 +64,7 @@
           <a class="menu__link" href="./#approach">Approach</a>
         </nav>
         <button class="menu__toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu" data-menu-toggle>
-          <svg class="menu__icon menu__icon--open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6H21M3 12H21M3 18H21"/></svg><svg class="menu__icon menu__icon--close" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6L18 18"/></svg>
+          <svg class="menu__icon menu__icon--open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6H21M3 12H21M3 18H21"/></svg><svg class="menu__icon menu__icon--morph" viewBox="0 0 24 24" aria-hidden="true"><line class="l1" x1="3" y1="6" x2="21" y2="6"/><line class="l2" x1="3" y1="12" x2="21" y2="12"/><line class="l3" x1="3" y1="18" x2="21" y2="18"/></svg><svg class="menu__icon menu__icon--close" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6L18 18"/></svg>
         </button>
       </div>
     </div>
@@ -160,11 +160,11 @@
           <div class="cs-solution__rows">
             <div class="cs-solution__row" style="width: 780px">
               <p class="t-body-xl" data-split="words" data-fx="lines" data-y="20" data-dur="2" data-bounce="0" data-delay="0.2"><b>On one side,</b> I built a calm, distraction-free space where <b>Seekers</b> <span class="avatar-gap" aria-hidden="true"></span> can effortlessly discover new voices and return to the recitations they love.</p>
-              <img class="avatar" style="left: 647px; top: -35px; --r: -5deg" src="assets/images/project/HrMXqnqYJuwufWFA9pWvrhIPjcs.png" width="65" height="74" alt="" data-fx="avatar" loading="lazy">
+              <img class="avatar" style="left: 650px; top: -32.5px; --r: -5deg" src="assets/images/project/HrMXqnqYJuwufWFA9pWvrhIPjcs.png" width="59" height="69" alt="" data-fx="avatar" loading="lazy">
             </div>
             <div class="cs-solution__row" style="width: 867px">
               <p class="t-body-xl" data-split="words" data-fx="lines" data-y="20" data-dur="2" data-bounce="0" data-delay="0.2"><b>On the other side,</b> I created a structured, trustworthy environment for <b>Voices</b> <span class="avatar-gap" aria-hidden="true"></span> By giving creators a clear path to join, upload content</p>
-              <img class="avatar avatar--framed" style="left: 779px; top: -37px; --r: 5deg" src="assets/images/project/NQO6JGEc2CeuKsoFh5yEvF1is2w.png" width="65" height="74" alt="" data-fx="avatar" loading="lazy">
+              <img class="avatar avatar--framed" style="left: 782px; top: -34.5px; --r: 5deg" src="assets/images/project/NQO6JGEc2CeuKsoFh5yEvF1is2w.png" width="59" height="69" alt="" data-fx="avatar" loading="lazy">
             </div>
           </div>
         </section>
@@ -187,7 +187,7 @@
 
           <!-- Step 01: Research -->
           <div class="step-block cs-research">
-            <span class="step-block__num" aria-hidden="true" data-fx="step-num">01</span>
+            <span class="step-block__numclip" aria-hidden="true"><span class="step-block__num" data-fx="step-num">01</span></span>
             <h3 class="step-block__title" data-fx="step-title">Research</h3>
             <p class="step-block__text" data-fx="step-text">I needed to understand the users, their needs, behaviours, and pain points, as well as the market and competitive analysis.</p>
             <ul class="pills">
@@ -222,7 +222,7 @@
 
           <!-- Step 02: MVP's features -->
           <div class="step-block cs-mvp">
-            <span class="step-block__num" aria-hidden="true" data-fx="step-num">02</span>
+            <span class="step-block__numclip" aria-hidden="true"><span class="step-block__num" data-fx="step-num">02</span></span>
             <h3 class="step-block__title" data-fx="step-title">MVP's features</h3>
             <p class="step-block__text" data-fx="step-text">After I got the insights from research, I focused on balancing feature richness with intuitive design that doesn't overwhelm users.</p>
             <ul class="pills pills--fixed">
@@ -237,7 +237,7 @@
           <!-- Step 03: Planning (R20, R21) -->
           <div class="cs-planning">
             <div class="step-block">
-              <span class="step-block__num" aria-hidden="true" data-fx="step-num">03</span>
+              <span class="step-block__numclip" aria-hidden="true"><span class="step-block__num" data-fx="step-num">03</span></span>
               <h3 class="step-block__title" data-fx="step-title">Planning</h3>
               <p class="step-block__text" data-fx="step-text">Carefully crafted user flows to guarantee a straightforward and accessible experience, refining the design iteratively based on user feedback and testing.</p>
               <ul class="pills">

@@ -30,6 +30,11 @@
 }
 .site-header.is-hidden .site-header__bar { transform: translateY(-60px); opacity: 0; pointer-events: none; }
 
+/* Best practice and as on the Framer site: the empty parts of the header let clicks through to the page;
+   only the logo and the menu take them. */
+.site-header { pointer-events: none; }
+.site-header__bar > .site-header__logo, .site-header__bar > .menu { pointer-events: auto; }
+.site-header.is-hidden .site-header__bar > .site-header__logo, .site-header.is-hidden .site-header__bar > .menu { pointer-events: none; }
 .site-header__logo {
   display: grid; place-items: center;
   flex: none; width: 54px; height: 59px;
@@ -99,7 +104,66 @@
 .menu__icon--close { display: none; }
 .menu.is-open .menu__icon--open { display: none; }
 .menu.is-open .menu__icon--close { display: block; }
+.menu__icon--morph { display: none; }   /* phones only (see below) */
 
 @media (prefers-reduced-motion: reduce) {
-  .site-header__bar, .menu.is-open .menu__nav, .menu__toggle, .menu__link { transition: none; }
+  .site-header__bar, .menu.is-open .menu__nav, .menu__toggle, .menu__link, .menu__icon--morph line { transition: none !important; }
+}
+
+/* ---------- Phones (under 810px, Framer's phone breakpoint) ----------
+   Same header, 16px from each edge. The menu's links can't grow sideways on a 390px screen,
+   so they open as a small dropdown panel under the button (fade + 8px slide, 0.25s), with the
+   same 1px outline and radius. Tapping outside closes it (js/header.js). Approved 2026-11-22. */
+@media (max-width: 809px) {
+  .site-header { width: calc(100% - 32px); }
+  .site-header__bar { overflow: visible; }
+  .site-header.is-pill .site-header__bar { padding: 10px 12px; }
+
+  /* The panel hangs from the header bar (not the button), 8px below it, so it never overlaps the
+     bar in either header look; 240px wide, right edge aligned with the header's. Card surface
+     colour; full-width 0.7px lines in the border colour between the links (Ahmed, 2026-11-23).
+     The button keeps its own outline. */
+  .menu { position: static; }
+  .menu::after { display: none; }
+  .menu__toggle { position: relative; border-radius: 11px; }
+  .menu__toggle::after {
+    content: ""; position: absolute; inset: 0;
+    border: 1px solid rgb(84 84 84); border-radius: inherit;
+    pointer-events: none;
+  }
+  .menu__nav {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    width: 240px; height: auto;
+    flex-direction: column; align-items: stretch; gap: 0;
+    padding: 4px 0;
+    background: var(--surface);
+    border-radius: 14px;
+    opacity: 0; transform: translateY(-8px);
+    transition: opacity 0.25s var(--ease, ease), transform 0.25s var(--ease, ease), visibility 0s linear 0.25s;
+  }
+  .menu__nav::after { border-radius: inherit; }
+  .menu.is-open .menu__nav {
+    width: 240px;
+    opacity: 1; transform: none;
+    transition: opacity 0.25s var(--ease, ease), transform 0.25s var(--ease, ease);
+  }
+  .menu__link { height: 52px; padding: 16px 20px; border-radius: 0; font-size: 18px; line-height: 20px; }   /* 48px+ tap targets */
+  .menu__link + .menu__link { border-top: 0.7px solid rgb(84 84 84); }   /* same colour as the panel's outline */
+
+  /* Menu icon: the three lines morph into the ✕ and back (phones). Opening: the outer lines slide
+     to the middle (0.2s) while the middle line shrinks away, then they rotate into the ✕ with a
+     soft overshoot (0.35s). Closing plays it in reverse. Desktop keeps Framer's instant swap. */
+  .menu__icon--open, .menu.is-open .menu__icon--open, .menu__icon--close, .menu.is-open .menu__icon--close { display: none; }
+  .menu__icon--morph { display: block; overflow: visible; }
+  .menu__icon--morph line { transform-box: fill-box; transform-origin: center; }
+  .menu__icon--morph .l1, .menu__icon--morph .l3 {
+    transition: translate 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, rotate 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .menu__icon--morph .l2 { transition: scale 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0.15s, opacity 0.15s linear 0.2s; }
+  .menu.is-open .menu__icon--morph .l1, .menu.is-open .menu__icon--morph .l3 {
+    transition: translate 0.2s cubic-bezier(0.4, 0, 0.2, 1), rotate 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
+  }
+  .menu.is-open .menu__icon--morph .l2 { scale: 0 1; opacity: 0; transition: scale 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s linear; }
+  .menu.is-open .menu__icon--morph .l1 { translate: 0 6px; rotate: 45deg; }
+  .menu.is-open .menu__icon--morph .l3 { translate: 0 -6px; rotate: -45deg; }
 }

@@ -38,4 +38,9 @@
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && menu.classList.contains("is-open")) { setOpen(false); toggle.focus(); }
   });
+  // Phones: the menu is a dropdown, so a tap anywhere else closes it (desktop keeps Framer's behaviour)
+  const phone = window.matchMedia("(max-width: 809px)");
+  document.addEventListener("click", (e) => {
+    if (phone.matches && menu.classList.contains("is-open") && !menu.contains(e.target)) setOpen(false);
+  });
 })();

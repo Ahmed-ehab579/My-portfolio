@@ -59,5 +59,25 @@
 .site-footer__email:hover .arrow, .site-footer__social a:hover .arrow { transform: translate(3px, -3px); }
 @media (prefers-reduced-motion: reduce) { .site-footer .arrow { transition: none; } }
 
+/* ---------- Phones (under 810px) ----------
+   Same order and style; sizes scaled for a 390px screen, the title wraps to two lines and the
+   social links wrap. Height follows the content. Approved 2026-11-22. */
+@media (max-width: 809px) {
+  .site-footer { height: auto; padding-bottom: 56px; }
+  .site-footer__inner { width: calc(100% - 32px); margin-left: 16px; }
+  .site-footer__intro { gap: 20px; }
+  .site-footer__logo { width: 60px; height: 64px; border-radius: 0 0 12px 12px; }
+  .site-footer__logo svg { width: 32px; height: 32px; }
+  /* One line (Ahmed, 2026-11-23): sized to the screen, ~36px on a 390px phone, never above 44px */
+  .site-footer__title { font-size: min(44px, calc((100vw - 32px) / 10.2)); line-height: 1.2; white-space: nowrap; }
+  .site-footer__email { margin-top: 28px; font-size: 20px; gap: 8px; }
+  .site-footer__email span { text-underline-offset: 6px; text-decoration-thickness: 1.5px; }
+  .arrow--lg { width: 30px; height: 28px; }
+  /* The three links on one line, 20px apart (Ahmed, 2026-11-23) */
+  .site-footer__social { margin-top: 44px; flex-wrap: nowrap; gap: 20px; }
+  .site-footer__social a { height: auto; font-size: 18px; gap: 4px; align-items: center; white-space: nowrap; }
+  .site-footer__social .arrow { width: 20px; height: 20px; }
+}
+
 /* Hidden until the footer reaches the screen (js/footer.js) */
 .motion-ready [data-fx^="footer"] { opacity: 0; }

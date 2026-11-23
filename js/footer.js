@@ -12,19 +12,28 @@
   const title = footer.querySelector('[data-fx="footer-title"]');
   const rows = [...footer.querySelectorAll('[data-fx="footer-row"]')];
 
-  // Split the title into letters (keeps the red ":)" span)
+  // Split the title into letters (keeps the red ":)" span). Each word's letters sit in a
+  // no-wrap group, so on narrow screens the title wraps between words, never inside one.
   const letters = [];
+  const letter = (ch) => {
+    const s = document.createElement("span");
+    s.className = "split-word";
+    s.textContent = ch;
+    if (ch === " ") s.style.whiteSpace = "pre";
+    letters.push(s);
+    return s;
+  };
   const split = (node) => {
     [...node.childNodes].forEach((child) => {
       if (child.nodeType === Node.TEXT_NODE) {
         const frag = document.createDocumentFragment();
-        [...child.textContent].forEach((ch) => {
-          const s = document.createElement("span");
-          s.className = "split-word";
-          s.textContent = ch;
-          if (ch === " ") s.style.whiteSpace = "pre";
-          frag.appendChild(s);
-          letters.push(s);
+        child.textContent.split(/(\s+)/).forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
+          const word = document.createElement("span");
+          word.style.whiteSpace = "nowrap";
+          [...part].forEach((ch) => word.appendChild(letter(ch)));
+          frag.appendChild(word);
         });
         child.replaceWith(frag);
       } else if (child.nodeType === Node.ELEMENT_NODE) split(child);

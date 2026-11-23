@@ -21,11 +21,13 @@
   // ===================== R5: index follows the section on screen =====================
   (function index() {
     const links = $$("[data-index] a");
-    const sections = links.map((a) => document.querySelector(a.getAttribute("href")));
+    // Framer's scroll target for "Design process" is the first step row, not the section heading
+    const sections = links.map((a) => (a.getAttribute("href") === "#process" ? document.querySelector(".cs-research") : document.querySelector(a.getAttribute("href"))));
     let active = -1;
     const update = () => {
-      const line = window.innerHeight * 0.35;
-      let idx = 0;
+      // Framer "threshold 1": a section is current once its top reaches the bottom edge of the screen (measured on the live site)
+      const line = window.innerHeight;
+      let idx = -1; // none highlighted until the first section's top reaches the bottom of the screen
       sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= line) idx = i; });
       if (idx === active) return;
       active = idx;
@@ -63,10 +65,33 @@
   $$('[data-fx="step-text"]').forEach((el) => onView(el, () => appear(el, { y: 18, transition: spring(1.4, 0.2, 0.3) }), 0.5));
   $$('[data-fx="pill"]').forEach((el) => onView(el, () => appear(el, { y: num(el, "y", 25), transition: spring(1.4, 0.2, num(el, "delay", 0.2)) }), 0));
 
-  // R17: the hand-drawn lines draw themselves when their step reaches the screen
+  // R17: the hand-drawn lines are drawn BY THE SCROLL (Ahmed's request, replacing the timed draw): the pen follows
+  // the reader, a little behind the 60% line of the screen. Scroll stops, the line stops; scroll back, it un-draws.
+  // A soft spring (no overshoot) keeps it slow and smooth. Reduced motion: shown fully drawn.
   $$("[data-draw]").forEach((svg) => {
     const path = svg.querySelector("path");
-    onView(svg, () => draw(path, { duration: svg.classList.contains("cs-line--research") ? 2.4 : 1.2 }), 0);
+    if (reduce || !window.FX.scrollSpring) { svg.style.opacity = 1; return; }
+    path.style.strokeDasharray = "1 1";
+    path.style.strokeDashoffset = "1";
+    const sp = window.FX.scrollSpring({ stiffness: 150, damping: 24.5, mass: 1 });
+    let top = 0, h = 1, last = performance.now(), v = 0;
+    const measure = () => { const r = svg.getBoundingClientRect(); top = r.top + window.scrollY; h = r.height || 1; };
+    measure();
+    window.addEventListener("resize", measure);
+    window.addEventListener("load", measure);
+    const frame = (now) => {
+      const dt = Math.min(0.25, (now - last) / 1000); last = now;
+      const y = window.scrollY, vh = window.innerHeight;
+      const near = y + vh > top - vh && y < top + h + vh;
+      if (near || v > 0.0005) {
+        const target = Math.min(1, Math.max(0, (y + vh * 0.6 - top) / h));
+        v = sp.step(target, dt);
+        path.style.strokeDashoffset = String(Math.max(0, 1 - v));
+        svg.style.opacity = v > 0.0005 ? 1 : 0;
+      }
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
   });
 
   // R18 wrapper fade (Framer: the key-insights block rises 59px)
@@ -91,12 +116,12 @@
   // Six cards stick 20px from the top and shrink as the later cards arrive (same rule as Home's cards)
   stackScale($$("[data-decisions] .decision-wrap"), [
     [1, 0.9, 0.85, 0.85, 0.8, 0.75],
-    [1, 0.9, 0.85, 0.85, 0.8],
+    [1, 0.9, 0.85, 0.85, 0.8, 0.75],
+    [1, 0.9, 0.9, 0.85, 0.8],
     [1, 0.9, 0.9, 0.85],
-    [1, 0.9, 0.9],
     [1, 0.9],
     [1],
-  ]);
+  ], [[1, 2, 3, 4, 5], [2, 3, 4, 5, 5], [3, 4, 5, 5], [4, 5, 4], [5], []]);
   $$('[data-fx="dec-title"]').forEach((el) => onView(el, () => appear(el, { y: 25, transition: spring(1.5, 0.2) }), 0.5));
   $$('[data-fx="dec-body"]').forEach((el) => onView(el, () => appear(el, { y: 18, transition: spring(1.4, 0.2, 0.3) }), 0.3));
 
@@ -106,7 +131,29 @@
   $$('[data-fx="stat"]').forEach((el) => onView(el, () => appear(el, { y: num(el, "y", 30), transition: spring(1.4, 0.2, num(el, "delay", 0)) }), 0.3));
 
   // ===================== Reflections (R26): an accordion =====================
-  $$('[data-fx="faq-item"]').forEach((el, i) => onView(el, () => appear(el, { y: 20, transition: spring(1, 0.2, i * 0.1) }), 0.3));
+  // The three rows start as a stack (Framer "Closed" variant): row 1 in front, rows 2 and 3 tucked behind it with only
+  // a 13px strip showing. When the section's top reaches the middle of the screen they slide down into place
+  // (Framer "Opened" variant, tween 0.3s, ease 0.12 / 0.23 / 0.5 / 1). Plays once.
+  (function accordionDeck() {
+    const faq = $("[data-faq]"), items = $$('[data-fx="faq-item"]'), section = $("#reflections");
+    items.forEach((el) => (el.style.opacity = 1));
+    if (!faq || reduce || !M || items.length < 2) return;
+    faq.classList.add("faq--deck");
+    items.slice(1).forEach((el) => el.setAttribute("inert", ""));   // rows behind the front one can't be reached until they spread
+    let done = false;
+    const check = () => {
+      if (done || section.getBoundingClientRect().top > window.innerHeight * 0.5) return;
+      done = true;
+      window.removeEventListener("scroll", check);
+      const rest = items.slice(1);
+      M.animate(rest, { marginTop: ["-121px", "0px"] }, window.FX.tween(0.3)).then(() => {
+        faq.classList.remove("faq--deck");
+        rest.forEach((el) => { el.style.marginTop = ""; el.removeAttribute("inert"); });
+      });
+    };
+    window.addEventListener("scroll", check, { passive: true });
+    check();
+  })();
   $$(".faq__head").forEach((btn) => {
     const panel = document.getElementById(btn.getAttribute("aria-controls"));
     btn.addEventListener("click", () => {
@@ -114,11 +161,12 @@
       btn.setAttribute("aria-expanded", String(open));
       if (reduce || !M) { panel.hidden = !open; return; }
       if (open) {
+        panel.style.height = "0px";   // start closed so the first frame doesn't flash the full height
         panel.hidden = false;
         const h = panel.scrollHeight;
-        M.animate(panel, { height: [0, h], opacity: [0, 1] }, window.FX.tween(0.3)).then(() => (panel.style.height = "auto"));
+        M.animate(panel, { height: [0, h] }, window.FX.tween(0.2)).then(() => (panel.style.height = "auto"));
       } else {
-        M.animate(panel, { height: [panel.offsetHeight, 0], opacity: [1, 0] }, window.FX.tween(0.5)).then(() => (panel.hidden = true));
+        M.animate(panel, { height: [panel.offsetHeight, 0] }, window.FX.tween(0.2)).then(() => (panel.hidden = true));
       }
     });
   });

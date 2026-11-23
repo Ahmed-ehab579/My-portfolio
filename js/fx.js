@@ -71,7 +71,8 @@
   function countUp(el, from, to, duration = 2) {
     el.textContent = reduce || !M ? to : from;
     if (reduce || !M) return;
-    M.animate(from, to, { duration, ease: [0.16, 1, 0.3, 1], onUpdate: (v) => (el.textContent = Math.round(v)) });
+    // Live site (measured 2026-11-23): runs the full duration with a gentle ease-out, close to ease-out quad
+    M.animate(from, to, { duration, ease: [0.5, 1, 0.89, 1], onUpdate: (v) => (el.textContent = Math.round(v)) });
   }
 
   // ---------- Draw an SVG line (path needs pathLength="1") ----------
@@ -208,7 +209,10 @@
   // items: the sticky wrappers; scales[i]: card i's scale before and after each later card arrives.
   // Measured on the live site: a card shrinks one step while the next card rises from "its top
   // touches the bottom of the screen" to "its bottom touches it", then holds. Spring 500 / 60.
-  function stackScale(items, scales) {
+  // targets[i][k-1] (optional): which card's arrival drives step k of card i (default: card i+k). Framer lists
+  // can name the same card twice; each step lerps from the previous value by its own target's progress, and a
+  // step only runs once the one before it has started (measured on the Recita page).
+  function stackScale(items, scales, targets) {
     if (!items.length || reduce) return;
     let tops = [];
     const measure = () => {
@@ -232,12 +236,12 @@
       const vh = window.innerHeight, y = window.scrollY;
       let v = s[0];
       for (let k = 1; k < s.length; k++) {
-        const t = items[i + k];
+        const ti = targets ? targets[i][k - 1] : i + k;
+        const t = items[ti];
         if (!t) break;
-        const h = t.offsetHeight, start = tops[i + k] - vh, end = start + h;
-        if (y <= start) break;
-        v = y >= end ? s[k] : s[k - 1] + (s[k] - s[k - 1]) * ((y - start) / h);
-        if (y < end) break;
+        const p = Math.min(1, (y - (tops[ti] - vh)) / t.offsetHeight);
+        if (p <= 0) break;
+        v = s[k - 1] + (s[k] - s[k - 1]) * p;
       }
       return v;
     };

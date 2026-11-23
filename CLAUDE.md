@@ -10,7 +10,7 @@
 - Live reference: https://next-features-904898.framer.app/ . Compare every section and animation against it.
 - `ANIMATIONS.md` lists every animation with its exact values. Build from it, and keep it updated.
 - Desktop layout rule (measured on the live site): the page column, header and footer content are a **fixed 1242px, centred at every screen width**. Nothing shrinks on narrower screens; only the side margins change.
-- There is no tablet or phone design. Propose adaptations for approval.
+- Phone layout (under 810px, Framer's phone breakpoint) is built for Home only, approved 2026-11-22, revised 2026-11-23: hero option A (one bordered card, text on top, photo on the bottom edge, title 38px), stacking cards with text on top and scaled screenshots, Approach as a pinned number beside step cards, dropdown menu, stacked footer. Rules live in `@media (max-width: 809px)` blocks in each CSS file. Tablet (810–1241px) and the Recita page on phones are not designed yet: propose before building.
 
 ## Copying a section from Framer: required checks
 Work one section at a time. Before saying a section "matches", do all of these:
