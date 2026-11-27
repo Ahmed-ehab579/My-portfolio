@@ -223,7 +223,7 @@
      bleeding off the right edge. --u is 1px at 390px and shrinks on narrower phones. ----- */
   .hero__card {
     --u: min(1px, calc((100vw - 32px) / 358));
-    --hero-fs: calc(var(--u) * 37.9);
+    --hero-fs: calc(var(--u) * 40.9);
     left: 0; height: calc(var(--u) * 511); padding: 26px 14px 0;
     clip-path: inset(0 round 20px);  /* the photo covers the border and is cut at the card's outer edge */
   }
@@ -234,9 +234,9 @@
   .hero__symbol { left: 72.46%; top: 90.6%; width: 8.7%; height: auto; }
 
   .hero__text { padding: 0; }
-  .hero__hello { font-size: calc(var(--u) * 22); letter-spacing: -0.5px; }
+  .hero__hello { font-size: calc(var(--u) * 25); letter-spacing: -0.5px; }
   .hero__media { width: auto; height: auto; margin-top: calc(var(--u) * 22); }
-  .hero__title { position: static; width: calc(var(--u) * 310); font-size: var(--hero-fs); line-height: 1.35; letter-spacing: -0.7px; }
+  .hero__title { position: static; width: calc(var(--u) * 326); font-size: var(--hero-fs); line-height: 1.35; letter-spacing: -0.7px; }
   .hero__l3 { display: block; padding-top: calc(var(--hero-fs) * 1.35); }   /* leaves line 3 for the red word */
   .cycle {                           /* the red word rolls on its own line, under "ideas into" */
     left: 0; right: 0; top: calc(var(--hero-fs) * 2.7); width: auto; height: calc(var(--hero-fs) * 1.35);
