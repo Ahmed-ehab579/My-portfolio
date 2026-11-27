@@ -62,9 +62,10 @@
   font: 400 20px/1.6 var(--font-display); letter-spacing: -0.02em;
   color: rgb(112 112 108); opacity: 0.72;
   transform-origin: 0 50%;
-  transition: color 0.5s cubic-bezier(0.12, 0.23, 0.5, 1), transform 0.5s cubic-bezier(0.12, 0.23, 0.5, 1);
+  transition: color 0.5s cubic-bezier(0.12, 0.23, 0.5, 1), transform 0.5s cubic-bezier(0.12, 0.23, 0.5, 1), translate 0.5s cubic-bezier(0.12, 0.23, 0.5, 1);
 }
 .cs-index__list a:hover { color: rgb(15 15 15); }   /* live hover colour, measured */
+@media (hover: hover) and (min-width: 810px) { .cs-index__list a:hover { translate: 2px 0; } }   /* Framer "Defult (hover)": nudges 2px right */
 .cs-index__list a[aria-current="true"] { color: var(--accent); font-weight: 500; transform: scale(1.05); }   /* heavier: 400 → 500 (Ahmed's request) */   /* 20px → 21px */
 
 .cs-main > section + section { margin-top: 163px; }
@@ -278,6 +279,10 @@
 .next-story__link svg { width: 61px; height: 61px; fill: none; stroke: var(--text-primary); stroke-width: 1.4; stroke-linejoin: round; transition: transform 0.3s cubic-bezier(0.12, 0.23, 0.5, 1); }
 .next-story__link:hover svg { transform: translateX(6px); }
 
+/* The Planning pictures hang 140px below the Design process box: add that, so Design decisions starts the same
+   163px below them as the other sections (Ahmed, 2026-11-28). Phones already keep their usual gap. */
+@media (min-width: 810px) { .cs-main > .cs-decisions { margin-top: 303px; } }
+
 /* Phone-only parts, hidden on desktop and tablet */
 .cs-index__fab, .cs-index__peek, .cs-index__scrim, .cs-line--step, .facts__more { display: none; }
 
@@ -286,6 +291,7 @@
    Everything that is absolutely placed on desktop becomes a normal flow of blocks; entrance animations
    are unchanged. Only sticky and stack distances differ. */
 @media (max-width: 809px) {
+  html { overflow-x: clip; }   /* titles that slide in from the side must not let the page scroll sideways */
   .cs { width: calc(100% - 32px); margin-left: 16px; padding-top: 104px; }
   .t-h3-cap { font-size: 26px; line-height: 1.4; }
   .t-body-xl { font-size: 18px; line-height: 1.7; }

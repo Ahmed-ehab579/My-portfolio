@@ -1,6 +1,6 @@
 // Recita case study motion. Values from the Framer file; codes (R1, R5…) match ANIMATIONS.md.
 (function () {
-  const { reduce, spring, splitReveal, appear, onView, countUp, draw, stackScale } = window.FX;
+  const { reduce, spring, splitReveal, appear, onView, replay, countUp, draw, stackScale } = window.FX;
   const M = window.Motion;
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
@@ -86,6 +86,8 @@
 
   // ===================== Section intros (R6) =====================
   $$('[data-fx="badge"]').forEach((el) => onView(el, () => appear(el, { y: 50, transition: spring(1.5, 0.2) }), 0.5));
+  // Framer's inner Badge replays: each time it comes back fully on screen it rises 10px again
+  $$('[data-fx="badge"]').forEach((el) => onView(el, () => setTimeout(() => replay(el, { y: 10, transition: spring(0.8, 0.2) }, 1), 1600), 0.5));
   $$('[data-fx="intro-title"]').forEach((el) => onView(el, () => appear(el, { y: 25, transition: spring(1.5, 0.2) }), 0.5));
 
   // ===================== Line-by-line paragraphs (R7, R10, R11) =====================
@@ -218,6 +220,8 @@
 
   // ===================== Design process (R13–R17, R20, R21) =====================
   $$('[data-fx="step-num"]').forEach((el) => onView(el, () => appear(el, { x: -50, transition: spring(1.4, 0.2, 0.2) }), 0.5));
+  // Framer: the step numbers replay too
+  $$('[data-fx="step-num"]').forEach((el) => onView(el, () => setTimeout(() => replay(el, { x: -50, transition: spring(1.4, 0.2, 0.2) }, 0.5, el.parentElement), 1700), 0.5));
   $$('[data-fx="step-title"]').forEach((el) => onView(el, () => appear(el, { x: 60, transition: spring(1.4, 0.2, 0.2) }), 0.5));
   $$('[data-fx="step-text"]').forEach((el) => onView(el, () => appear(el, { y: 18, transition: spring(1.4, 0.2, 0.3) }), 0.5));
   $$('[data-fx="pill"]').forEach((el) => onView(el, () => appear(el, { y: num(el, "y", 25), transition: spring(1.4, 0.2, num(el, "delay", 0.2)) }), 0));

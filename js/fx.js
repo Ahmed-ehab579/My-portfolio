@@ -57,14 +57,14 @@
   function splitReveal(el, o) {
     const words = splitWords(el);
     if (reduce || !M) { words.forEach((w) => (w.style.opacity = 1)); return; }
-    const filter = o.blur ? { filter: `blur(${o.blur}px)` } : {};
-    M.animate(words, { opacity: 0, y: o.y ?? 10, ...filter }, { duration: 0 });
-    const to = { opacity: 1, y: 0, ...(o.blur ? { filter: "blur(0px)" } : {}) };
+    words.forEach((w) => (w.style.opacity = 0));
+    // [from, to] pairs: a separate zero-length "set" is applied a frame late, so the slide and blur would be lost
+    const frames = { opacity: [0, 1], y: [o.y ?? 10, 0], ...(o.blur ? { filter: [`blur(${o.blur}px)`, "blur(0px)"] } : {}) };
     const start = o.delay ?? 0, step = o.stagger ?? 0.07;
     const delay = o.by === "line"
       ? ((lines) => (i) => start + lines[i] * step)(lineIndex(words))
       : M.stagger(step, { startDelay: start });
-    return M.animate(words, to, { ...o.transition, delay });
+    return M.animate(words, frames, { ...o.transition, delay });
   }
 
   // ---------- Count a number up (Framer "Animated Numbers") ----------
@@ -93,9 +93,9 @@
   // o: { x, y, scale, opacity, transition }
   function appear(el, o) {
     if (reduce || !M) { el.style.opacity = 1; return; }
-    const from = { opacity: o.opacity ?? 0, x: o.x ?? 0, y: o.y ?? 0, scale: o.scale ?? 1 };
-    M.animate(el, from, { duration: 0 });
-    return M.animate(el, { opacity: 1, x: 0, y: 0, scale: 1 }, o.transition);
+    el.style.opacity = o.opacity ?? 0;
+    // [from, to] pairs: a separate zero-length "set" is applied a frame late, so the movement would be lost
+    return M.animate(el, { opacity: [o.opacity ?? 0, 1], x: [o.x ?? 0, 0], y: [o.y ?? 0, 0], scale: [o.scale ?? 1, 1] }, o.transition);
   }
 
   // ---------- Run once when the element reaches the screen ----------
@@ -257,5 +257,16 @@
     requestAnimationFrame(frame);
   }
 
-  window.FX = { reduce, spring, tween, splitWords, splitReveal, appear, onView, scrollSpring, stackScale, countUp, draw, smoothScroll, cursor, get lenis() { return lenis; } };
+  // ---------- Framer "replay": goes back to hidden once fully off screen, plays again when it returns ----------
+  // watch: the box that is observed (a still parent when the element itself is clipped while it moves)
+  function replay(el, o, amount = 0.5, watch = el) {
+    if (reduce || !M || !("IntersectionObserver" in window)) return;
+    let armed = false;                       // the first entrance is played by onView
+    new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) { armed = true; el.style.opacity = 0; return; }
+      if (armed && e.intersectionRatio >= amount - 0.01) { armed = false; appear(el, o); }
+    }, { threshold: [0, amount] }).observe(watch);
+  }
+
+  window.FX = { reduce, spring, tween, splitWords, splitReveal, appear, onView, replay, scrollSpring, stackScale, countUp, draw, smoothScroll, cursor, get lenis() { return lenis; } };
 })();

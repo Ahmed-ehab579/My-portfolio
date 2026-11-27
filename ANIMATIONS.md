@@ -31,6 +31,7 @@ Every animation on Home and the Recita case study, read from the Framer project 
 | H2 | "Who turn complex / ideas into / product experiences" | On load, word by word | 10px below, 4px blur | Spring 1s, bounce 0, starts after 0.5s, words 0.07s apart |
 | H3 | Red word, **cycling Simple → Thoughtful → Creative** (checked on the live site) | On load, then loops | First reveal: 10px below, 4px blur. Each change: the new word rises from 102px below, the old one drifts 68px up; both blur 5px while moving | Reveal: spring 1s, bounce 0, after 0.9s. Each change: holds 0.8s, then spring 0.8s, bounce 0 (about 1.6s per word) |
 | H4 | Your photo | On load | 30px below, transparent | Tween 1s (0.12, 0.23, 0.5, 1), starts after 0.4s |
+| H5 | Portrait clip, replaces the still photo (Ahmed's video, added 2026-11-28, desktop and phone) | Starts as the last title word appears; plays once, holds the last frame; click or tap the hero to replay | The clip's first frame (facing the visitor) | About 8s: Ahmed's video from 1.75s to its end, black and white, background removed (`js/hero-video.js`, `assets/videos/home/`). Still photo with reduced motion, no WebGL or a failed load |
 
 Values above are from the hero layers actually shown on the live site. The Framer file also holds a hidden older hero with slightly different values; it is ignored (Decision 2).
 
@@ -104,6 +105,17 @@ Values above are from the hero layers actually shown on the live site. The Frame
 | R27 | "Next story" link | Slides in from the left, 90px | Spring 1.2s, bounce 0.2 |
 
 ---
+
+## Fix and additions, 2026-11-28 (desktop compared with the live page)
+- **All entrance slides, rises, scales and blurs now play.** `FX.appear` and `FX.splitReveal` had been fading only: they set the start offset with a zero-length animation that Motion applies a frame late. They now pass [from, to] pairs. Shared code, so Home and phones are affected too.
+- **R6 replay:** section badges rise 10px again (spring 0.8s / 0.2) each time they come back fully on screen.
+- **R13 replay:** step numbers 01 / 02 / 03 slide in again each time they return.
+- **R5 hover:** an index item nudges 2px right on hover.
+- **Phones:** the same entrances and replays play; the page is clipped sideways so the 60px title slide never makes it scroll left or right.
+
+## Recita page layout, Ahmed 2026-11-28
+- Desktop: 163px between the end of Planning and the Design Decisions badge (was 23px).
+- Card titles (decisions and reflections) never leave one word alone on a line.
 
 ## Decisions (approved by Ahmed, 2026-11-20)
 

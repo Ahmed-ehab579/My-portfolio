@@ -60,6 +60,8 @@
 }
 .hero__photo img { width: 100%; height: 100%; object-fit: cover; }
 .hero__symbol { position: absolute; left: 391px; top: 469px; width: 42px; height: 45px; overflow: visible; }
+/* The portrait clip (js/hero-video.js) replaces the still photo and its symbol, so the photo never flashes first */
+.hero-clip .hero__photo img, .hero-clip .hero__symbol { visibility: hidden; }
 
 /* ===================== Selected Projects ===================== */
 .projects { margin-top: 196px; }
