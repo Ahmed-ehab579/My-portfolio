@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/tokens.css?v=2">
   <link rel="stylesheet" href="css/base.css?v=5">
   <link rel="stylesheet" href="css/header.css?v=9">
-  <link rel="stylesheet" href="css/project.css?v=22">
+  <link rel="stylesheet" href="css/project.css?v=37">
   <link rel="stylesheet" href="css/footer.css?v=6">
 
   <script>
@@ -32,8 +32,8 @@
   <script src="assets/vendor/motion-12.23.12.js" defer></script>
   <script src="assets/vendor/lenis-1.1.20.min.js" defer></script>
   <script src="js/fx.js?v=8" defer></script>
-  <script src="js/header.js?v=4" defer></script>
-  <script src="js/project.js?v=13" defer></script>
+  <script src="js/header.js?v=2?v=4" defer></script>
+  <script src="js/project.js?v=17" defer></script>
   <script src="js/footer.js?v=2" defer></script>
 </head>
 <body>
@@ -86,14 +86,14 @@
       <dl class="facts">
         <div class="facts__col">
           <div class="facts__item" data-fx="fact" data-delay="0"><dt>Project</dt><dd>Quran audio app concept</dd></div>
-          <div class="facts__item facts__item--2" data-fx="fact" data-delay="0.1"><dt>Platform</dt><dd>iOS app + pre-launch landing page</dd></div>
+          <div class="facts__item facts__item--2 facts__item--more" data-fx="fact" data-delay="0.1"><dt>Platform</dt><dd>iOS app + pre-launch landing page</dd></div>
         </div>
         <div class="facts__col">
-          <div class="facts__item" data-fx="fact" data-delay="0.3"><dt>Team</dt><dd><ul><li>A Designer (Me)</li><li>Developers</li></ul></dd></div>
+          <div class="facts__item facts__item--more" data-fx="fact" data-delay="0.3"><dt>Team</dt><dd><ul><li>A Designer (Me)</li><li>Developers</li></ul></dd></div>
           <div class="facts__item facts__item--2" data-fx="fact" data-delay="0.4"><dt>My Role</dt><dd>Sole UX/UI Designer</dd></div>
         </div>
         <div class="facts__col">
-          <div class="facts__item" data-fx="fact" data-delay="0.5"><dt>Skills</dt><dd><ul class="facts__skills"><li>UX research</li><li>UI design</li><li>Prototyping</li><li>User flows</li><li>Wireframe</li></ul></dd></div>
+          <div class="facts__item facts__item--more" data-fx="fact" data-delay="0.5"><dt>Skills</dt><dd><ul class="facts__skills"><li>UX research</li><li>UI design</li><li>Prototyping</li><li>User flows</li><li>Wireframe</li></ul></dd></div>
         </div>
         <div class="facts__col">
           <div class="facts__item" data-fx="fact" data-delay="0.6"><dt>Impact</dt><dd><ul class="facts__impact">
@@ -103,6 +103,11 @@
           </ul></dd></div>
         </div>
       </dl>
+      <!-- Phones: Project, My Role and Impact show first; Platform, Team and Skills open on tap -->
+      <button class="facts__more" type="button" aria-expanded="false" data-facts-more>
+        <span data-facts-label>See more details</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.5 L12 16.5 L19 9.5"/></svg>
+      </button>
 
       <div class="cs-hero__video">
         <video src="assets/videos/project/K1v5oEaT1V2vKqLr6vXtTV5dQ.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Recita app preview"></video>
@@ -114,7 +119,14 @@
       <!-- R5: sticky index, highlights the section on screen -->
       <aside class="cs-index" aria-label="On this page">
         <p class="cs-index__title">Index</p>
-        <ol class="cs-index__list" data-index>
+        <!-- Phones: a round button in the bottom-right corner with a reading-progress ring; tap opens the list -->
+        <button class="cs-index__fab" type="button" aria-expanded="false" aria-controls="index-list" aria-label="Page index" data-index-toggle>
+          <svg class="cs-index__ring" viewBox="0 0 56 56" aria-hidden="true"><circle class="ring-bg" cx="28" cy="28" r="25"/><circle class="ring-fg" cx="28" cy="28" r="25" pathLength="1" data-index-progress/></svg>
+          <svg class="cs-index__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7H20M4 12H20M4 17H14"/></svg>
+        </button>
+        <span class="cs-index__peek" aria-hidden="true" data-index-label>Index</span>
+        <span class="cs-index__scrim" data-index-scrim aria-hidden="true"></span>
+        <ol class="cs-index__list" id="index-list" data-index>
           <li><a href="#overview">Overview</a></li>
           <li><a href="#problem">Problem</a></li>
           <li><a href="#solution">Solutions</a></li>
@@ -144,6 +156,10 @@
           </div>
           <img class="cs-problem__img" style="left: 704px; top: 183px" src="assets/images/project/HrMXqnqYJuwufWFA9pWvrhIPjcs.png" width="225" height="262" alt="A listener with headphones, eyes closed" data-fx="problem-img" loading="lazy">
           <p class="cs-problem__text t-body-xl" style="left: 0; top: 258px; width: 475px" data-split="words" data-fx="lines" data-y="20" data-dur="2" data-bounce="0">You're at a masjid you've never visited before, and the recitation leaves you breathless. Then you leave, and you never find that voice again.</p>
+          <!-- Phones: dashed lines that fill with the scroll (js/project.js builds them to fit) -->
+          <div class="pflow pflow--1" data-flow="corner" aria-hidden="true"><span></span></div>
+          <div class="pflow pflow--2" data-flow="down" aria-hidden="true"><span></span></div>
+          <div class="pflow pflow--3" data-flow="down" aria-hidden="true"><span></span></div>
           <svg class="dash" style="left: 482px; top: 325px; width: 212px" viewBox="0 0 212 4" preserveAspectRatio="none" aria-hidden="true" data-fx="dash" data-from="x60"><path d="M2 2 H210"/></svg>
           <svg class="dash dash--v" style="left: 815px; top: 457px; height: 204px" viewBox="0 0 4 204" preserveAspectRatio="none" aria-hidden="true" data-fx="dash" data-from="y-60"><path d="M2 2 V202"/></svg>
           <svg class="dash" style="left: 246px; top: 768px; width: 290px" viewBox="0 0 290 4" preserveAspectRatio="none" aria-hidden="true" data-fx="dash" data-from="x-60"><path d="M2 2 H288"/></svg>
@@ -159,11 +175,11 @@
           </div>
           <div class="cs-solution__rows">
             <div class="cs-solution__row" style="width: 780px">
-              <p class="t-body-xl" data-split="words" data-fx="lines" data-y="20" data-dur="2" data-bounce="0" data-delay="0.2"><b>On one side,</b> I built a calm, distraction-free space where <b>Seekers</b> <span class="avatar-gap" aria-hidden="true"></span> can effortlessly discover new voices and return to the recitations they love.</p>
+              <p class="t-body-xl" data-split="words" data-fx="lines" data-y="20" data-dur="2" data-bounce="0" data-delay="0.2"><b>On one side,</b> I built a calm, distraction-free space where <b>Seekers</b> <span class="avatar-gap avatar-gap--seeker" aria-hidden="true"></span><br class="m-br"> can effortlessly discover new voices and return to the recitations they love.</p>
               <img class="avatar" style="left: 650px; top: -32.5px; --r: -5deg" src="assets/images/project/HrMXqnqYJuwufWFA9pWvrhIPjcs.png" width="59" height="69" alt="" data-fx="avatar" loading="lazy">
             </div>
             <div class="cs-solution__row" style="width: 867px">
-              <p class="t-body-xl" data-split="words" data-fx="lines" data-y="20" data-dur="2" data-bounce="0" data-delay="0.2"><b>On the other side,</b> I created a structured, trustworthy environment for <b>Voices</b> <span class="avatar-gap" aria-hidden="true"></span> By giving creators a clear path to join, upload content</p>
+              <p class="t-body-xl" data-split="words" data-fx="lines" data-y="20" data-dur="2" data-bounce="0" data-delay="0.2"><b>On the other side,</b> I created a structured, trustworthy environment for <b>Voices</b> <span class="avatar-gap avatar-gap--voice" aria-hidden="true"></span><br class="m-br"> By giving creators a clear path to join, upload content</p>
               <img class="avatar avatar--framed" style="left: 782px; top: -34.5px; --r: 5deg" src="assets/images/project/NQO6JGEc2CeuKsoFh5yEvF1is2w.png" width="59" height="69" alt="" data-fx="avatar" loading="lazy">
             </div>
           </div>
@@ -177,8 +193,8 @@
           </div>
 
           <!-- R17: hand-drawn line from Research down through the key insights -->
-          <svg class="cs-line cs-line--research" viewBox="0 0 280 1686" aria-hidden="true" data-draw>
-            <path pathLength="1" d="M 0 66.752 C 9.5 71.752 63.5 64.124 69.834 61.054 C 72.097 59.957 91.738 91.608 92.937 93.056 C 94.137 94.504 95.745 95.819 97.977 96.56 C 102.832 98.17 108.513 96.314 113.439 93.512 C 118.2 90.804 120.421 85.734 121.427 80.845 C 122.375 76.235 120.928 71.217 118.207 65.506 C 111.844 52.152 97.678 47.65 86.194 44.329 C 79.49 42.389 76.296 36.199 75.256 32.284 C 74.236 28.444 75.634 22.992 77.173 17.191 C 78.31 12.905 82.225 9.056 87.453 4.701 C 92.537 0.464 98.512 -0.512 103.409 0.223 C 108.786 1.031 111.445 7.31 113.07 12.134 C 114.583 16.629 113.727 21.489 112.352 25.746 C 109.999 33.025 99.618 38.686 83.669 47.628 C 71.53 54.434 63.086 70.935 60.717 80.462 C 59.36 85.918 61.441 93.567 64.453 101.673 C 66.907 108.274 71.609 111.34 75.495 112.77 C 79.801 114.356 84.037 112.659 86.721 110.951 C 88.11 110.067 88.856 108.237 88.893 105.695 C 89.138 88.705 73.172 55.282 67.5 48.81 C 64.835 45.768 56.293 44.874 44.841 45.635 C 39.545 45.987 38.001 64.379 35.352 66.998 C 30.632 71.665 30.254 78.337 31.326 83.375 C 32.207 87.515 41.474 87.089 49.268 86.458 C 64.42 85.232 61.495 44.036 60.813 31.562 C 60.43 24.557 58.054 18.649 58.388 14.825 C 58.556 12.908 60.438 11.389 62.396 10.419 C 73.992 4.676 99.615 11.798 112.345 18.703 C 122.881 24.418 129.469 40.457 134.502 50.31 C 137.303 55.792 132.96 60.354 131.7 64.26 C 129.923 69.772 124.693 72.861 120.999 74.836 C 107.648 81.974 85.829 79.83 73.734 77.832 C 59.348 75.456 40.867 58.264 36.15 46.49 C 34.311 41.901 34.91 37.558 35.353 33.63 C 35.57 31.705 40.501 21.31 49.269 22.31 C 55.461 23.016 57.291 32.33 60.457 33.63 C 67.139 36.373 76.689 48.74 87.897 60.035 C 93.472 65.654 115.495 66.165 154.474 66.752 C 161.237 66.854 2.867 67.22 30.064 67.486 C 57.259 67.752 109.968 68.008 137.925 67.806 C 167.502 67.591 185.518 66.387 211.869 66.664 C 224.944 66.801 230.858 67.748 235.902 69.501 C 244.504 72.491 253.241 76.413 257.503 84.81 C 261.686 93.05 260.799 116.81 261.003 117.31 C 262.066 119.917 258.581 124.94 261.003 157.81 C 263.57 192.651 262.016 1408.77 262.242 1443.92 C 262.503 1484.31 261.503 1538.31 261.503 1549.81 C 261.503 1556.81 263.065 1565.94 261.503 1575.31 C 258.503 1593.31 261.503 1679.81 261.503 1686.31"/>
+          <svg class="cs-line cs-line--research" viewBox="0 0 280 2150" aria-hidden="true" data-draw>
+            <path pathLength="1" d="M 0 66.752 C 9.5 71.752 63.5 64.124 69.834 61.054 C 72.097 59.957 91.738 91.608 92.937 93.056 C 94.137 94.504 95.745 95.819 97.977 96.56 C 102.832 98.17 108.513 96.314 113.439 93.512 C 118.2 90.804 120.421 85.734 121.427 80.845 C 122.375 76.235 120.928 71.217 118.207 65.506 C 111.844 52.152 97.678 47.65 86.194 44.329 C 79.49 42.389 76.296 36.199 75.256 32.284 C 74.236 28.444 75.634 22.992 77.173 17.191 C 78.31 12.905 82.225 9.056 87.453 4.701 C 92.537 0.464 98.512 -0.512 103.409 0.223 C 108.786 1.031 111.445 7.31 113.07 12.134 C 114.583 16.629 113.727 21.489 112.352 25.746 C 109.999 33.025 99.618 38.686 83.669 47.628 C 71.53 54.434 63.086 70.935 60.717 80.462 C 59.36 85.918 61.441 93.567 64.453 101.673 C 66.907 108.274 71.609 111.34 75.495 112.77 C 79.801 114.356 84.037 112.659 86.721 110.951 C 88.11 110.067 88.856 108.237 88.893 105.695 C 89.138 88.705 73.172 55.282 67.5 48.81 C 64.835 45.768 56.293 44.874 44.841 45.635 C 39.545 45.987 38.001 64.379 35.352 66.998 C 30.632 71.665 30.254 78.337 31.326 83.375 C 32.207 87.515 41.474 87.089 49.268 86.458 C 64.42 85.232 61.495 44.036 60.813 31.562 C 60.43 24.557 58.054 18.649 58.388 14.825 C 58.556 12.908 60.438 11.389 62.396 10.419 C 73.992 4.676 99.615 11.798 112.345 18.703 C 122.881 24.418 129.469 40.457 134.502 50.31 C 137.303 55.792 132.96 60.354 131.7 64.26 C 129.923 69.772 124.693 72.861 120.999 74.836 C 107.648 81.974 85.829 79.83 73.734 77.832 C 59.348 75.456 40.867 58.264 36.15 46.49 C 34.311 41.901 34.91 37.558 35.353 33.63 C 35.57 31.705 40.501 21.31 49.269 22.31 C 55.461 23.016 57.291 32.33 60.457 33.63 C 67.139 36.373 76.689 48.74 87.897 60.035 C 93.472 65.654 115.495 66.165 154.474 66.752 C 161.237 66.854 2.867 67.22 30.064 67.486 C 57.259 67.752 109.968 68.008 137.925 67.806 C 167.502 67.591 185.518 66.387 211.869 66.664 C 224.944 66.801 230.858 67.748 235.902 69.501 C 244.504 72.491 253.241 76.413 257.503 84.81 C 261.686 93.05 260.799 116.81 261.003 117.31 C 262.066 119.917 258.581 124.94 261.003 157.81 C 263.57 192.651 262.016 1408.77 262.242 1443.92 C 262.503 1484.31 261.503 1538.31 261.503 1549.81 C 261.503 1556.81 263.065 1565.94 261.503 1575.31 C 258.503 1593.31 261.503 1679.81 261.503 1686.31 L 261.503 2140"/>
           </svg>
           <!-- R17: second line, from MVP's features down to Planning -->
           <svg class="cs-line cs-line--mvp" viewBox="0 0 115 526" preserveAspectRatio="none" aria-hidden="true" data-draw>
@@ -198,11 +214,14 @@
             </ul>
           </div>
 
+          <!-- Phones: Ahmed's hand-drawn lines from the Framer phone frame (the long desktop lines are hidden there) -->
           <!-- Key insights (R18, R19) -->
           <div class="insights" data-fx="insights">
             <div class="insights__aside">
+          <svg class="cs-line cs-line--step cs-line--knot" viewBox="0 0 90 270" aria-hidden="true" data-draw data-duration="2.4"><path pathLength="1" transform="translate(98 0) rotate(90)" d="M 0 45.338 C 9.045 48.236 60.109 50.891 65.033 48.455 C 66.792 47.584 82.059 72.704 82.991 73.853 C 83.924 75.002 85.174 76.046 86.909 76.634 C 90.682 77.911 95.098 76.438 98.927 74.215 C 102.628 72.066 104.355 68.042 105.137 64.162 C 105.873 60.503 104.749 56.521 102.634 51.988 C 97.688 41.39 86.676 37.817 77.75 35.181 C 72.538 33.642 70.056 28.729 69.247 25.622 C 68.454 22.574 69.541 18.248 70.737 13.644 C 71.621 10.242 74.664 7.187 78.728 3.731 C 82.68 0.369 87.324 -0.406 91.131 0.177 C 95.311 0.818 97.377 5.802 98.641 9.63 C 99.817 13.198 99.151 17.055 98.082 20.433 C 96.253 26.21 88.184 30.703 75.787 37.8 C 66.351 43.201 59.787 56.297 57.946 63.858 C 56.891 68.188 58.509 74.258 60.85 80.692 C 62.758 85.93 66.412 88.364 69.433 89.498 C 72.78 90.757 76.073 89.41 78.159 88.055 C 79.239 87.353 79.819 85.901 79.847 83.884 C 80.038 70.4 67.627 43.874 63.218 38.738 C 61.147 36.323 54.507 35.614 45.605 36.218 C 41.489 36.497 40.289 51.094 38.229 53.172 C 34.561 56.876 34.267 62.171 35.1 66.17 C 35.785 69.455 42.988 69.117 49.047 68.616 C 60.824 67.643 58.551 34.949 58.021 25.049 C 57.723 19.49 55.876 14.801 56.136 11.766 C 56.266 10.245 57.729 9.039 59.251 8.269 C 68.265 3.711 88.182 9.364 98.077 14.844 C 106.267 19.379 111.388 32.108 115.3 39.928 C 117.477 44.279 114.101 47.899 113.122 50.999 C 111.741 55.374 107.675 57.825 104.804 59.393 C 94.426 65.058 77.466 63.356 68.064 61.77 C 56.882 59.885 42.516 46.241 38.85 36.896 C 37.42 33.254 37.886 29.808 38.23 26.69 C 38.399 25.162 42.232 16.913 49.047 17.706 C 53.86 18.267 55.283 25.658 57.744 26.69 C 62.938 28.867 79.073 47.646 79.073 47.646 C 79.073 47.646 100.526 52.511 130.824 52.977 C 136.081 53.058 96.229 53.974 117.961 53.813 C 140.951 53.643 154.955 52.687 175.438 52.907 C 185.601 53.016 191.268 52.556 195.75 52.977 C 212 52.9 228 53.05 242 52.95 C 254 52.9 260 53 270 52.98"/></svg>
               <h3 class="insights__title t-h1-lower" data-fx="step-title">Key insights</h3>
               <p class="insights__text" data-fx="step-text">Based on the results I got from the survey, online meeting notes and opportunities in leading companies’ gaps and weaknesses, I found that:</p>
+              <svg class="cs-line cs-line--step cs-line--short" viewBox="-3 0 6 55" aria-hidden="true" data-draw data-duration="0.7"><path pathLength="1" transform="translate(0.2 0) rotate(90)" d="M 0 0.195 C 5.89 0.037 0.987 -0.308 18.093 0.623 C 21.061 0.785 31.717 0.044 43.282 0.484 C 49.02 0.701 52.22 -0.218 54.75 0.623"/></svg>
             </div>
             <div class="insights__cards">
               <div class="insight-wrap" style="--top: 40px; height: 282px; --offset: 46px; --rot: 1deg">
@@ -220,6 +239,7 @@
             </div>
           </div>
 
+          <svg class="cs-line cs-line--step cs-line--to02" viewBox="-3 0 6 152" aria-hidden="true" data-draw data-duration="1.4"><path pathLength="1" transform="translate(0.2 0) rotate(90)" d="M 0 0.195 C 16.339 0.037 2.737 -0.308 50.186 0.623 C 58.419 0.785 87.976 0.044 120.054 0.484 C 135.97 0.701 144.845 -0.218 151.863 0.623"/></svg>
           <!-- Step 02: MVP's features -->
           <div class="step-block cs-mvp">
             <span class="step-block__numclip" aria-hidden="true"><span class="step-block__num" data-fx="step-num">02</span></span>
@@ -234,6 +254,7 @@
             </ul>
           </div>
 
+          <svg class="cs-line cs-line--step cs-line--to03" viewBox="-3 0 6 142" aria-hidden="true" data-draw data-duration="1.4"><path pathLength="1" transform="translate(0.6 0) rotate(90)" d="M 0 0.625 C 15.26 0.118 2.556 -0.986 46.872 1.995 C 54.562 2.513 82.167 0.141 112.127 1.548 C 126.992 2.244 135.281 -0.697 141.836 1.995"/></svg>
           <!-- Step 03: Planning (R20, R21) -->
           <div class="cs-planning">
             <div class="step-block">
@@ -300,7 +321,7 @@
             <div class="decision-wrap">
               <article class="decision">
                 <div class="decision__text">
-                  <h3 class="decision__title" data-fx="dec-title">Designing search around real user behavior</h3>
+                  <h3 class="decision__title" data-fx="dec-title">Designing search around real <br class="m-break">user behavior</h3>
                   <p class="decision__body" data-fx="dec-body">80% of users search for reciters by country. 70% want mood-based discovery without endless scrolling. These findings directly shaped the search page layout — placing country and mood filters prominently so users find what they need in seconds, not minutes.</p>
                 </div>
                 <div class="phone decision__phone">
@@ -314,7 +335,7 @@
             <div class="decision-wrap">
               <article class="decision">
                 <div class="decision__text">
-                  <h3 class="decision__title" data-fx="dec-title">A home feed built around the individual</h3>
+                  <h3 class="decision__title" data-fx="dec-title">A home feed built around <br class="m-break">the individual</h3>
                   <p class="decision__body" data-fx="dec-body">Rather than a generic content feed, I designed the home screen around the user’s unique profile — surfacing reciters that match their taste, trending voices, and updates from followed reciters in a clear visual hierarchy. The clean, dark UI removes distraction so the content itself leads the experience.</p>
                 </div>
                 <div class="phone decision__phone">
@@ -375,7 +396,7 @@
         <section class="cs-reflections" id="reflections" data-section>
           <div class="intro">
             <p class="badge" data-fx="badge"><svg aria-hidden="true"><use href="#spark"/></svg>Reflections</p>
-            <h2 class="intro__title t-h3-cap" data-fx="intro-title">What This Project Taught Me</h2>
+            <h2 class="intro__title t-h3-cap" data-fx="intro-title">What This Project <br class="m-break">Taught Me</h2>
           </div>
           <div class="faq" data-faq>
             <div class="faq__item" data-fx="faq-item">

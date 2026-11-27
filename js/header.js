@@ -21,7 +21,9 @@
     const y = Math.max(0, window.scrollY);   // ignore the rubber-band bounce above the top
     header.classList.toggle("is-pill", y >= pillAt);
     if (y === lastY) return;
-    header.classList.toggle("is-hidden", y > lastY && y > 0);
+    const hidden = y > lastY && y > 0;
+    header.classList.toggle("is-hidden", hidden);
+    document.documentElement.classList.toggle("header-hidden", hidden);   // phones: the pinned Index bar moves up to the edge while the header is away
     lastY = y;
   };
   window.addEventListener("scroll", onScroll, { passive: true });

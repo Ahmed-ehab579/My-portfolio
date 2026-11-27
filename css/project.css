@@ -121,8 +121,8 @@
 .cs-line { position: absolute; z-index: 0; overflow: visible; pointer-events: none; }
 .cs-line path { fill: none; stroke: var(--border); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .motion-ready .cs-line { opacity: 0; }   /* drawn by js/project.js (FX.draw) */
-.cs-line--research { left: 469px; top: 389px; width: 276px; height: 1661px; }   /* exactly as in Framer */
-.cs-line--mvp { left: 215px; top: 2666px; width: 109px; height: 463px; }
+.cs-line--research { left: 469px; top: 389px; width: 276px; height: 2118px; }   /* top part exactly as in Framer; the tail below the last card, curving to the "02", is added (Ahmed, 2026-11-23) */
+.cs-line--mvp { left: 215px; top: 2866px; width: 109px; height: 463px; }
 
 .step-block { position: relative; z-index: 1; display: flow-root; }   /* flow-root: the title's margin stays inside */
 /* As in Framer, the step frame clips its big number: the part left of (and above) the frame is hidden.
@@ -153,10 +153,10 @@
    ends where it does in the original: hidden behind the last card. Only the sticky text gets a longer track: the block is
    1759px tall and pulled back up by 155px (margin-bottom), so nothing below it moves, and the text waits until the stack
    is complete and leaves with it. The extra 155px is the empty gap before MVP. */
-.insights { position: relative; margin-top: 36px; margin-bottom: -155px; height: 1759px; display: grid; grid-template-columns: 414px 562px; }
+.insights { position: relative; margin-top: 36px; margin-bottom: 45px; height: 1759px; display: grid; grid-template-columns: 414px 562px; }
 .insights__aside {
   position: sticky; top: 0; align-self: start;
-  height: 100vh; width: 286px; margin-left: 40px; padding-top: 24px;   /* 12px lower than centre: puts "Key insights" on the same line as the "92 %" of the finished stack (measured) */
+  height: 100vh; width: 286px; margin-left: 40px;   /* text block centred on the screen, same centre as the finished card stack (Ahmed, 2026-11-23) */
   display: flex; flex-direction: column; justify-content: center; gap: 16px;
 }
 .insights__title { color: var(--text-secondary); }
@@ -249,8 +249,8 @@
 .faq__item { position: relative; background: var(--surface); border-radius: 26px; }
 /* Stacked start (Framer "Closed"): each row sits 13px lower than the one before and behind it. Set by js/project.js */
 .faq--deck .faq__item:nth-child(1) { z-index: 3; }
-.faq--deck .faq__item:nth-child(2) { z-index: 2; margin-top: -121px; }   /* 36px gap − 121px = 13px step */
-.faq--deck .faq__item:nth-child(3) { z-index: 1; margin-top: -121px; }
+.faq--deck .faq__item:nth-child(2) { z-index: 2; margin-top: var(--deck, -121px); }   /* 36px gap − 121px = 13px step (js sets --deck from the real heights) */
+.faq--deck .faq__item:nth-child(3) { z-index: 1; margin-top: var(--deck, -121px); }
 .faq__item::after { content: ""; position: absolute; inset: 0; border: 1px solid rgb(34 34 34); border-radius: inherit; pointer-events: none; }
 .faq__item h3 { margin: 0; }
 .faq__head {
@@ -277,3 +277,320 @@
 .next-story__link { display: inline-flex; align-items: flex-start; gap: 10px; font: 500 44px/1.4 var(--font-body); color: var(--text-primary); }
 .next-story__link svg { width: 61px; height: 61px; fill: none; stroke: var(--text-primary); stroke-width: 1.4; stroke-linejoin: round; transition: transform 0.3s cubic-bezier(0.12, 0.23, 0.5, 1); }
 .next-story__link:hover svg { transform: translateX(6px); }
+
+/* Phone-only parts, hidden on desktop and tablet */
+.cs-index__fab, .cs-index__peek, .cs-index__scrim, .cs-line--step, .facts__more { display: none; }
+
+/* ===================== Phones (under 810px, Framer's phone breakpoint) =====================
+   Proposed 2026-11-23, approved by Ahmed (pinned Index bar, one short line per step, tablet later).
+   Everything that is absolutely placed on desktop becomes a normal flow of blocks; entrance animations
+   are unchanged. Only sticky and stack distances differ. */
+@media (max-width: 809px) {
+  .cs { width: calc(100% - 32px); margin-left: 16px; padding-top: 104px; }
+  .t-h3-cap { font-size: 26px; line-height: 1.4; }
+  .t-body-xl { font-size: 18px; line-height: 1.7; }
+  .intro { width: auto !important; gap: 12px; }
+  .badge { height: 32px; font-size: 14px; }
+
+  /* ----- Intro ----- */
+  .cs-hero__head { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 16px; }
+  .cs-hero__title { width: auto; font-size: 34px; line-height: 1.3; }
+  .cs-hero__read { font-size: 15px; }
+  .facts {
+    width: 100%; height: auto; margin: 28px 0 0; padding: 22px 20px 24px;
+    grid-template-columns: 1fr 1fr; gap: 22px 16px; border-radius: 22px;
+  }
+  .facts__col { display: contents; }
+  .facts__item--2 { position: static; }
+  .facts dt { font-size: 14px; }
+  .facts dd { max-width: none; font-size: 15px; margin-top: 8px; }
+  .facts ul { margin-top: 10px; padding-left: 18px; }
+  .facts__col:nth-child(3) .facts__item, .facts__col:nth-child(4) .facts__item { grid-column: 1 / -1; }   /* Skills and Impact use the full width */
+  /* Progressive disclosure: Project, My Role and Impact first; Platform, Team and Skills open with the button below */
+  .facts { padding-bottom: 68px; }
+  .facts__col:nth-child(1) .facts__item:first-child { order: 1; }
+  .facts__col:nth-child(2) .facts__item--2 { order: 2; }
+  .facts__col:nth-child(4) .facts__item { order: 3; }
+  .facts__item--more { order: 4; }
+  .facts:not(.is-open) .facts__item--more { display: none; }
+  .facts__col:nth-child(3) .facts__item { order: 6; }
+  .facts__col:nth-child(2) .facts__item:first-child { order: 5; }
+  .facts__more {
+    position: relative; display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; height: 44px; margin: -56px 0 12px;
+    font: 500 15px/1 var(--font-body); color: var(--text-primary);
+  }
+  .facts__more svg { width: 18px; height: 18px; fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s ease; }
+  .facts__more[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .facts__skills { grid-template-columns: 1fr 1fr; row-gap: 6px; }
+  .facts__impact { width: auto; padding-left: 18px !important; gap: 10px; }
+  .cs-hero__video { width: 100%; height: auto; aspect-ratio: 3 / 2; margin: 16px 0 0; border-radius: 22px; }
+
+  /* ----- Body: the Index becomes a floating round button in the bottom-right corner (thumb reach) -----
+     A ring around it fills as you read; tap opens a small sheet with the 7 sections (done / current / next).
+     When the section changes, a pill peeks out for a moment with its name, so the button is noticed and
+     says where you are. It appears once the hero is passed and steps away at the footer. (Ahmed, 2026-11-23) */
+  .cs-body { grid-template-columns: minmax(0, 1fr); margin-top: 48px; }
+  .cs-main { min-width: 0; }
+  /* --bar-top: space the header takes at the top while it is on screen (stacked cards stick below it) */
+  :root { --bar-top: 0px; }
+  html:not(.header-hidden) { --bar-top: 82px; }
+  .cs-index { position: static; height: 0; padding: 0; margin: 0; }
+  .cs-index__title { display: none; }
+  .cs-index__fab {
+    position: fixed; z-index: 60; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom));
+    display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%;
+    background: var(--surface); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+    opacity: 0; scale: 0.6; pointer-events: none;
+    transition: opacity 0.3s ease, scale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .cs-index__fab::after { content: ""; position: absolute; inset: 0; border: 1px solid rgb(34 34 34); border-radius: inherit; pointer-events: none; }
+  .cs-index.is-active .cs-index__fab { opacity: 1; scale: 1; pointer-events: auto; }
+  .cs-index__ring { position: absolute; inset: 0; width: 100%; height: 100%; rotate: -90deg; }
+  .cs-index__ring circle { fill: none; stroke-width: 3; }
+  .cs-index__ring .ring-bg { stroke: var(--border); opacity: 0.3; }
+  .cs-index__ring .ring-fg { stroke: var(--accent); stroke-linecap: round; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+  .cs-index__icon { position: relative; width: 22px; height: 22px; fill: none; stroke: var(--text-primary); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: rotate 0.3s ease; }
+  .cs-index.is-open .cs-index__icon { rotate: 90deg; }
+  .cs-index__peek {
+    position: fixed; z-index: 59; right: calc(16px + 56px + 8px); bottom: calc(16px + 8px + env(safe-area-inset-bottom));
+    display: flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 20px;
+    background: var(--surface); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    font: 500 15px/1 var(--font-display); color: var(--accent); white-space: nowrap;
+    opacity: 0; translate: 16px 0; pointer-events: none;
+    transition: opacity 0.3s ease, translate 0.4s cubic-bezier(0.12, 0.23, 0.5, 1);
+  }
+  .cs-index__peek::after { content: ""; position: absolute; inset: 0; border: 1px solid rgb(34 34 34); border-radius: inherit; }
+  .cs-index.is-active.is-peek:not(.is-open) .cs-index__peek { opacity: 1; translate: 0 0; }
+  .cs-index__scrim { display: block; position: fixed; z-index: 55; inset: 0; background: rgba(20, 20, 20, 0.16); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+  .cs-index.is-open .cs-index__scrim { opacity: 1; pointer-events: auto; }
+  .cs-index__list {
+    position: fixed; z-index: 58; right: 16px; bottom: calc(16px + 56px + 10px + env(safe-area-inset-bottom));
+    width: min(264px, calc(100vw - 32px)); margin: 0; padding: 6px; gap: 0;
+    background: var(--surface); border-radius: 20px; box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+    opacity: 0; visibility: hidden; transform: translateY(10px) scale(0.96); transform-origin: 100% 100%;
+    transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.12, 0.23, 0.5, 1), visibility 0s linear 0.3s;
+  }
+  .cs-index__list::after { content: ""; position: absolute; inset: 0; border: 1px solid rgb(34 34 34); border-radius: inherit; pointer-events: none; }
+  .cs-index.is-open .cs-index__list { opacity: 1; visibility: visible; transform: none; transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.12, 0.23, 0.5, 1); }
+  .cs-index__list li { height: auto; }
+  .cs-index__list a {
+    display: flex; align-items: center; gap: 12px; padding: 0 12px; height: 48px; border-radius: 14px;
+    font-size: 17px; line-height: 1.2; opacity: 1; transform: none !important; color: var(--text-secondary);
+  }
+  .cs-index__list a:active { background: var(--surface-hover); }
+  .cs-index__list a::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--border); }
+  .cs-index__list a.is-done::before { background: var(--text-secondary); border-color: var(--text-secondary); }
+  .cs-index__list a[aria-current="true"]::before { background: var(--accent); border-color: var(--accent); }
+
+  .cs-main > section + section { margin-top: 80px; }
+  .cs-main > .cs-outcomes, .cs-main > .cs-reflections { margin-top: 80px; }
+  .cs-main > section { scroll-margin-top: 100px; }
+
+  /* ----- Overview ----- */
+  .cs-overview { min-height: 0; }
+  .cs-overview__text { position: static; width: auto; margin-top: 22px; }
+
+  /* ----- Problem: text, then a photo, alternating; the dashed decorations are left out ----- */
+  .cs-problem { height: auto; display: flex; flex-direction: column; gap: 22px; }
+  .cs-problem .intro { order: 0; }
+  .cs-problem > p:nth-of-type(1) { order: 1; }
+  .cs-problem > img:nth-of-type(1) { order: 2; }
+  .cs-problem > p:nth-of-type(2) { order: 3; }
+  .cs-problem > img:nth-of-type(2) { order: 4; }
+  .cs-problem__text { position: static !important; width: auto !important; }
+  .cs-problem__img { position: static !important; width: 170px; height: 198px; border-radius: 52px; }
+  .cs-problem > img:nth-of-type(1) { align-self: flex-end; }
+  .dash { display: none; }
+
+  /* ----- Solution: text first, then its picture ----- */
+  .cs-solution__rows { margin-top: 24px; gap: 28px; }
+  .cs-solution__row { width: auto !important; margin: 0 !important; display: flex; flex-direction: column; gap: 16px; }
+  .avatar-gap { display: none; }
+  .avatar { position: static !important; width: 59px; height: 69px; }
+
+  /* ----- Design process: number above title, tags wrap, one short line per step ----- */
+  .cs-process { height: auto; }
+  .cs-process .intro { margin-bottom: 40px; }
+  .cs-line--research, .cs-line--mvp { display: none; }
+  .cs-line--step { display: block; position: static; width: 24px; height: 72px; margin: 28px 0 28px 12px; }
+  .cs-research, .cs-mvp, .cs-planning .step-block { width: auto; height: auto; margin: 0; top: 0; --title-top: 6px; --text-top: 14px; }
+  .step-block__numclip { position: relative; display: block; width: auto; height: 78px; }
+  .step-block__num { left: 0; top: 0; font-size: 84px; }
+  .step-block__title { font-size: min(44px, 11.5vw); }
+  .step-block__text { width: auto; font-size: 16px; }
+  .pills { margin-top: 24px; gap: 12px 10px; }
+  .cs-mvp .pills { margin-top: 24px; }
+  .pills li { height: 34px; padding: 9px 16px; font-size: 16px; }
+
+  /* Key insights: text on top, the four cards stack as they scroll past (Home's idea, smaller shrink) */
+  .insights { display: block; height: auto; margin: 0; }
+  .insights__aside { position: static; width: auto; height: auto; margin: 0 0 28px; padding: 0; gap: 12px; display: flex; }
+  .insights__title { font-size: 36px; }
+  .insights__text { font-size: 16px; }
+  .insights__cards { height: auto; padding: 0 0 8px; }
+  /* The first card stops with its top edge in the middle of the screen, the others stack over it 14px lower each
+     (Ahmed, 2026-11-27). On very short screens it stops a little higher so a whole card still fits. */
+  .insight-wrap { position: sticky; top: calc(max(16px, min(50vh, 100vh - 360px)) + var(--n, 0) * 14px); top: calc(max(16px, min(50svh, 100svh - 360px)) + var(--n, 0) * 14px); height: auto !important; padding: 0; margin-bottom: 20px; }
+  .insight-wrap:nth-child(2) { --n: 1; } .insight-wrap:nth-child(3) { --n: 2; } .insight-wrap:nth-child(4) { --n: 3; }
+  .insight { width: 100%; grid-template-columns: 1fr; padding: 22px 20px 24px; }
+  .insight__num { grid-row: auto; font-size: 50px; }
+  .insight__lead, .insight__more { font-size: 16px; max-width: none; }
+  .insight__more { margin-top: 10px; }
+
+  /* Planning: text, then the flow diagram with the phone on top of it */
+  .cs-planning { position: relative; margin-top: 0; height: auto; display: flex; flex-direction: column; }
+  .cs-planning__flows { position: relative; left: auto; top: auto; width: 100%; height: 600px; margin-top: 36px; border-radius: 22px; }
+  .cs-planning__phone { left: 50%; top: auto; bottom: 16px; translate: -50% 0; }
+
+  /* ----- Design decisions: cards stack under the pinned Index bar; the phone is cropped at the card's bottom edge ----- */
+  .cs-decisions { padding-top: 0; }
+  .decisions { margin-top: 32px; gap: 20px; }
+  .decision-wrap { top: calc(var(--bar-top) + 20px); transition: top 0.4s cubic-bezier(0.12, 0.23, 0.5, 1); }
+  .decision { height: auto; flex-direction: column; align-items: stretch; padding: 26px 20px 0; border-radius: 22px; overflow: clip; }
+  .decision__text { width: auto; height: auto; gap: 14px; justify-content: flex-start; }
+  .decision__title { font-size: 22px; }
+  .decision__body { font-size: 15px; line-height: 1.7; }
+  .decision__phone { margin: 24px auto -230px; flex: none; }
+  .decision--wide { padding: 26px 0 0; height: auto; }
+  .decision__text--wide { position: static; width: auto; margin: 0 20px; }
+  .decision__text--wide .decision__body { margin-top: 14px; }
+  .decision__devices {
+    position: relative; left: 0; top: 0; width: 1018px; height: 415px; margin: 24px 0 calc(415px * (0.46 - 1));
+    transform-origin: 0 0; scale: 0.46; translate: -116px 0;   /* shows the tablet; the small phone is left off the crop */
+  }
+
+  /* ----- Outcomes ----- */
+  .cs-outcomes { padding-bottom: 0; }
+  .cs-outcomes__lead { width: auto; font-size: 16px; }
+  .stats { margin-top: 32px; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stat { padding: 22px 16px; }
+  .stat:last-child { grid-column: 1 / -1; }
+  .stat__num { font-size: 54px; gap: 8px; }
+  .stat__num span { min-width: 1.15em; }
+  .stat__text { font-size: 15px; margin-top: 12px; }
+
+  /* ----- Reflections ----- */
+  .faq { width: 100%; margin-top: 28px; gap: 16px; }
+  .faq__item { border-radius: 20px; }
+  .faq__head { padding: 20px 18px; font-size: 20px; gap: 12px; }
+  .faq__head[aria-expanded="true"] { padding: 24px 18px 0; }
+  .faq__panel::before { height: 18px; }
+  .faq__panel::after { height: 22px; }
+  .faq__box { margin: 0 18px; padding: 20px; border-radius: 20px; }
+  .faq__box p { font-size: 16px; }
+
+  /* ----- Next story: a full-width card ----- */
+  .next-story { margin: 80px 0 64px; height: auto; display: block; }
+  .next-story__link {
+    position: relative; display: flex; align-items: center; justify-content: space-between;
+    width: 100%; padding: 26px 22px; font-size: 26px; line-height: 1.2;
+    background: var(--surface); border-radius: 20px;
+  }
+  .next-story__link::after { content: ""; position: absolute; inset: 0; border: 1px solid rgb(34 34 34); border-radius: inherit; pointer-events: none; }
+  .next-story__link svg { width: 36px; height: 36px; }
+}
+
+/* Phone-only parts added for Ahmed's Framer phone frame */
+.pflow, .m-br, .m-break, .dec-more { display: none; }
+@media (max-width: 809px) { .m-break { display: inline; } }   /* Ahmed's line breaks in phone titles */
+
+/* ===================== Phones: Ahmed's edits in the Framer frame "Recita – Phone 390" (2026-11-27) =====================
+   These come after the first phone build above and win over it. */
+@media (max-width: 809px) {
+  /* ----- Problem: grouped, with dashed lines that fill as you scroll ----- */
+  .cs-problem { gap: 0; }
+  .cs-problem > p:nth-of-type(1) { order: 1; margin-top: 28px; }
+  .pflow--1 { order: 2; height: 111px; }
+  .cs-problem > img:nth-of-type(1) { order: 3; }
+  .pflow--2 { order: 4; height: 72px; }
+  .cs-problem > p:nth-of-type(2) { order: 5; }
+  .pflow--3 { order: 6; height: 111px; }
+  .cs-problem > img:nth-of-type(2) { order: 7; }
+  .pflow { display: block; position: relative; pointer-events: none; }
+  .pflow span { position: absolute; z-index: 1; }
+  .pflow--1 span { left: 81px; right: 180px; top: 23px; height: 196px; }
+  .pflow--2 span { right: 83px; top: 0; width: 4px; height: 68px; }
+  .pflow--3 span { left: 83px; top: 18px; width: 4px; height: 68px; }
+  .pflow svg { width: 100%; height: 100%; max-width: none; overflow: visible; }
+  .pflow path { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .pflow__empty, .pflow__full { stroke: var(--border); stroke-dasharray: 13; }
+  .pflow__empty { opacity: 0.25; }   /* the empty pipe */
+  .pflow path.pflow__water { stroke: #fff; stroke-width: 12; stroke-linecap: butt; stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0; }
+
+  /* ----- Solution: small pictures inside the sentence ----- */
+  .avatar { display: none; }
+  .avatar-gap {
+    display: inline-block; width: 35px; height: 41px; margin: -12px 0 -12px 2px; vertical-align: middle;
+    border-radius: 7px; background: url("../assets/images/project/HrMXqnqYJuwufWFA9pWvrhIPjcs.png") center / cover; rotate: -5deg;
+  }
+  .avatar-gap--voice { background-image: url("../assets/images/project/NQO6JGEc2CeuKsoFh5yEvF1is2w.png"); border: 1px solid rgb(194 194 194); rotate: 5deg; }
+  .m-br { display: inline; }
+
+  /* ----- Design process: centred, joined by the hand-drawn lines ----- */
+  .cs-process .intro { margin-bottom: 48px; }
+  .cs-research, .cs-mvp, .cs-planning .step-block { text-align: center; }
+  .step-block__num { position: static; display: block; width: max-content; margin: 0 auto; }
+  .step-block__text { width: auto; }
+  .pills { justify-content: center; }
+  .cs-line--knot { width: 90px; height: 270px; margin: 0 auto -13px; }   /* one line, from under the tags down to "Key insights" */
+  .cs-line--short { width: 6px; height: 55px; margin: 11px auto 0; }
+  .cs-line--to02 { width: 6px; height: 152px; margin: 0 auto 11px; }
+  .cs-line--to03 { width: 6px; height: 142px; margin: 14px auto 16px; }
+
+  .insights__aside { margin: 0; gap: 19px; align-items: center; }
+  .insights__title { font-size: 33px; text-align: center; }
+  .insights__text { width: 264px; }
+  .insights__cards { padding: 0; }
+  /* Same height for all four, and a gap equal to the 14px stack step, so the whole stack builds up before it leaves */
+  .insight-wrap { width: 285px; margin: 0 auto 14px; }
+  .insight { min-height: 202px; align-content: start; }
+  /* The title, text and short line stay pinned just above the stack (Ahmed, 2026-11-27). --stack is where the first
+     card stops; the pinned block is 290px, bottom-aligned, so the line meets the card. Its 244px bottom margin
+     (3 steps of 14px + one card) makes it let go together with the finished stack; the cards take the same amount back. */
+  .insights { --stack: max(306px, min(50vh, 100vh - 360px)); --stack: max(306px, min(50svh, 100svh - 360px)); }
+  /* The knot line is part of the pinned block (566px = 290 for title, text and short line + the 276px above), so it
+     stops with the title and stays joined to it; its upper part sits above the screen's top edge */
+  .insights__aside { position: sticky; top: calc(var(--stack) - 566px); height: 566px; justify-content: flex-end; margin-bottom: 244px; }
+  .insights__aside .cs-line--knot { flex: none; }
+  .insights__aside .cs-line--short { margin: -8px auto 0; flex: none; }  .insights__cards { margin-top: -244px; }
+  .insight-wrap { top: calc(var(--stack) + var(--n, 0) * 14px); }
+  /* Each card's bottom margin reaches the finished stack's bottom, so all let go at the same moment; the next card's
+     negative top margin keeps the visible gap at 14px */
+  .insight-wrap:nth-child(1) { margin-bottom: 42px; }
+  .insight-wrap:nth-child(2) { margin-top: -28px; margin-bottom: 28px; }
+  .insight-wrap:nth-child(3) { margin-top: -14px; margin-bottom: 14px; }
+  .insight-wrap:last-child { margin-bottom: 0; }
+  .insight { padding: 17.5px 16px 19px; border-radius: 10px; }
+  .insight::after { border-width: 0.8px; }
+  .insight__num { font-size: 40px; gap: 6px; }
+  .insight__lead, .insight__more { font-size: 13px; }
+  .insight__more { margin-top: 8px; }
+
+  .cs-planning__flows { width: 301px; height: 414px; margin: 36px auto 0; border-radius: 15px; background-size: 422px auto; }
+  .cs-planning__phone { bottom: 10px; scale: 0.69; transform-origin: 50% 100%; }
+
+  /* ----- Design decisions: the whole phone; cards 2–6 open their text on tap ----- */
+  .decision { padding: 26px 20px 22px; gap: 28px; }
+  .decision__phone { margin: 0 auto; width: 203px; height: 415px; }
+  .decision__phone .phone__screen { left: 8px; top: 5px; width: 187px; height: 405px; border-radius: 28px; }
+  .decision__phone .phone__island { top: 13px; width: 50px; height: 14px; }
+  .decision__body:not(.is-open) .dec-rest { display: none; }
+  .dec-more { display: inline; position: relative; font: 700 15px/1.7 var(--font-body); color: var(--text-primary); }
+  .dec-more::after { content: ""; position: absolute; inset: -12px -8px; }   /* 44px+ tap area without changing the line */
+  .decision--wide { padding: 26px 0 24px; gap: 0; }
+  .decision__devices { width: auto; height: auto; margin: 25px 0 0; scale: 1; translate: none; display: flex; justify-content: center; }
+  .device--tablet { display: none; }
+  .device--phone-sm { position: relative; left: 0; top: 0; width: 185px; height: 377px; }
+
+  /* ----- Outcomes: the fifth card is half width ----- */
+  .stat:last-child { grid-column: auto; }
+}
+/* Screens too short for the title and a card together (a phone held sideways): only the cards stick */
+@media (max-width: 809px) and (max-height: 559px) {
+  .insights__aside { position: static; height: auto; margin-bottom: 0; }
+  .insights__cards { margin-top: 0; }
+  .insight-wrap { top: calc(16px + var(--n, 0) * 14px); }
+}
+/* Narrower than Framer's 390px frame: let the sentence run on after the inline picture, so it never sits alone */
+@media (max-width: 385px) { .m-br { display: none; } }
